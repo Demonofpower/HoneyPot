@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="34">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>11</ID>
+      <Description>"Player"</Description>
+      <LastState Value="" RealAddress="00000000"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>13</ID>
+          <Description>"PlayerBaseLookup OPEN STORE AND CHANGE TAB"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : HuniePop.exe
+  Version: 
+  Date   : 2021-05-17
+  Author : Juli
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscan(INJECT,8B 49 68 3B C1 7F 27) // should be unique
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+label(basePlayer)
+registersymbol(basePlayer)
+
+newmem:
+
+code:
+  mov [basePlayer], ecx
+  mov ecx,[ecx+68]
+  cmp eax,ecx
+  jmp return
+
+basePlayer:
+  dd 0
+
+INJECT:
+  jmp newmem
+return:
+registersymbol(INJECT)
+
+[DISABLE]
+
+INJECT:
+  db 8B 49 68 3B C1
+
+unregistersymbol(INJECT)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: 05781726
+
+0578170B: 83 C4 10           - add esp,10
+0578170E: 89 45 F4           - mov [ebp-0C],eax
+05781711: E8 62 F1 F7 FF     - call 05700878
+05781716: 8B C8              - mov ecx,eax
+05781718: 8B 45 F4           - mov eax,[ebp-0C]
+0578171B: 8B D1              - mov edx,ecx
+0578171D: 39 12              - cmp [edx],edx
+0578171F: 8B 49 08           - mov ecx,[ecx+08]
+05781722: 8B D1              - mov edx,ecx
+05781724: 39 12              - cmp [edx],edx
+// ---------- INJECTING HERE ----------
+05781726: 8B 49 68           - mov ecx,[ecx+68]
+// ---------- DONE INJECTING  ----------
+05781729: 3B C1              - cmp eax,ecx
+0578172B: 7F 27              - jg 05781754
+0578172D: 8B 86 98 00 00 00  - mov eax,[esi+00000098]
+05781733: 83 EC 0C           - sub esp,0C
+05781736: 50                 - push eax
+05781737: 39 00              - cmp [eax],eax
+05781739: E8 2A 74 F9 FF     - call 05718B68
+0578173E: 83 C4 10           - add esp,10
+05781741: 83 EC 0C           - sub esp,0C
+05781744: 50                 - push eax
+}
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>14</ID>
+              <Description>"Money"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>[basePlayer] + 68</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>15</ID>
+              <Description>"OtherMoney"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>[basePlayer] + 6C</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>16</ID>
+      <Description>"Girl"</Description>
+      <LastState Value="" RealAddress="00000000"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>18</ID>
+          <Description>"GirlBaseLookup TALK ONCE"</Description>
+          <LastState Activated="1"/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : HuniePop.exe
+  Version: 
+  Date   : 2021-05-18
+  Author : Juli
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscan(INJECT,8B 46 3C 3D 02 00 00 00 0F 8C) // should be unique
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+label(baseGirl)
+registersymbol(baseGirl)
+
+newmem:
+
+code:
+  mov [baseGirl], esi
+  mov eax,[esi+3C]
+  cmp eax,00000002
+  jmp return
+
+baseGirl:
+  dd 0
+
+INJECT:
+  jmp newmem
+  nop 3
+return:
+registersymbol(INJECT)
+
+[DISABLE]
+
+INJECT:
+  db 8B 46 3C 3D 02 00 00 00
+
+unregistersymbol(INJECT)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: 059D906C
+
+059D9053: 8B 45 AC           - mov eax,[ebp-54]
+059D9056: 8B 49 7C           - mov ecx,[ecx+7C]
+059D9059: 83 EC 08           - sub esp,08
+059D905C: 51                 - push ecx
+059D905D: 50                 - push eax
+059D905E: 39 00              - cmp [eax],eax
+059D9060: E8 BB 79 FE FF     - call 059C0A20
+059D9065: 83 C4 10           - add esp,10
+059D9068: 8B F0              - mov esi,eax
+059D906A: 39 36              - cmp [esi],esi
+// ---------- INJECTING HERE ----------
+059D906C: 8B 46 3C           - mov eax,[esi+3C]
+// ---------- DONE INJECTING  ----------
+059D906F: 3D 02 00 00 00     - cmp eax,00000002
+059D9074: 0F 8C D3 06 00 00  - jl 059D974D
+059D907A: 39 36              - cmp [esi],esi
+059D907C: 8B 46 3C           - mov eax,[esi+3C]
+059D907F: 2D 02 00 00 00     - sub eax,00000002
+059D9084: 83 EC 08           - sub esp,08
+059D9087: 50                 - push eax
+059D9088: 56                 - push esi
+059D9089: 39 36              - cmp [esi],esi
+059D908B: E8 D0 4A FE FF     - call 059BDB60
+}
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>19</ID>
+              <Description>"CurrFood"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>[baseGirl] + 3C</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>21</ID>
+              <Description>"CurrAlcohol"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>[baseGirl] + 40</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>20</ID>
+              <Description>"CurrHearts"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>[baseGirl] + 38</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"Puzzle"</Description>
+      <LastState Value="" RealAddress="00000000"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>1</ID>
+          <Description>"PuzzleBaseLookup USE IN PUZZLE"</Description>
+          <LastState Activated="1"/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : HuniePop.exe
+  Version: 
+  Date   : 2021-05-17
+  Author : Juli
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscan(INJECT,8B 81 A0 00 00 00 8B 89 A4 00 00 00 3B C1 74) // should be unique
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+label(basePuzzle)
+registersymbol(basePuzzle)
+
+newmem:
+
+code:
+  mov [basePuzzle], ecx
+  mov eax,[ecx+000000A0]
+  jmp return
+
+basePuzzle:
+  dd 0
+
+INJECT:
+  jmp newmem
+  nop
+return:
+registersymbol(INJECT)
+
+[DISABLE]
+
+INJECT:
+  db 8B 81 A0 00 00 00
+
+unregistersymbol(INJECT)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: 0551A866
+
+0551A83D: 3D D0 07 00 00                 - cmp eax,000007D0
+0551A842: 7C 12                          - jl 0551A856
+0551A844: 83 EC 08                       - sub esp,08
+0551A847: 6A 01                          - push 01
+0551A849: 68 80 24 8C 54                 - push 548C2480
+0551A84E: E8 81 23 FE FF                 - call 054FCBD4
+0551A853: 83 C4 10                       - add esp,10
+0551A856: 8B 45 08                       - mov eax,[ebp+08]
+0551A859: C7 80 C0 00 00 00 00 00 00 00  - mov [eax+000000C0],00000000
+0551A863: 8B 4D 08                       - mov ecx,[ebp+08]
+// ---------- INJECTING HERE ----------
+0551A866: 8B 81 A0 00 00 00              - mov eax,[ecx+000000A0]
+// ---------- DONE INJECTING  ----------
+0551A86C: 8B 89 A4 00 00 00              - mov ecx,[ecx+000000A4]
+0551A872: 3B C1                          - cmp eax,ecx
+0551A874: 74 20                          - je 0551A896
+0551A876: 8B 45 08                       - mov eax,[ebp+08]
+0551A879: 8B 80 A8 00 00 00              - mov eax,[eax+000000A8]
+0551A87F: 85 C0                          - test eax,eax
+0551A881: 0F 85 C8 07 00 00              - jne 0551B04F
+0551A887: 8B 45 08                       - mov eax,[ebp+08]
+0551A88A: 0F B6 40 7C                    - movzx eax,byte ptr [eax+7C]
+0551A88E: 85 C0                          - test eax,eax
+}
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>2</ID>
+              <Description>"CurrPoints"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>[basePuzzle] + A0</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>3</ID>
+              <Description>"MaxPoints"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>[basePuzzle] + A4</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>4</ID>
+              <Description>"CurrMoves"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>[basePuzzle] + A8</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>5</ID>
+              <Description>"MaxMoves"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>[basePuzzle] + AC</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>6</ID>
+              <Description>"CurrSentiment"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>[basePuzzle] + B0</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>7</ID>
+              <Description>"MaxSentiment"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>[basePuzzle] + B4</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>8</ID>
+      <Description>"Scripts"</Description>
+      <LastState Value="" RealAddress="00000000"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>10</ID>
+          <Description>"EveryMoveWins"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : HuniePop.exe
+  Version: 
+  Date   : 2021-05-17
+  Author : Juli
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscan(INJECT,89 87 A0 00 00 00 8B 47) // should be unique
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov eax, [edi+000000A4]
+  mov [edi+000000A0],eax
+  jmp return
+
+INJECT:
+  jmp newmem
+  nop
+return:
+registersymbol(INJECT)
+
+[DISABLE]
+
+INJECT:
+  db 89 87 A0 00 00 00
+
+unregistersymbol(INJECT)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: 05518E8D
+
+05518E72: 03 C1              - add eax,ecx
+05518E74: 8B 00              - mov eax,[eax]
+05518E76: FF E0              - jmp eax
+05518E78: 8B 87 A4 00 00 00  - mov eax,[edi+000000A4]
+05518E7E: 83 EC 04           - sub esp,04
+05518E81: 50                 - push eax
+05518E82: 6A 00              - push 00
+05518E84: 56                 - push esi
+05518E85: E8 6E 51 F9 FF     - call 054ADFF8
+05518E8A: 83 C4 10           - add esp,10
+// ---------- INJECTING HERE ----------
+05518E8D: 89 87 A0 00 00 00  - mov [edi+000000A0],eax
+// ---------- DONE INJECTING  ----------
+05518E93: 8B 47 64           - mov eax,[edi+64]
+05518E96: 83 EC 08           - sub esp,08
+05518E99: 6A 00              - push 00
+05518E9B: 50                 - push eax
+05518E9C: E8 F7 1A F9 FF     - call 054AA998
+05518EA1: 83 C4 10           - add esp,10
+05518EA4: 0F B6 45 14        - movzx eax,byte ptr [ebp+14]
+05518EA8: 85 C0              - test eax,eax
+05518EAA: 0F 84 D7 00 00 00  - je 05518F87
+05518EB0: D9 45 EC           - fld dword ptr [ebp-14]
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>23</ID>
+          <Description>"NoCountdownInPuzzle"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : HuniePop.exe
+  Version: 
+  Date   : 2021-05-18
+  Author : Juli
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscan(INJECT,89 87 A0 00 00 00 8B 47) // should be unique
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+label(oldScore)
+
+newmem:
+
+code:
+  cmp [oldScore], eax
+  jg return
+  mov [edi+000000A0],eax
+  mov [oldScore], eax
+  jmp return
+
+oldScore:
+  dd 00
+
+INJECT:
+  jmp newmem
+  nop
+return:
+registersymbol(INJECT)
+
+[DISABLE]
+
+INJECT:
+  db 89 87 A0 00 00 00
+
+unregistersymbol(INJECT)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: 0526B80D
+
+0526B7F2: 03 C1              - add eax,ecx
+0526B7F4: 8B 00              - mov eax,[eax]
+0526B7F6: FF E0              - jmp eax
+0526B7F8: 8B 87 A4 00 00 00  - mov eax,[edi+000000A4]
+0526B7FE: 83 EC 04           - sub esp,04
+0526B801: 50                 - push eax
+0526B802: 6A 00              - push 00
+0526B804: 56                 - push esi
+0526B805: E8 EE 27 F9 FF     - call 051FDFF8
+0526B80A: 83 C4 10           - add esp,10
+// ---------- INJECTING HERE ----------
+0526B80D: 89 87 A0 00 00 00  - mov [edi+000000A0],eax
+// ---------- DONE INJECTING  ----------
+0526B813: 8B 47 64           - mov eax,[edi+64]
+0526B816: 83 EC 08           - sub esp,08
+0526B819: 6A 00              - push 00
+0526B81B: 50                 - push eax
+0526B81C: E8 77 F1 F8 FF     - call 051FA998
+0526B821: 83 C4 10           - add esp,10
+0526B824: 0F B6 45 14        - movzx eax,byte ptr [ebp+14]
+0526B828: 85 C0              - test eax,eax
+0526B82A: 0F 84 D7 00 00 00  - je 0526B907
+0526B830: D9 45 EC           - fld dword ptr [ebp-14]
+}
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Comments>Info about this table:
+</Comments>
+</CheatTable>
