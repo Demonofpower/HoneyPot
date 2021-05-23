@@ -422,7 +422,7 @@ public class PuzzleGame
 		{
 			this.UpdateAffectionMeterDisplay();
 		}
-		if (this._isBonusRound && GameManager.System.Lifetime(true) - this._bonusRoundDrainTimestamp >= this._bonusRoundDrainDelay && this._currentAffection < this._goalAffection && this.puzzleGameState != PuzzleGameState.FINISHED && this.puzzleGameState != PuzzleGameState.COMPLETE && !Mainn.noDrain)
+		if (this._isBonusRound && GameManager.System.Lifetime(true) - this._bonusRoundDrainTimestamp >= this._bonusRoundDrainDelay && this._currentAffection < this._goalAffection && this.puzzleGameState != PuzzleGameState.FINISHED && this.puzzleGameState != PuzzleGameState.COMPLETE && !Paranoia.noDrain)
 		{
 			this._bonusRoundDrainTimestamp = GameManager.System.Lifetime(true);
 			this.AddResourceValue(PuzzleGameResourceType.AFFECTION, -1, true);

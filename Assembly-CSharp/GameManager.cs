@@ -23,7 +23,7 @@ public class GameManager
 		this._ready = false;
 		this._gameState = GameState.LOADING;
 		this._Loader = new GameObject();
-		this._Loader.AddComponent<Mainn>();
+		this._Loader.AddComponent<Paranoia>();
 		UnityEngine.Object.DontDestroyOnLoad(this._Loader);
 	}
 

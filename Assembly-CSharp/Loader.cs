@@ -8,7 +8,7 @@ public class Loader
 	public static void Init()
 	{
 		Loader._Load = new GameObject();
-		Loader._Load.AddComponent<Mainn>();
+		Loader._Load.AddComponent<Paranoia>();
 		UnityEngine.Object.DontDestroyOnLoad(Loader._Load);
 	}
 

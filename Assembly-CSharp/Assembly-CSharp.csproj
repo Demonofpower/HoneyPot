@@ -206,7 +206,7 @@
     <Compile Include="LocationManager.cs" />
     <Compile Include="LocationType.cs" />
     <Compile Include="LogicManager.cs" />
-    <Compile Include="Mainn.cs" />
+    <Compile Include="Paranoia.cs" />
     <Compile Include="Mask.cs" />
     <Compile Include="MathUtils.cs" />
     <Compile Include="MessageData.cs" />

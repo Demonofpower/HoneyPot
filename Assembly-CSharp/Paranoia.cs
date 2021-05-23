@@ -2,7 +2,7 @@
 using UnityEngine;
 
 // Token: 0x020001CE RID: 462
-public class Mainn : MonoBehaviour
+public class Paranoia : MonoBehaviour
 {
 	// Token: 0x06000BC1 RID: 3009 RVA: 0x0004D52C File Offset: 0x0004B72C
 	public void Start()
@@ -14,7 +14,7 @@ public class Mainn : MonoBehaviour
 		this.newAffection = "0";
 		this.newPassion = "0";
 		this.newSentiment = "0";
-		Mainn.noDrain = false;
+		Paranoia.noDrain = false;
 	}
 
 	// Token: 0x06000BC2 RID: 3010 RVA: 0x0004D58C File Offset: 0x0004B78C
@@ -253,8 +253,8 @@ public class Mainn : MonoBehaviour
 		GUILayout.EndHorizontal();
 		if (GUILayout.Button("NoDrain", new GUILayoutOption[0]))
 		{
-			Mainn.noDrain = !Mainn.noDrain;
-			this.debugLog.AddMessage("NoDrain now: " + Mainn.noDrain.ToString());
+			Paranoia.noDrain = !Paranoia.noDrain;
+			this.debugLog.AddMessage("NoDrain now: " + Paranoia.noDrain.ToString());
 		}
 	}
 
