@@ -1,0 +1,34 @@
+﻿using System;
+
+// Token: 0x020000CD RID: 205
+public enum GirlLayer
+{
+	// Token: 0x0400055C RID: 1372
+	BACKHAIR,
+	// Token: 0x0400055D RID: 1373
+	BODY,
+	// Token: 0x0400055E RID: 1374
+	BRA,
+	// Token: 0x0400055F RID: 1375
+	PANTIES,
+	// Token: 0x04000560 RID: 1376
+	FOOTWEAR,
+	// Token: 0x04000561 RID: 1377
+	OUTFIT,
+	// Token: 0x04000562 RID: 1378
+	HEAD,
+	// Token: 0x04000563 RID: 1379
+	FACE,
+	// Token: 0x04000564 RID: 1380
+	MOUTH,
+	// Token: 0x04000565 RID: 1381
+	EYES,
+	// Token: 0x04000566 RID: 1382
+	FRONTHAIR,
+	// Token: 0x04000567 RID: 1383
+	EYEBROWS,
+	// Token: 0x04000568 RID: 1384
+	EXTRA_ONE,
+	// Token: 0x04000569 RID: 1385
+	EXTRA_TWO
+}

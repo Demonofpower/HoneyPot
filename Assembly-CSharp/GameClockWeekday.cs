@@ -1,0 +1,20 @@
+﻿using System;
+
+// Token: 0x02000114 RID: 276
+public enum GameClockWeekday
+{
+	// Token: 0x0400076A RID: 1898
+	MONDAY,
+	// Token: 0x0400076B RID: 1899
+	TUESDAY,
+	// Token: 0x0400076C RID: 1900
+	WEDNESDAY,
+	// Token: 0x0400076D RID: 1901
+	THURSDAY,
+	// Token: 0x0400076E RID: 1902
+	FRIDAY,
+	// Token: 0x0400076F RID: 1903
+	SATURDAY,
+	// Token: 0x04000770 RID: 1904
+	SUNDAY
+}

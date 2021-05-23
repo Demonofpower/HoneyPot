@@ -1,0 +1,22 @@
+﻿using System;
+
+// Token: 0x020000E3 RID: 227
+public enum ItemAccessoryType
+{
+	// Token: 0x0400060D RID: 1549
+	MUSIC,
+	// Token: 0x0400060E RID: 1550
+	BEACH,
+	// Token: 0x0400060F RID: 1551
+	FRANCE,
+	// Token: 0x04000610 RID: 1552
+	KINKY,
+	// Token: 0x04000611 RID: 1553
+	WINTER,
+	// Token: 0x04000612 RID: 1554
+	NURSING,
+	// Token: 0x04000613 RID: 1555
+	TREASURE,
+	// Token: 0x04000614 RID: 1556
+	CASINO
+}

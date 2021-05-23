@@ -1,0 +1,18 @@
+﻿using System;
+
+// Token: 0x020000E2 RID: 226
+public enum ItemDateGiftType
+{
+	// Token: 0x04000606 RID: 1542
+	JEWELERY,
+	// Token: 0x04000607 RID: 1543
+	COSMETICS,
+	// Token: 0x04000608 RID: 1544
+	HEELS,
+	// Token: 0x04000609 RID: 1545
+	FLOWERS,
+	// Token: 0x0400060A RID: 1546
+	PLUSHIES,
+	// Token: 0x0400060B RID: 1547
+	PERFUME
+}

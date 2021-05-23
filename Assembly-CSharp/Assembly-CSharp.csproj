@@ -1,0 +1,412 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B140A4C0-FD52-4857-9E42-F23AEA352CCF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Assembly-CSharp</RootNamespace>
+    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>A:\Steam\steamapps\common\HuniePop\HuniePop_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+    </Reference>
+    <Reference Include="HOTween">
+      <HintPath>A:\Steam\steamapps\common\HuniePop\HuniePop_Data\Managed\HOTween.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <HintPath>A:\Steam\steamapps\common\HuniePop\HuniePop_Data\Managed\System.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core">
+      <HintPath>A:\Steam\steamapps\common\HuniePop\HuniePop_Data\Managed\System.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>A:\Steam\steamapps\common\HuniePop\HuniePop_Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AbilityBehaviorDefinition.cs" />
+    <Compile Include="AbilityBehaviorPuzzleEffectType.cs" />
+    <Compile Include="AbilityBehaviorType.cs" />
+    <Compile Include="AbilityBehaviorValueOperation.cs" />
+    <Compile Include="AbilityBehaviorValueType.cs" />
+    <Compile Include="AbilityBehaviorVisualEffectType.cs" />
+    <Compile Include="AbilityData.cs" />
+    <Compile Include="AbilityDefinition.cs" />
+    <Compile Include="ActionMenuButton.cs" />
+    <Compile Include="ActionMenuItemData.cs" />
+    <Compile Include="ActionMenuItemDefinition.cs" />
+    <Compile Include="ActionMenuItemType.cs" />
+    <Compile Include="ActionMenuSubtitleType.cs" />
+    <Compile Include="ActionMenuWindow.cs" />
+    <Compile Include="AskDateDaySubWindow.cs" />
+    <Compile Include="AskDateDaytimeSubWindow.cs" />
+    <Compile Include="AskDateLocation.cs" />
+    <Compile Include="AskDateLocationSubWindow.cs" />
+    <Compile Include="AskDateOption.cs" />
+    <Compile Include="AskDateWindow.cs" />
+    <Compile Include="AudioCategory.cs" />
+    <Compile Include="AudioDefinition.cs" />
+    <Compile Include="AudioGroup.cs" />
+    <Compile Include="AudioLink.cs" />
+    <Compile Include="AudioManager.cs" />
+    <Compile Include="Background.cs" />
+    <Compile Include="Boomlagoon\JSON\Extensions.cs" />
+    <Compile Include="Boomlagoon\JSON\JSONArray.cs" />
+    <Compile Include="Boomlagoon\JSON\JSONLogger.cs" />
+    <Compile Include="Boomlagoon\JSON\JSONObject.cs" />
+    <Compile Include="Boomlagoon\JSON\JSONValue.cs" />
+    <Compile Include="Boomlagoon\JSON\JSONValueType.cs" />
+    <Compile Include="BurstLabelObject.cs" />
+    <Compile Include="ButtonObject.cs" />
+    <Compile Include="ButtonState.cs" />
+    <Compile Include="ButtonStateTransition.cs" />
+    <Compile Include="ButtonStateTransitionDef.cs" />
+    <Compile Include="ButtonStateTransitionType.cs" />
+    <Compile Include="CellAppData.cs" />
+    <Compile Include="CellAppDefinition.cs" />
+    <Compile Include="CellNotification.cs" />
+    <Compile Include="CellNotificationType.cs" />
+    <Compile Include="CheatData.cs" />
+    <Compile Include="ClippedSpriteObject.cs" />
+    <Compile Include="ClippedSpriteSide.cs" />
+    <Compile Include="ClockManager.cs" />
+    <Compile Include="ColorUtils.cs" />
+    <Compile Include="CreditsScreen.cs" />
+    <Compile Include="CursorAttachedObject.cs" />
+    <Compile Include="CursorManager.cs" />
+    <Compile Include="DebugLog.cs" />
+    <Compile Include="DebugProfile.cs" />
+    <Compile Include="DebugProfileData.cs" />
+    <Compile Include="DebugProfileGirl.cs" />
+    <Compile Include="DebugProfileTrait.cs" />
+    <Compile Include="Definition.cs" />
+    <Compile Include="DialogLine.cs" />
+    <Compile Include="DialogLineExpression.cs" />
+    <Compile Include="DialogManager.cs" />
+    <Compile Include="DialogSceneBranchConditionType.cs" />
+    <Compile Include="DialogSceneConditionalBranch.cs" />
+    <Compile Include="DialogSceneData.cs" />
+    <Compile Include="DialogSceneDefinition.cs" />
+    <Compile Include="DialogSceneLine.cs" />
+    <Compile Include="DialogSceneResponseOption.cs" />
+    <Compile Include="DialogSceneStep.cs" />
+    <Compile Include="DialogSceneStepsProgress.cs" />
+    <Compile Include="DialogSceneStepType.cs" />
+    <Compile Include="DialogTriggerData.cs" />
+    <Compile Include="DialogTriggerDefinition.cs" />
+    <Compile Include="DialogTriggerLine.cs" />
+    <Compile Include="DialogTriggerLineSet.cs" />
+    <Compile Include="DisplayObject.cs" />
+    <Compile Include="DisplayUtils.cs" />
+    <Compile Include="EditorDialogTriggerGirl.cs" />
+    <Compile Include="EditorGirlSection.cs" />
+    <Compile Include="EnergyTrail.cs" />
+    <Compile Include="EnergyTrailData.cs" />
+    <Compile Include="EnergyTrailDefinition.cs" />
+    <Compile Include="EnergyTrailDynamicDetails.cs" />
+    <Compile Include="EnergyTrailFormat.cs" />
+    <Compile Include="GameCamera.cs" />
+    <Compile Include="GameClockDaytime.cs" />
+    <Compile Include="GameClockWeekday.cs" />
+    <Compile Include="GameCondition.cs" />
+    <Compile Include="GameConditionType.cs" />
+    <Compile Include="GameData.cs" />
+    <Compile Include="GameManager.cs" />
+    <Compile Include="GameManagerHook.cs" />
+    <Compile Include="GameState.cs" />
+    <Compile Include="Girl.cs" />
+    <Compile Include="GirlAlcoholToleranceType.cs" />
+    <Compile Include="GirlData.cs" />
+    <Compile Include="GirlDateLocation.cs" />
+    <Compile Include="GirlDefinition.cs" />
+    <Compile Include="GirlDetailType.cs" />
+    <Compile Include="GirlEnergySurge.cs" />
+    <Compile Include="GirlExpressionType.cs" />
+    <Compile Include="GirlFavoriteColor.cs" />
+    <Compile Include="GirlFinderCellApp.cs" />
+    <Compile Include="GirlFinderIcon.cs" />
+    <Compile Include="GirlLayer.cs" />
+    <Compile Include="GirlLibidoType.cs" />
+    <Compile Include="GirlLiveStats.cs" />
+    <Compile Include="GirlManager.cs" />
+    <Compile Include="GirlMetStatus.cs" />
+    <Compile Include="GirlPhoto.cs" />
+    <Compile Include="GirlPiece.cs" />
+    <Compile Include="GirlPieceArt.cs" />
+    <Compile Include="GirlPieceType.cs" />
+    <Compile Include="GirlPlayerData.cs" />
+    <Compile Include="GirlProfileCellApp.cs" />
+    <Compile Include="GirlProfileCollectionSlot.cs" />
+    <Compile Include="GirlProfileDetail.cs" />
+    <Compile Include="GirlProfilePhoto.cs" />
+    <Compile Include="GirlProfilePreference.cs" />
+    <Compile Include="GirlProfilePreferenceType.cs" />
+    <Compile Include="GirlProfilesCellApp.cs" />
+    <Compile Include="GirlProfilesIcon.cs" />
+    <Compile Include="GirlProfileStyleSwitch.cs" />
+    <Compile Include="GirlSaveData.cs" />
+    <Compile Include="GirlScheduleDay.cs" />
+    <Compile Include="GirlScheduleDaytime.cs" />
+    <Compile Include="GirlStyle.cs" />
+    <Compile Include="Haxx.cs" />
+    <Compile Include="HOTweenDemoBrain.cs" />
+    <Compile Include="IData.cs" />
+    <Compile Include="IntFormat.cs" />
+    <Compile Include="InventoryCellApp.cs" />
+    <Compile Include="InventoryItemPlayerData.cs" />
+    <Compile Include="InventoryItemSaveData.cs" />
+    <Compile Include="InventorySlot.cs" />
+    <Compile Include="InventoryTossZone.cs" />
+    <Compile Include="ItemAccessoryType.cs" />
+    <Compile Include="ItemData.cs" />
+    <Compile Include="ItemDateGiftType.cs" />
+    <Compile Include="ItemDefinition.cs" />
+    <Compile Include="ItemFoodType.cs" />
+    <Compile Include="ItemGiftType.cs" />
+    <Compile Include="ItemTooltipContent.cs" />
+    <Compile Include="ItemType.cs" />
+    <Compile Include="ItemUniqueGiftType.cs" />
+    <Compile Include="JackpotLabelObject.cs" />
+    <Compile Include="LabelObject.cs" />
+    <Compile Include="ListUtils.cs" />
+    <Compile Include="Loader.cs" />
+    <Compile Include="LoadScreen.cs" />
+    <Compile Include="LoadScreenSaveFile.cs" />
+    <Compile Include="Localization.cs" />
+    <Compile Include="LocationBackground.cs" />
+    <Compile Include="LocationData.cs" />
+    <Compile Include="LocationDefinition.cs" />
+    <Compile Include="LocationManager.cs" />
+    <Compile Include="LocationType.cs" />
+    <Compile Include="LogicManager.cs" />
+    <Compile Include="Mainn.cs" />
+    <Compile Include="Mask.cs" />
+    <Compile Include="MathUtils.cs" />
+    <Compile Include="MessageData.cs" />
+    <Compile Include="MessageDefinition.cs" />
+    <Compile Include="MessagePlayerData.cs" />
+    <Compile Include="MessageSaveData.cs" />
+    <Compile Include="MessagesCellApp.cs" />
+    <Compile Include="MessagesMessage.cs" />
+    <Compile Include="MessageTooltipContent.cs" />
+    <Compile Include="MoodTooltipContent.cs" />
+    <Compile Include="NonDisplayObject.cs" />
+    <Compile Include="NumberComparisonType.cs" />
+    <Compile Include="Particle2D.cs" />
+    <Compile Include="ParticleEmitter2D.cs" />
+    <Compile Include="ParticleEmitter2DData.cs" />
+    <Compile Include="ParticleEmitter2DDefinition.cs" />
+    <Compile Include="ParticleEmitter2DDynamicDetails.cs" />
+    <Compile Include="ParticleEmitter2DOriginSpreadType.cs" />
+    <Compile Include="PhotoGallery.cs" />
+    <Compile Include="PhotoGalleryGirlPhoto.cs" />
+    <Compile Include="PhotoGalleryThumbnail.cs" />
+    <Compile Include="PlayerManager.cs" />
+    <Compile Include="PlayerTraitType.cs" />
+    <Compile Include="PlayerUtils.cs" />
+    <Compile Include="PopLabelObject.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PuzzleAbility.cs" />
+    <Compile Include="PuzzleAxis.cs" />
+    <Compile Include="PuzzleDirection.cs" />
+    <Compile Include="PuzzleGame.cs" />
+    <Compile Include="PuzzleGameResourceType.cs" />
+    <Compile Include="PuzzleGameState.cs" />
+    <Compile Include="PuzzleGridPosition.cs" />
+    <Compile Include="PuzzleGroup.cs" />
+    <Compile Include="PuzzleManager.cs" />
+    <Compile Include="PuzzleMatch.cs" />
+    <Compile Include="PuzzleMatchSet.cs" />
+    <Compile Include="PuzzleStatusEffectSlot.cs" />
+    <Compile Include="PuzzleStatusGiftZone.cs" />
+    <Compile Include="PuzzleStatusItemSlot.cs" />
+    <Compile Include="PuzzleToken.cs" />
+    <Compile Include="PuzzleTokenCondition.cs" />
+    <Compile Include="PuzzleTokenConditionSet.cs" />
+    <Compile Include="PuzzleTokenConditionType.cs" />
+    <Compile Include="PuzzleTokenData.cs" />
+    <Compile Include="PuzzleTokenDefinition.cs" />
+    <Compile Include="PuzzleTokenLevelDefinition.cs" />
+    <Compile Include="PuzzleTokenReward.cs" />
+    <Compile Include="PuzzleTokenSetType.cs" />
+    <Compile Include="PuzzleTokenState.cs" />
+    <Compile Include="PuzzleTokenType.cs" />
+    <Compile Include="ResourceUtils.cs" />
+    <Compile Include="SaveData.cs" />
+    <Compile Include="SaveFile.cs" />
+    <Compile Include="SaveUtils.cs" />
+    <Compile Include="SettingsCellApp.cs" />
+    <Compile Include="SettingsDifficulty.cs" />
+    <Compile Include="SettingsGender.cs" />
+    <Compile Include="SettingsLimit.cs" />
+    <Compile Include="SettingsMeter.cs" />
+    <Compile Include="SettingsSwitch.cs" />
+    <Compile Include="SettingsSwitchPanel.cs" />
+    <Compile Include="SettingsVoice.cs" />
+    <Compile Include="SlicedSpriteObject.cs" />
+    <Compile Include="SpriteGroupData.cs" />
+    <Compile Include="SpriteGroupDefinition.cs" />
+    <Compile Include="SpriteObject.cs" />
+    <Compile Include="Stage.cs" />
+    <Compile Include="SteamManager.cs" />
+    <Compile Include="SteamUtils.cs" />
+    <Compile Include="StoreCellApp.cs" />
+    <Compile Include="StoreItem.cs" />
+    <Compile Include="StoreItemPlayerData.cs" />
+    <Compile Include="StoreItemSaveData.cs" />
+    <Compile Include="StoreItemSlot.cs" />
+    <Compile Include="StoreWindow.cs" />
+    <Compile Include="StoreWindowItem.cs" />
+    <Compile Include="StringUtils.cs" />
+    <Compile Include="SubDefinition.cs" />
+    <Compile Include="SuperStoreWindow.cs" />
+    <Compile Include="TalkOption.cs" />
+    <Compile Include="TalkWindow.cs" />
+    <Compile Include="TiledSpriteObject.cs" />
+    <Compile Include="Timer.cs" />
+    <Compile Include="TimerManager.cs" />
+    <Compile Include="TitleScreen.cs" />
+    <Compile Include="tk2dAnimatedSprite.cs" />
+    <Compile Include="tk2dAssetPlatform.cs" />
+    <Compile Include="tk2dBaseSprite.cs" />
+    <Compile Include="tk2dBatchedSprite.cs" />
+    <Compile Include="tk2dButton.cs" />
+    <Compile Include="tk2dCamera.cs" />
+    <Compile Include="tk2dCameraAnchor.cs" />
+    <Compile Include="tk2dCameraResolutionOverride.cs" />
+    <Compile Include="tk2dCameraSettings.cs" />
+    <Compile Include="tk2dClippedSprite.cs" />
+    <Compile Include="tk2dFont.cs" />
+    <Compile Include="tk2dFontChar.cs" />
+    <Compile Include="tk2dFontData.cs" />
+    <Compile Include="tk2dFontKerning.cs" />
+    <Compile Include="tk2dPixelPerfectHelper.cs" />
+    <Compile Include="tk2dResource.cs" />
+    <Compile Include="tk2dResourceTocEntry.cs" />
+    <Compile Include="tk2dRuntime\ISpriteCollectionForceBuild.cs" />
+    <Compile Include="tk2dRuntime\SpriteCollectionGenerator.cs" />
+    <Compile Include="tk2dRuntime\TileMap\BuilderUtil.cs" />
+    <Compile Include="tk2dRuntime\TileMap\ColliderBuilder.cs" />
+    <Compile Include="tk2dRuntime\TileMap\ColorChannel.cs" />
+    <Compile Include="tk2dRuntime\TileMap\ColorChunk.cs" />
+    <Compile Include="tk2dRuntime\TileMap\Layer.cs" />
+    <Compile Include="tk2dRuntime\TileMap\LayerInfo.cs" />
+    <Compile Include="tk2dRuntime\TileMap\LayerSprites.cs" />
+    <Compile Include="tk2dRuntime\TileMap\RenderMeshBuilder.cs" />
+    <Compile Include="tk2dRuntime\TileMap\SpriteChannel.cs" />
+    <Compile Include="tk2dRuntime\TileMap\SpriteChunk.cs" />
+    <Compile Include="tk2dRuntime\TileMap\TileInfo.cs" />
+    <Compile Include="tk2dSlicedSprite.cs" />
+    <Compile Include="tk2dSprite.cs" />
+    <Compile Include="tk2dSpriteAnimation.cs" />
+    <Compile Include="tk2dSpriteAnimationClip.cs" />
+    <Compile Include="tk2dSpriteAnimationFrame.cs" />
+    <Compile Include="tk2dSpriteAnimator.cs" />
+    <Compile Include="tk2dSpriteAttachPoint.cs" />
+    <Compile Include="tk2dSpriteCollection.cs" />
+    <Compile Include="tk2dSpriteCollectionData.cs" />
+    <Compile Include="tk2dSpriteCollectionDefault.cs" />
+    <Compile Include="tk2dSpriteCollectionDefinition.cs" />
+    <Compile Include="tk2dSpriteCollectionFont.cs" />
+    <Compile Include="tk2dSpriteCollectionPlatform.cs" />
+    <Compile Include="tk2dSpriteCollectionSize.cs" />
+    <Compile Include="tk2dSpriteColliderIsland.cs" />
+    <Compile Include="tk2dSpriteDefinition.cs" />
+    <Compile Include="tk2dSpriteFromTexture.cs" />
+    <Compile Include="tk2dSpriteGeomGen.cs" />
+    <Compile Include="tk2dSpriteSheetSource.cs" />
+    <Compile Include="tk2dStaticSpriteBatcher.cs" />
+    <Compile Include="tk2dSystem.cs" />
+    <Compile Include="tk2dTextGeomGen.cs" />
+    <Compile Include="tk2dTextMesh.cs" />
+    <Compile Include="tk2dTextMeshData.cs" />
+    <Compile Include="tk2dTiledSprite.cs" />
+    <Compile Include="tk2dTileFlags.cs" />
+    <Compile Include="tk2dTileMap.cs" />
+    <Compile Include="tk2dTileMapData.cs" />
+    <Compile Include="tk2dUIAudioManager.cs" />
+    <Compile Include="tk2dUIBaseItemControl.cs" />
+    <Compile Include="tk2dUIDragItem.cs" />
+    <Compile Include="tk2dUIDropDownItem.cs" />
+    <Compile Include="tk2dUIDropDownMenu.cs" />
+    <Compile Include="tk2dUIHoverItem.cs" />
+    <Compile Include="tk2dUIItem.cs" />
+    <Compile Include="tk2dUIManager.cs" />
+    <Compile Include="tk2dUIMask.cs" />
+    <Compile Include="tk2dUIMultiStateToggleButton.cs" />
+    <Compile Include="tk2dUIProgressBar.cs" />
+    <Compile Include="tk2dUIScrollableArea.cs" />
+    <Compile Include="tk2dUIScrollbar.cs" />
+    <Compile Include="tk2dUISoundItem.cs" />
+    <Compile Include="tk2dUISpriteAnimator.cs" />
+    <Compile Include="tk2dUITextInput.cs" />
+    <Compile Include="tk2dUITime.cs" />
+    <Compile Include="tk2dUIToggleButton.cs" />
+    <Compile Include="tk2dUIToggleButtonGroup.cs" />
+    <Compile Include="tk2dUIToggleControl.cs" />
+    <Compile Include="tk2dUITouch.cs" />
+    <Compile Include="tk2dUITweenItem.cs" />
+    <Compile Include="tk2dUIUpDownButton.cs" />
+    <Compile Include="tk2dUIUpDownHoverButton.cs" />
+    <Compile Include="TokenConditionExpansionType.cs" />
+    <Compile Include="TooltipDirection.cs" />
+    <Compile Include="TooltipObject.cs" />
+    <Compile Include="TraitData.cs" />
+    <Compile Include="TraitDefinition.cs" />
+    <Compile Include="TraitsCellApp.cs" />
+    <Compile Include="TraitsItem.cs" />
+    <Compile Include="TraitsItemSlot.cs" />
+    <Compile Include="TweenUtils.cs" />
+    <Compile Include="UICellApp.cs" />
+    <Compile Include="UICellAppButton.cs" />
+    <Compile Include="UICellNotifications.cs" />
+    <Compile Include="UICellPhone.cs" />
+    <Compile Include="UICredits.cs" />
+    <Compile Include="UIEffects.cs" />
+    <Compile Include="UIGirl.cs" />
+    <Compile Include="UIGirlGiftZone.cs" />
+    <Compile Include="UIGirlItemSlot.cs" />
+    <Compile Include="UIPhotoGallery.cs" />
+    <Compile Include="UIPuzzle.cs" />
+    <Compile Include="UIPuzzleGrid.cs" />
+    <Compile Include="UIPuzzleStatus.cs" />
+    <Compile Include="UIPuzzleStatusPassion.cs" />
+    <Compile Include="UISubWindow.cs" />
+    <Compile Include="UITitle.cs" />
+    <Compile Include="UITooltip.cs" />
+    <Compile Include="UITooltipContent.cs" />
+    <Compile Include="UITop.cs" />
+    <Compile Include="UITransitionScreen.cs" />
+    <Compile Include="UIWindow.cs" />
+    <Compile Include="UIWindows.cs" />
+    <Compile Include="VersionDeserializationBinder.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

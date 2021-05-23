@@ -1,0 +1,30 @@
+﻿using System;
+
+// Token: 0x020000E0 RID: 224
+public enum ItemGiftType
+{
+	// Token: 0x040005EC RID: 1516
+	ACADEMY,
+	// Token: 0x040005ED RID: 1517
+	TOYS,
+	// Token: 0x040005EE RID: 1518
+	FITNESS,
+	// Token: 0x040005EF RID: 1519
+	RAVE,
+	// Token: 0x040005F0 RID: 1520
+	SPORTS,
+	// Token: 0x040005F1 RID: 1521
+	ARTIST,
+	// Token: 0x040005F2 RID: 1522
+	BAKING,
+	// Token: 0x040005F3 RID: 1523
+	YOGA,
+	// Token: 0x040005F4 RID: 1524
+	DANCER,
+	// Token: 0x040005F5 RID: 1525
+	AQUARIUM,
+	// Token: 0x040005F6 RID: 1526
+	SCUBA,
+	// Token: 0x040005F7 RID: 1527
+	GARDEN
+}

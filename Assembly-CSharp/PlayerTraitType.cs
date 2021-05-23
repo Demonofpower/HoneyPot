@@ -1,0 +1,22 @@
+﻿using System;
+
+// Token: 0x0200012F RID: 303
+public enum PlayerTraitType
+{
+	// Token: 0x04000843 RID: 2115
+	TALENT,
+	// Token: 0x04000844 RID: 2116
+	FLIRTATION,
+	// Token: 0x04000845 RID: 2117
+	ROMANCE,
+	// Token: 0x04000846 RID: 2118
+	SEXUALITY,
+	// Token: 0x04000847 RID: 2119
+	PASSION,
+	// Token: 0x04000848 RID: 2120
+	SENSITIVITY,
+	// Token: 0x04000849 RID: 2121
+	CHARISMA,
+	// Token: 0x0400084A RID: 2122
+	LUCK
+}

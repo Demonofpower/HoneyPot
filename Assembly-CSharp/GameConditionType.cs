@@ -1,0 +1,18 @@
+﻿using System;
+
+// Token: 0x020000DB RID: 219
+public enum GameConditionType
+{
+	// Token: 0x040005BC RID: 1468
+	NONE,
+	// Token: 0x040005BD RID: 1469
+	WITH_GIRL,
+	// Token: 0x040005BE RID: 1470
+	AT_LOCATION,
+	// Token: 0x040005BF RID: 1471
+	GIRL_DETAIL_KNOWN,
+	// Token: 0x040005C0 RID: 1472
+	GIRL_RELATIONSHIP_LEVEL,
+	// Token: 0x040005C1 RID: 1473
+	GIRL_MET_STATUS
+}

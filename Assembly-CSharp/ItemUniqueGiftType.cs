@@ -1,0 +1,30 @@
+﻿using System;
+
+// Token: 0x020000E1 RID: 225
+public enum ItemUniqueGiftType
+{
+	// Token: 0x040005F9 RID: 1529
+	CHEERLEADER,
+	// Token: 0x040005FA RID: 1530
+	JAPAN,
+	// Token: 0x040005FB RID: 1531
+	MEXICO,
+	// Token: 0x040005FC RID: 1532
+	NARCOTICS,
+	// Token: 0x040005FD RID: 1533
+	TRAVEL,
+	// Token: 0x040005FE RID: 1534
+	GAMING,
+	// Token: 0x040005FF RID: 1535
+	FESTIVE,
+	// Token: 0x04000600 RID: 1536
+	NATURE,
+	// Token: 0x04000601 RID: 1537
+	SEX_TOYS,
+	// Token: 0x04000602 RID: 1538
+	CAT_TOYS,
+	// Token: 0x04000603 RID: 1539
+	OUTERSPACE,
+	// Token: 0x04000604 RID: 1540
+	GEMSTONES
+}
