@@ -20,6 +20,8 @@ public class GirlManager : MonoBehaviour
 		}
 	}
 
+    public Girl GetGirl => _activeGirl;
+
 	// Token: 0x0600067E RID: 1662 RVA: 0x00006EC3 File Offset: 0x000050C3
 	private void Update()
 	{
