@@ -632,15 +632,15 @@ public class tk2dTextMesh : MonoBehaviour, ISpriteCollectionForceBuild
 				for (int i = 0; i < num; i++)
 				{
 					Color32 color3 = (i % 4 >= 2) ? color2 : color;
-					byte b = this.untintedColors[i].r * color3.r / byte.MaxValue;
-					byte b2 = this.untintedColors[i].g * color3.g / byte.MaxValue;
-					byte b3 = this.untintedColors[i].b * color3.b / byte.MaxValue;
-					byte b4 = this.untintedColors[i].a * color3.a / byte.MaxValue;
+					byte b = (byte) (this.untintedColors[i].r * color3.r / byte.MaxValue);
+					byte b2 = (byte) (this.untintedColors[i].g * color3.g / byte.MaxValue);
+					byte b3 = (byte) (this.untintedColors[i].b * color3.b / byte.MaxValue);
+					byte b4 = (byte) (this.untintedColors[i].a * color3.a / byte.MaxValue);
 					if (this._fontInst.premultipliedAlpha)
 					{
-						b = b * b4 / byte.MaxValue;
-						b2 = b2 * b4 / byte.MaxValue;
-						b3 = b3 * b4 / byte.MaxValue;
+						b = (byte) (b * b4 / byte.MaxValue);
+						b2 = (byte) (b2 * b4 / byte.MaxValue);
+						b3 = (byte) (b3 * b4 / byte.MaxValue);
 					}
 					this.colors[i] = new Color32(b, b2, b3, b4);
 				}
@@ -721,15 +721,15 @@ public class tk2dTextMesh : MonoBehaviour, ISpriteCollectionForceBuild
 				for (int j = 0; j < this.colors.Length; j++)
 				{
 					Color32 color3 = (j % 4 >= 2) ? color2 : color;
-					byte b = this.untintedColors[j].r * color3.r / byte.MaxValue;
-					byte b2 = this.untintedColors[j].g * color3.g / byte.MaxValue;
-					byte b3 = this.untintedColors[j].b * color3.b / byte.MaxValue;
-					byte b4 = this.untintedColors[j].a * color3.a / byte.MaxValue;
+					byte b = (byte) (this.untintedColors[j].r * color3.r / byte.MaxValue);
+					byte b2 = (byte) (this.untintedColors[j].g * color3.g / byte.MaxValue);
+					byte b3 = (byte) (this.untintedColors[j].b * color3.b / byte.MaxValue);
+					byte b4 = (byte) (this.untintedColors[j].a * color3.a / byte.MaxValue);
 					if (this._fontInst.premultipliedAlpha)
 					{
-						b = b * b4 / byte.MaxValue;
-						b2 = b2 * b4 / byte.MaxValue;
-						b3 = b3 * b4 / byte.MaxValue;
+						b = (byte) (b * b4 / byte.MaxValue);
+						b2 = (byte) (b2 * b4 / byte.MaxValue);
+						b3 = (byte) (b3 * b4 / byte.MaxValue);
 					}
 					this.colors[j] = new Color32(b, b2, b3, b4);
 				}

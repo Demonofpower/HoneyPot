@@ -66,9 +66,9 @@ public class InventorySlot : DisplayObject
 		string text2 = text;
 		if (text2 != null)
 		{
-			if (InventorySlot.<>f__switch$map0 == null)
+			if (InventorySlot.__buildDictionary == null)
 			{
-				InventorySlot.<>f__switch$map0 = new Dictionary<string, int>(1)
+				InventorySlot.__buildDictionary = new Dictionary<string, int>(1)
 				{
 					{
 						"cell_app_inventory_header_gifts",
@@ -77,7 +77,7 @@ public class InventorySlot : DisplayObject
 				};
 			}
 			int num;
-			if (InventorySlot.<>f__switch$map0.TryGetValue(text2, out num))
+			if (InventorySlot.__buildDictionary.TryGetValue(text2, out num))
 			{
 				if (num == 0)
 				{
@@ -101,9 +101,9 @@ public class InventorySlot : DisplayObject
 			string text2 = text;
 			if (text2 != null)
 			{
-				if (InventorySlot.<>f__switch$map2 == null)
+				if (InventorySlot.__buildDictionary == null)
 				{
-					InventorySlot.<>f__switch$map2 = new Dictionary<string, int>(1)
+					InventorySlot.__buildDictionary = new Dictionary<string, int>(1)
 					{
 						{
 							"cell_app_inventory_header_gifts",
@@ -112,7 +112,7 @@ public class InventorySlot : DisplayObject
 					};
 				}
 				int num;
-				if (InventorySlot.<>f__switch$map2.TryGetValue(text2, out num))
+				if (InventorySlot.__buildDictionary.TryGetValue(text2, out num))
 				{
 					if (num == 0)
 					{
@@ -127,9 +127,9 @@ public class InventorySlot : DisplayObject
 			string text2 = text;
 			if (text2 != null)
 			{
-				if (InventorySlot.<>f__switch$map1 == null)
+				if (InventorySlot.__buildDictionary == null)
 				{
-					InventorySlot.<>f__switch$map1 = new Dictionary<string, int>(1)
+					InventorySlot.__buildDictionary = new Dictionary<string, int>(1)
 					{
 						{
 							"cell_app_inventory_header_gifts",
@@ -138,7 +138,7 @@ public class InventorySlot : DisplayObject
 					};
 				}
 				int num;
-				if (InventorySlot.<>f__switch$map1.TryGetValue(text2, out num))
+				if (InventorySlot.__buildDictionary.TryGetValue(text2, out num))
 				{
 					if (num == 0)
 					{
@@ -211,4 +211,6 @@ public class InventorySlot : DisplayObject
 	// Token: 0x0200003C RID: 60
 	// (Invoke) Token: 0x06000208 RID: 520
 	public delegate void InventorySlotDelegate(InventorySlot inventorySlot);
+    
+	public static Dictionary<string, int> __buildDictionary;
 }

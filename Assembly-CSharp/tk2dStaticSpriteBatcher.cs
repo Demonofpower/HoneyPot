@@ -389,15 +389,15 @@ public class tk2dStaticSpriteBatcher : MonoBehaviour, ISpriteCollectionForceBuil
 						for (int l = 0; l < array13.Length; l++)
 						{
 							Color32 color3 = (l % 4 >= 2) ? color2 : color;
-							byte b = array13[l].r * color3.r / byte.MaxValue;
-							byte b2 = array13[l].g * color3.g / byte.MaxValue;
-							byte b3 = array13[l].b * color3.b / byte.MaxValue;
-							byte b4 = array13[l].a * color3.a / byte.MaxValue;
+							byte b = (byte) (array13[l].r * color3.r / byte.MaxValue);
+							byte b2 = (byte) (array13[l].g * color3.g / byte.MaxValue);
+							byte b3 = (byte) (array13[l].b * color3.b / byte.MaxValue);
+							byte b4 = (byte) (array13[l].a * color3.a / byte.MaxValue);
 							if (geomData.fontInst.premultipliedAlpha)
 							{
-								b = b * b4 / byte.MaxValue;
-								b2 = b2 * b4 / byte.MaxValue;
-								b3 = b3 * b4 / byte.MaxValue;
+								b = (byte) (b * b4 / byte.MaxValue);
+								b2 = (byte) (b2 * b4 / byte.MaxValue);
+								b3 = (byte) (b3 * b4 / byte.MaxValue);
 							}
 							array13[l] = new Color32(b, b2, b3, b4);
 						}

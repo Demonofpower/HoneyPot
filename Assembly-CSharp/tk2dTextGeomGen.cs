@@ -126,7 +126,7 @@ public static class tk2dTextGeomGen
 	{
 		tk2dTextMeshData textMeshData = geomData.textMeshData;
 		tk2dFontData fontInst = geomData.fontInst;
-		int num = (int)(textMeshData.anchor / TextAnchor.MiddleLeft);
+		int num = (int)(((int)textMeshData.anchor) / ((int)TextAnchor.MiddleLeft));
 		float num2 = (fontInst.lineHeight + textMeshData.lineSpacing) * textMeshData.scale.y;
 		switch (num)
 		{
@@ -154,11 +154,11 @@ public static class tk2dTextGeomGen
 	{
 		tk2dTextMeshData textMeshData = geomData.textMeshData;
 		tk2dFontData fontInst = geomData.fontInst;
-		switch (textMeshData.anchor % TextAnchor.MiddleLeft)
+		switch (((int )textMeshData.anchor) % ((int)TextAnchor.MiddleLeft))
 		{
-		case TextAnchor.UpperLeft:
+		case (int) TextAnchor.UpperLeft:
 			return 0f;
-		case TextAnchor.UpperCenter:
+		case (int) TextAnchor.UpperCenter:
 		{
 			float num = -lineWidth / 2f;
 			if (fontInst.version >= 2)
@@ -168,7 +168,7 @@ public static class tk2dTextGeomGen
 			}
 			return num;
 		}
-		case TextAnchor.UpperRight:
+		case (int)TextAnchor.UpperRight:
 			return -lineWidth;
 		default:
 			return 0f;

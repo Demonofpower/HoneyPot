@@ -8,7 +8,8 @@ public struct tk2dUITouch
 	public tk2dUITouch(TouchPhase phase, int fingerID, Vector2 position, Vector2 deltaPosition, float deltaTime)
 	{
 		this.phase = phase;
-		this.fingerId = this.fingerId;
+        this.fingerId = 0;
+        this.fingerId = this.fingerId;
 		this.position = position;
 		this.deltaPosition = deltaPosition;
 		this.deltaTime = deltaTime;
@@ -20,8 +21,10 @@ public struct tk2dUITouch
 		this.phase = touch.phase;
 		this.fingerId = touch.fingerId;
 		this.position = touch.position;
-		this.deltaPosition = this.deltaPosition;
-		this.deltaTime = this.deltaTime;
+        this.deltaPosition = default;
+        this.deltaPosition = this.deltaPosition;
+        this.deltaTime = 0;
+        this.deltaTime = this.deltaTime;
 	}
 
 	// Token: 0x17000132 RID: 306

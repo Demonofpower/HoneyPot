@@ -141,10 +141,10 @@ public class PuzzleGroup
 				num2 *= 10;
 			}
 			List<PuzzleGridPosition> list2 = ListUtils.Copy<PuzzleGridPosition>(list);
-			from gridPosition in list2
-			orderby gridPosition.row + gridPosition.col
-			select gridPosition;
-			list.Clear();
+            var puzzleGridPositions = from gridPosition in list2
+                orderby gridPosition.row + gridPosition.col
+                select gridPosition;
+            list.Clear();
 			while (list2.Count > 0)
 			{
 				int index = Mathf.CeilToInt((float)(list2.Count / 2));
