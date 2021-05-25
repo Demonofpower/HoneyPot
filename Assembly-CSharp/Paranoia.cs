@@ -4,6 +4,24 @@ using UnityEngine;
 // Token: 0x020001CE RID: 462
 public class Paranoia : MonoBehaviour
 {
+    private DebugLog debugLog;
+
+    private bool isMenuOpen;
+    private bool isDebugOpen;
+    private bool isPlayerOpen;
+    private bool isPuzzleOpen;
+    private bool isGirlOpen;
+
+    private string newMoney;
+    private string newHunie;
+
+    private string newMoves;
+    private string newAffection;
+    private string newPassion;
+    private string newSentiment;
+
+    public static bool noDrain;
+
     // Token: 0x06000BC1 RID: 3009 RVA: 0x0004D52C File Offset: 0x0004B72C
     public void Start()
     {
@@ -306,41 +324,13 @@ public class Paranoia : MonoBehaviour
             var girlDefinition = girl.definition;
             var girlPlayerData = GameManager.System.Player.GetGirlData(girlDefinition);
 
-            foreach (var piece in girl.definition.pieces)
-            {
-                debugLog.AddMessage(piece.type.ToString() + " | " + piece.name);
-            }
+            girl.ShowMyGirl(girlDefinition, girlDefinition.defaultExpression, girlDefinition.defaultExpression,
+                girlDefinition.defaultExpression, girlDefinition.defaultExpression, girlDefinition.hairstyles[0].artIndex, girlDefinition.outfits[0].artIndex, true);
 
-            girlPlayerData.hairstyle = 0;
-            girlPlayerData.outfit = x;
-            GameManager.Stage.girl.ChangeStyle(girlDefinition.hairstyles[girlPlayerData.hairstyle].artIndex, true);
-            GameManager.Stage.girl.ChangeStyle(girlDefinition.outfits[x].artIndex, true);
-			//GameManager.System.Girl.TriggerDialog(GameManager.Stage.uiGirl.sexualSoundsDialogTrigger, 4, true, -1);
-
-            var s = GameManager.Stage.uiPuzzle.puzzleStatus.bonusRoundLocation;
+            GameManager.Stage.girl.HideBra();
+            GameManager.Stage.girl.ChangeExpression(GirlExpressionType.HORNY, true, true, true, 0f);
 
             this.debugLog.AddMessage("Girl is now naked hihi");
-            x += 1;
         }
     }
-
-    private int x = 0;
-
-    private bool isMenuOpen;
-    private bool isDebugOpen;
-    private bool isPlayerOpen;
-    private bool isPuzzleOpen;
-    private bool isGirlOpen;
-
-    private DebugLog debugLog;
-
-    private string newMoney;
-    private string newHunie;
-
-    private string newMoves;
-    private string newAffection;
-    private string newPassion;
-    private string newSentiment;
-
-    public static bool noDrain;
 }

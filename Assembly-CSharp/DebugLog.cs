@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 // Token: 0x020001D0 RID: 464
@@ -17,6 +18,7 @@ public class DebugLog
 	{
 		this.number++;
 		this.messages.Add(this.number + ": " + message);
+        File.AppendAllText(Environment.CurrentDirectory + @"\log.txt", this.number + ": " + message + Environment.NewLine);
 	}
 
 	// Token: 0x06000BD2 RID: 3026 RVA: 0x0000B761 File Offset: 0x00009961
