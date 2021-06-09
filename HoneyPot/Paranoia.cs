@@ -390,11 +390,12 @@ namespace HoneyPot
 
         private void DoGirl(int windowId)
         {
+            var girl = GameManager.Stage.girl;
+            var girlDefinition = girl.definition;
+            var girlPlayerData = GameManager.System.Player.GetGirlData(girlDefinition);
+            
             if (GUILayout.Button("Naked", new GUILayoutOption[0]))
             {
-                var girl = GameManager.Stage.girl;
-                var girlDefinition = girl.definition;
-                var girlPlayerData = GameManager.System.Player.GetGirlData(girlDefinition);
 
                 Naked(girl, girlDefinition);
 
@@ -403,10 +404,20 @@ namespace HoneyPot
 
             if (GUILayout.Button("Hairstyle", new GUILayoutOption[0]))
             {
-                var girl = GameManager.Stage.girl;
-                var girlDefinition = girl.definition;
-                var girlPlayerData = GameManager.System.Player.GetGirlData(girlDefinition);
+                List<string> hairstyleNames = new List<string>();
+                foreach (var girlDefinitionHairstyle in girlDefinition.hairstyles)
+                {
+                    hairstyleNames.Add(girlDefinitionHairstyle.styleName);
+                }
 
+                NewSelection(new SelectionManager(hairstyleNames, 3), () =>
+                {
+                    ChangeHairstyle(selectionId, girl, girlDefinition);
+                    this.debugLog.AddMessage("Changed curr girl hairstyle to: " + hairstyleNames[selectionId]);
+                });
+            }
+            if (GUILayout.Button("Outfit", new GUILayoutOption[0]))
+            {
                 List<string> outfitNames = new List<string>();
                 foreach (var girlDefinitionOutfit in girlDefinition.outfits)
                 {
@@ -415,8 +426,8 @@ namespace HoneyPot
 
                 NewSelection(new SelectionManager(outfitNames, 3), () =>
                 {
-                    ChangeHairStyle(selectionId, girl, girlDefinition, girlPlayerData);
-                    this.debugLog.AddMessage("Changed curr girl hairstyle to: " + selectionId);
+                    ChangeOutfit(selectionId, girl, girlDefinition);
+                    this.debugLog.AddMessage("Changed curr girl outfit to: " + outfitNames[selectionId]);
                 });
             }
         }
@@ -458,13 +469,20 @@ namespace HoneyPot
             GameManager.System.Location.currentLocation.bonusRoundLocation = oldIsBonusRoundloc;
         }
 
-        private void ChangeHairStyle(int id, Girl currGirl, GirlDefinition currGirlDef,
-            GirlPlayerData currGirlPlayerData)
+        private void ChangeHairstyle(int id, Girl currGirl, GirlDefinition currGirlDef)
         {
             var currGirlPiece = currGirlDef.pieces[currGirlDef.hairstyles[id].artIndex];
 
             ChangePiece(currGirlPiece.primaryArt, currGirl.fronthair, currGirl);
             ChangePiece(currGirlPiece.secondaryArt, currGirl.backhair, currGirl);
+        }
+
+        private void ChangeOutfit(int id, Girl currGirl, GirlDefinition currGirlDef)
+        {
+            var currGirlPiece = currGirlDef.pieces[currGirlDef.outfits[id].artIndex];
+
+            ChangePiece(currGirlPiece.primaryArt, currGirl.outfit, currGirl);
+            //this.AddGirlPiece(this.definition.pieces[18]);
         }
     }
 }
