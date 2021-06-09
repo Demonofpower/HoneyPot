@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
@@ -8,8 +9,11 @@ namespace HoneyPot
     {
         private DebugLog debugLog;
 
+        private int selectionId;
+
         private bool isMenuOpen;
         private bool isDebugOpen;
+        private bool isSelectionOpen;
         private bool isPlayerOpen;
         private bool isPuzzleOpen;
         private bool isGirlOpen;
@@ -24,20 +28,45 @@ namespace HoneyPot
 
         public static bool noDrain;
 
-        // Token: 0x06000BC1 RID: 3009 RVA: 0x0004D52C File Offset: 0x0004B72C
+        public delegate void SelectionEventHandler();
+
+        private event SelectionEventHandler SelectionEvent;
+
+        private SelectionManager selectionManager;
+
+        private int SelectionId
+        {
+            get => selectionId;
+            set
+            {
+                selectionId = value;
+                isSelectionOpen = false;
+
+                if (SelectionEvent != null)
+                {
+                    SelectionEvent.Invoke();
+                    foreach (Delegate d in SelectionEvent.GetInvocationList())
+                    {
+                        SelectionEvent -= (SelectionEventHandler) d;
+                    }
+                }
+            }
+        }
+
         public void Start()
         {
             this.debugLog = new DebugLog();
+            selectionManager = new SelectionManager(new List<string>(), 0);
+            this.SelectionId = -1;
             this.newMoney = "0";
             this.newHunie = "0";
             this.newMoves = "0";
             this.newAffection = "0";
             this.newPassion = "0";
             this.newSentiment = "0";
-            Paranoia.noDrain = false;
+            noDrain = false;
         }
 
-        // Token: 0x06000BC2 RID: 3010 RVA: 0x0004D58C File Offset: 0x0004B78C
         public void Update()
         {
             if (Input.GetKeyDown(KeyCode.F1))
@@ -56,7 +85,6 @@ namespace HoneyPot
             }
         }
 
-        // Token: 0x06000BC3 RID: 3011 RVA: 0x0004D608 File Offset: 0x0004B808
         public void OnGUI()
         {
             GUI.contentColor = Color.magenta;
@@ -75,6 +103,11 @@ namespace HoneyPot
                 this.OpenDebug();
             }
 
+            if (this.isSelectionOpen)
+            {
+                this.OpenSelection();
+            }
+
             if (this.isPlayerOpen)
             {
                 this.OpenPlayer();
@@ -91,14 +124,12 @@ namespace HoneyPot
             }
         }
 
-        // Token: 0x06000BC5 RID: 3013 RVA: 0x0004D6D4 File Offset: 0x0004B8D4
         private void OpenMenu()
         {
             Rect clientRect = new Rect(120f, 20f, 120f, 120f);
             GUI.Window(0, clientRect, new GUI.WindowFunction(this.DoMyWindow), "Cool Menu");
         }
 
-        // Token: 0x06000BC6 RID: 3014 RVA: 0x0004D718 File Offset: 0x0004B918
         private void DoMyWindow(int windowID)
         {
             if (GUILayout.Button("debug log", new GUILayoutOption[0]))
@@ -126,14 +157,12 @@ namespace HoneyPot
             }
         }
 
-        // Token: 0x06000BC7 RID: 3015 RVA: 0x0004D7B8 File Offset: 0x0004B9B8
         private void OpenDebug()
         {
             Rect clientRect = new Rect(640f, 20f, 500f, 400f);
             GUI.Window(1, clientRect, new GUI.WindowFunction(this.DoDebugLog), "Debug log");
         }
 
-        // Token: 0x06000BC8 RID: 3016 RVA: 0x0004D7FC File Offset: 0x0004B9FC
         private void DoDebugLog(int windowID)
         {
             foreach (string text in this.debugLog.PrintLastMessages())
@@ -142,14 +171,55 @@ namespace HoneyPot
             }
         }
 
-        // Token: 0x06000BC9 RID: 3017 RVA: 0x0004D858 File Offset: 0x0004BA58
+        private void NewSelection(SelectionManager selectionManager, SelectionEventHandler toExec)
+        {
+            this.selectionManager = selectionManager;
+            this.isSelectionOpen = true;
+
+            SelectionEvent += toExec;
+        }
+
+        private void OpenSelection()
+        {
+            Rect clientRect = new Rect(550f, 420f, 400f, 400f);
+            GUI.Window(421, clientRect, new GUI.WindowFunction(DoSelection), "Selection");
+        }
+
+        private void DoSelection(int windowID)
+        {
+            var columns = selectionManager.Columns;
+            var rows = (selectionManager.Values.Count - 1) / columns + 1;
+
+            for (int i = 0; i < rows; i++)
+            {
+                GUILayout.BeginHorizontal("i", new GUILayoutOption[0]);
+                for (int j = 0; j < columns; j++)
+                {
+                    var currNumber = j + i * columns;
+                    
+                    if (currNumber >= selectionManager.Values.Count)
+                    {
+                        continue;
+                    }
+                    
+                    var currName = selectionManager.Values[currNumber];
+
+                    if (GUILayout.Button(currName, new GUILayoutOption[0]))
+                    {
+                        SelectionId = currNumber;
+                    }
+                }
+
+                GUILayout.EndHorizontal();
+            }
+        }
+
         private void OpenPlayer()
         {
             Rect clientRect = new Rect(240f, 20f, 200f, 400f);
             GUI.Window(2, clientRect, new GUI.WindowFunction(this.DoPlayer), "Player menu");
         }
 
-        // Token: 0x06000BCA RID: 3018 RVA: 0x0004D89C File Offset: 0x0004BA9C
         private void DoPlayer(int windowID)
         {
             GUILayout.BeginHorizontal("money", new GUILayoutOption[0]);
@@ -183,7 +253,6 @@ namespace HoneyPot
             }
         }
 
-        // Token: 0x06000BCB RID: 3019 RVA: 0x0004D9F0 File Offset: 0x0004BBF0
         private void UnlockAllAchivements()
         {
             SteamUtils.UnlockAchievement("alpha", true);
@@ -247,7 +316,7 @@ namespace HoneyPot
 
                 foreach (object obj in Enum.GetValues(typeof(GirlDetailType)))
                 {
-                    GirlDetailType type = (GirlDetailType)obj;
+                    GirlDetailType type = (GirlDetailType) obj;
                     girlData.KnowDetail(type);
                 }
             }
@@ -289,7 +358,8 @@ namespace HoneyPot
             this.newPassion = GUILayout.TextField(this.newPassion, 10, new GUILayoutOption[0]);
             if (GUILayout.Button("ChangePassion", new GUILayoutOption[0]))
             {
-                GameManager.System.Puzzle.Game.SetResourceValue(PuzzleGameResourceType.PASSION, int.Parse(this.newPassion),
+                GameManager.System.Puzzle.Game.SetResourceValue(PuzzleGameResourceType.PASSION,
+                    int.Parse(this.newPassion),
                     true);
                 this.debugLog.AddMessage("Passion changed to: " + this.newPassion);
             }
@@ -325,7 +395,7 @@ namespace HoneyPot
                 var girl = GameManager.Stage.girl;
                 var girlDefinition = girl.definition;
                 var girlPlayerData = GameManager.System.Player.GetGirlData(girlDefinition);
-                
+
                 Naked(girl, girlDefinition);
 
                 this.debugLog.AddMessage("Girl is now naked hihi");
@@ -337,16 +407,20 @@ namespace HoneyPot
                 var girlDefinition = girl.definition;
                 var girlPlayerData = GameManager.System.Player.GetGirlData(girlDefinition);
 
-                ChangeHairStyle(i, girl, girlDefinition, girlPlayerData);
-                this.debugLog.AddMessage("Changed curr girl hairstyle to: " + i);
+                List<string> outfitNames = new List<string>();
+                foreach (var girlDefinitionOutfit in girlDefinition.outfits)
+                {
+                    outfitNames.Add(girlDefinitionOutfit.styleName);
+                }
 
-                i += 1;
-                if (i >= 5) i = 0;
+                NewSelection(new SelectionManager(outfitNames, 3), () =>
+                {
+                    ChangeHairStyle(selectionId, girl, girlDefinition, girlPlayerData);
+                    this.debugLog.AddMessage("Changed curr girl hairstyle to: " + selectionId);
+                });
             }
         }
 
-        private int i = 0;
-        
         private void ChangePiece(GirlPieceArt pieceArt, DisplayObject container, Girl currGirl)
         {
             container.RemoveAllChildren(true);
@@ -358,11 +432,11 @@ namespace HoneyPot
             if (currGirl.flip)
             {
                 fronthairSpriteObject.sprite.FlipX = true;
-                fronthairSpriteObject.SetLocalPosition((float)(1200 - pieceArt.x), (float)(-(float)pieceArt.y));
+                fronthairSpriteObject.SetLocalPosition((float) (1200 - pieceArt.x), (float) (-(float) pieceArt.y));
             }
             else
             {
-                fronthairSpriteObject.SetLocalPosition((float)pieceArt.x, (float)(-(float)pieceArt.y));
+                fronthairSpriteObject.SetLocalPosition((float) pieceArt.x, (float) (-(float) pieceArt.y));
             }
         }
 
@@ -373,21 +447,22 @@ namespace HoneyPot
             GameManager.System.Location.currentLocation.type = LocationType.DATE;
             var oldIsBonusRoundloc = GameManager.System.Location.currentLocation.bonusRoundLocation;
             GameManager.System.Location.currentLocation.bonusRoundLocation = true;
-            
+
             //DO
             currGirl.ShowGirl(currGirlDef);
             GameManager.Stage.girl.HideBra();
             GameManager.Stage.girl.ChangeExpression(GirlExpressionType.HORNY, true, true, true, 0f);
-            
+
             //Reset old vars
             GameManager.System.Location.currentLocation.type = oldLocType;
             GameManager.System.Location.currentLocation.bonusRoundLocation = oldIsBonusRoundloc;
         }
 
-        private void ChangeHairStyle(int id, Girl currGirl, GirlDefinition currGirlDef, GirlPlayerData currGirlPlayerData)
+        private void ChangeHairStyle(int id, Girl currGirl, GirlDefinition currGirlDef,
+            GirlPlayerData currGirlPlayerData)
         {
             var currGirlPiece = currGirlDef.pieces[currGirlDef.hairstyles[id].artIndex];
-            
+
             ChangePiece(currGirlPiece.primaryArt, currGirl.fronthair, currGirl);
             ChangePiece(currGirlPiece.secondaryArt, currGirl.backhair, currGirl);
         }
