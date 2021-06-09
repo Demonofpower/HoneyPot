@@ -330,7 +330,21 @@ namespace HoneyPot
 
                 this.debugLog.AddMessage("Girl is now naked hihi");
             }
+
+            if (GUILayout.Button("Hairstyle", new GUILayoutOption[0]))
+            {
+                var girl = GameManager.Stage.girl;
+                var girlDefinition = girl.definition;
+                var girlPlayerData = GameManager.System.Player.GetGirlData(girlDefinition);
+
+                ChangeHairStyle(i, girl, girlDefinition, girlPlayerData);
+                i += 1;
+                if (i > 6) i = 0;
+                this.debugLog.AddMessage("Changed curr girl hairstyle to: " + i);
+            }
         }
+
+        private int i = 0;
 
         private void Naked(Girl currGirl, GirlDefinition currGirlDef)
         {
@@ -348,6 +362,49 @@ namespace HoneyPot
             //Reset old vars
             GameManager.System.Location.currentLocation.type = oldLocType;
             GameManager.System.Location.currentLocation.bonusRoundLocation = oldIsBonusRoundloc;
+        }
+
+        private void ChangeHairStyle(int id, Girl currGirl, GirlDefinition currGirlDef, GirlPlayerData currGirlPlayerData)
+        {
+            var currGirlPiece = currGirlDef.pieces[currGirlDef.hairstyles[id].artIndex];
+
+            //this.AddGirlPieceArtToContainer(pwi.primaryArt, currGirl.fronthair);
+
+            var frontairContainer = currGirl.fronthair;
+            frontairContainer.RemoveAllChildren(true);
+
+            SpriteObject fronthairSpriteObject =
+                DisplayUtils.CreateSpriteObject(currGirl.spriteCollection, currGirlPiece.primaryArt.spriteName, "SpriteObject");
+            frontairContainer.AddChild(fronthairSpriteObject);
+
+            if (currGirl.flip)
+            {
+                fronthairSpriteObject.sprite.FlipX = true;
+                fronthairSpriteObject.SetLocalPosition((float)(1200 - currGirlPiece.primaryArt.x), (float)(-(float)currGirlPiece.primaryArt.y));
+            }
+            else
+            {
+                fronthairSpriteObject.SetLocalPosition((float)currGirlPiece.primaryArt.x, (float)(-(float)currGirlPiece.primaryArt.y));
+            }
+
+            ////this.AddGirlPieceArtToContainer(pwi.secondaryArt, currGirl.backhair);
+
+            var backhairContainer = currGirl.backhair;
+            backhairContainer.RemoveAllChildren(true);
+
+            SpriteObject backhairSpriteObject =
+                DisplayUtils.CreateSpriteObject(currGirl.spriteCollection, currGirlPiece.secondaryArt.spriteName, "SpriteObject");
+            backhairContainer.AddChild(backhairSpriteObject);
+
+            if (currGirl.flip)
+            {
+                backhairSpriteObject.sprite.FlipX = true;
+                backhairSpriteObject.SetLocalPosition((float)(1200 - currGirlPiece.secondaryArt.x), (float)(-(float)currGirlPiece.secondaryArt.y));
+            }
+            else
+            {
+                backhairSpriteObject.SetLocalPosition((float)currGirlPiece.secondaryArt.x, (float)(-(float)currGirlPiece.secondaryArt.y));
+            }
         }
     }
 }
