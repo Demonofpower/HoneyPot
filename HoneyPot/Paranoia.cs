@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using UnityEngine;
 
 namespace HoneyPot
@@ -319,20 +320,34 @@ namespace HoneyPot
 
         private void DoGirl(int windowId)
         {
-            //if (GUILayout.Button("Naked", new GUILayoutOption[0]))
-            //{
-            //    var girl = GameManager.System.Girl.GetGirl;
-            //    var girlDefinition = girl.definition;
-            //    var girlPlayerData = GameManager.System.Player.GetGirlData(girlDefinition);
+            if (GUILayout.Button("Naked", new GUILayoutOption[0]))
+            {
+                var girl = GameManager.Stage.girl;
+                var girlDefinition = girl.definition;
+                var girlPlayerData = GameManager.System.Player.GetGirlData(girlDefinition);
+                
+                Naked(girl, girlDefinition);
 
-            //    girl.ShowMyGirl(girlDefinition, girlDefinition.defaultExpression, girlDefinition.defaultExpression,
-            //        girlDefinition.defaultExpression, girlDefinition.defaultExpression, girlDefinition.hairstyles[0].artIndex, girlDefinition.outfits[0].artIndex, true);
+                this.debugLog.AddMessage("Girl is now naked hihi");
+            }
+        }
 
-            //    GameManager.Stage.girl.HideBra();
-            //    GameManager.Stage.girl.ChangeExpression(GirlExpressionType.HORNY, true, true, true, 0f);
-
-            //    this.debugLog.AddMessage("Girl is now naked hihi");
-            //}
+        private void Naked(Girl currGirl, GirlDefinition currGirlDef)
+        {
+            //Save and change vars
+            var oldLocType = GameManager.System.Location.currentLocation.type;
+            GameManager.System.Location.currentLocation.type = LocationType.DATE;
+            var oldIsBonusRoundloc = GameManager.System.Location.currentLocation.bonusRoundLocation;
+            GameManager.System.Location.currentLocation.bonusRoundLocation = true;
+            
+            //DO
+            currGirl.ShowGirl(currGirlDef);
+            GameManager.Stage.girl.HideBra();
+            GameManager.Stage.girl.ChangeExpression(GirlExpressionType.HORNY, true, true, true, 0f);
+            
+            //Reset old vars
+            GameManager.System.Location.currentLocation.type = oldLocType;
+            GameManager.System.Location.currentLocation.bonusRoundLocation = oldIsBonusRoundloc;
         }
     }
 }
