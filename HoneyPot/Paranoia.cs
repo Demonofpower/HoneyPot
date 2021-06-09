@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 
 namespace HoneyPot
@@ -196,12 +195,12 @@ namespace HoneyPot
                 for (int j = 0; j < columns; j++)
                 {
                     var currNumber = j + i * columns;
-                    
+
                     if (currNumber >= selectionManager.Values.Count)
                     {
                         continue;
                     }
-                    
+
                     var currName = selectionManager.Values[currNumber];
 
                     if (GUILayout.Button(currName, new GUILayoutOption[0]))
@@ -390,13 +389,14 @@ namespace HoneyPot
 
         private void DoGirl(int windowId)
         {
+            var allGirls = GameManager.Data.Girls.GetAll();
+
             var girl = GameManager.Stage.girl;
             var girlDefinition = girl.definition;
             var girlPlayerData = GameManager.System.Player.GetGirlData(girlDefinition);
-            
+
             if (GUILayout.Button("Naked", new GUILayoutOption[0]))
             {
-
                 Naked(girl, girlDefinition);
 
                 this.debugLog.AddMessage("Girl is now naked hihi");
@@ -416,6 +416,7 @@ namespace HoneyPot
                     this.debugLog.AddMessage("Changed curr girl hairstyle to: " + hairstyleNames[selectionId]);
                 });
             }
+
             if (GUILayout.Button("Outfit", new GUILayoutOption[0]))
             {
                 List<string> outfitNames = new List<string>();
@@ -428,6 +429,21 @@ namespace HoneyPot
                 {
                     ChangeOutfit(selectionId, girl, girlDefinition);
                     this.debugLog.AddMessage("Changed curr girl outfit to: " + outfitNames[selectionId]);
+                });
+            }
+
+            if (GUILayout.Button("ChangeGirl", new GUILayoutOption[0]))
+            {
+                List<string> girlNames = new List<string>();
+                foreach (var thisGirl in allGirls)
+                {
+                    girlNames.Add(thisGirl.firstName);
+                }
+
+                NewSelection(new SelectionManager(girlNames, 3), () =>
+                {
+                    ChangeGirl(selectionId + 1);
+                    this.debugLog.AddMessage("Changed girl to: " + girlNames[selectionId]);
                 });
             }
         }
@@ -483,6 +499,23 @@ namespace HoneyPot
 
             ChangePiece(currGirlPiece.primaryArt, currGirl.outfit, currGirl);
             //this.AddGirlPiece(this.definition.pieces[18]);
+        }
+
+        private void ChangeGirl(int id)
+        {
+            //Girl[] girls = Resources.FindObjectsOfTypeAll(typeof(Girl)) as Girl[];
+            var girlDefinition = GameManager.Data.Girls.Get(id);
+            //Girl girl = null;
+            //foreach (var itGirl in girls)
+            //{
+            //    if (itGirl.definition.name == girlDefinition.name)
+            //    {
+            //        girl = itGirl;
+            //    }
+            //}
+
+            var girl = GameManager.Stage.girl;
+            girl.ShowGirl(girlDefinition);
         }
     }
 }
