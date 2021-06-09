@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DebugLog.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="Paranoia.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
