@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Holoville.HOTween;
+using Holoville.HOTween.Core;
 using UnityEngine;
 
 namespace HoneyPot
@@ -446,6 +448,39 @@ namespace HoneyPot
                     this.debugLog.AddMessage("Changed girl to: " + girlNames[selectionId]);
                 });
             }
+
+            if (GUILayout.Button("Test", new GUILayoutOption[0]))
+            {
+                var scenes = GameManager.Data.DialogScenes;
+
+                var dialogManager = GameManager.System.Dialog;
+                
+
+                Dictionary<int, DialogSceneDefinition> _definitions = new Dictionary<int, DialogSceneDefinition>();
+                
+                DialogSceneDefinition[] array = Resources.FindObjectsOfTypeAll(typeof(DialogSceneDefinition)) as DialogSceneDefinition[];
+                for (int i = 0; i < array.Length; i++)
+                {
+                    _definitions.Add(array[i].id, array[i]);
+                }
+
+                DialogSceneDefinition sceneX = null;
+                
+                foreach (var scene in _definitions.Values)
+                {
+                    debugLog.AddMessage("-SCENE-");
+                    debugLog.AddMessage(scene.id.ToString());
+                    debugLog.AddMessage(scene.name);
+                    debugLog.AddMessage(scene.editorFromJsonString);
+
+                    if (scene.id == 4)
+                    {
+                        sceneX = scene;
+                    }
+                }
+
+                dialogManager.PlayDialogScene(sceneX);
+            }
         }
 
         private void ChangePiece(GirlPieceArt pieceArt, DisplayObject container, Girl currGirl)
@@ -503,16 +538,7 @@ namespace HoneyPot
 
         private void ChangeGirl(int id)
         {
-            //Girl[] girls = Resources.FindObjectsOfTypeAll(typeof(Girl)) as Girl[];
             var girlDefinition = GameManager.Data.Girls.Get(id);
-            //Girl girl = null;
-            //foreach (var itGirl in girls)
-            //{
-            //    if (itGirl.definition.name == girlDefinition.name)
-            //    {
-            //        girl = itGirl;
-            //    }
-            //}
 
             var girl = GameManager.Stage.girl;
             girl.ShowGirl(girlDefinition);

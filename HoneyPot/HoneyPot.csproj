@@ -38,6 +38,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>A:\Steam\steamapps\common\HuniePop\HuniePop_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
+    <Reference Include="HOTween, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>A:\Steam\steamapps\common\HuniePop\HuniePop_Data\Managed\HOTween.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
