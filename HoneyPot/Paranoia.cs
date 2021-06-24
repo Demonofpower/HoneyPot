@@ -1,37 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using Holoville.HOTween;
-using Holoville.HOTween.Core;
 using UnityEngine;
 
 namespace HoneyPot
 {
     public class Paranoia : MonoBehaviour
     {
+        public delegate void SelectionEventHandler();
+
+        public static bool noDrain;
         private DebugLog debugLog;
-
-        private int selectionId;
-
-        private bool isMenuOpen;
         private bool isDebugOpen;
-        private bool isSelectionOpen;
-        private bool isPlayerOpen;
-        private bool isPuzzleOpen;
         private bool isGirlOpen;
 
-        private string newMoney;
+        private bool isMenuOpen;
+        private bool isPlayerOpen;
+        private bool isPuzzleOpen;
+        private bool isSceneOpen;
+        private bool isSelectionOpen;
+        private string newAffection;
         private string newHunie;
 
+        private string newMoney;
+
         private string newMoves;
-        private string newAffection;
         private string newPassion;
         private string newSentiment;
 
-        public static bool noDrain;
-
-        public delegate void SelectionEventHandler();
-
-        private event SelectionEventHandler SelectionEvent;
+        private int selectionId;
 
         private SelectionManager selectionManager;
 
@@ -46,25 +42,24 @@ namespace HoneyPot
                 if (SelectionEvent != null)
                 {
                     SelectionEvent.Invoke();
-                    foreach (Delegate d in SelectionEvent.GetInvocationList())
-                    {
-                        SelectionEvent -= (SelectionEventHandler) d;
-                    }
+                    foreach (var d in SelectionEvent.GetInvocationList()) SelectionEvent -= (SelectionEventHandler) d;
                 }
             }
         }
 
+        private event SelectionEventHandler SelectionEvent;
+
         public void Start()
         {
-            this.debugLog = new DebugLog();
+            debugLog = new DebugLog();
             selectionManager = new SelectionManager(new List<string>(), 0);
-            this.SelectionId = -1;
-            this.newMoney = "0";
-            this.newHunie = "0";
-            this.newMoves = "0";
-            this.newAffection = "0";
-            this.newPassion = "0";
-            this.newSentiment = "0";
+            SelectionId = -1;
+            newMoney = "0";
+            newHunie = "0";
+            newMoves = "0";
+            newAffection = "0";
+            newPassion = "0";
+            newSentiment = "0";
             noDrain = false;
         }
 
@@ -72,11 +67,12 @@ namespace HoneyPot
         {
             if (Input.GetKeyDown(KeyCode.F1))
             {
-                this.isMenuOpen = !this.isMenuOpen;
-                this.isPlayerOpen = false;
-                this.isPuzzleOpen = false;
+                isMenuOpen = !isMenuOpen;
+                isPlayerOpen = false;
+                isPuzzleOpen = false;
                 isGirlOpen = false;
-                this.debugLog.AddMessage("Menu opened/closed");
+                isSceneOpen = false;
+                debugLog.AddMessage("Menu opened/closed");
             }
 
             if (Input.GetKeyDown(KeyCode.F2))
@@ -94,96 +90,104 @@ namespace HoneyPot
             GUI.Label(new Rect(0f, 50f, 150f, 50f), "Press F1 for Menu");
             GUI.contentColor = Color.red;
             GUI.Label(new Rect(0f, 70f, 150f, 50f), "By Paranoia with <3");
-            if (this.isMenuOpen)
+            if (isMenuOpen)
             {
-                this.OpenMenu();
+                OpenMenu();
             }
 
-            if (this.isDebugOpen)
+            if (isDebugOpen)
             {
-                this.OpenDebug();
+                OpenDebug();
             }
 
-            if (this.isSelectionOpen)
+            if (isSelectionOpen)
             {
-                this.OpenSelection();
+                OpenSelection();
             }
 
-            if (this.isPlayerOpen)
+            if (isPlayerOpen)
             {
-                this.OpenPlayer();
+                OpenPlayer();
             }
 
-            if (this.isPuzzleOpen)
+            if (isPuzzleOpen)
             {
-                this.OpenPuzzle();
+                OpenPuzzle();
             }
 
-            if (this.isGirlOpen)
+            if (isGirlOpen)
             {
-                this.OpenGirl();
+                OpenGirl();
+            }
+
+            if (isSceneOpen)
+            {
+                OpenScene();
             }
         }
 
         private void OpenMenu()
         {
-            Rect clientRect = new Rect(120f, 20f, 120f, 120f);
-            GUI.Window(0, clientRect, new GUI.WindowFunction(this.DoMyWindow), "Cool Menu");
+            var clientRect = new Rect(120f, 20f, 120f, 150f);
+            GUI.Window(0, clientRect, DoMyWindow, "Cool Menu");
         }
 
         private void DoMyWindow(int windowID)
         {
-            if (GUILayout.Button("debug log", new GUILayoutOption[0]))
+            if (GUILayout.Button("debug log"))
             {
-                this.isDebugOpen = !this.isDebugOpen;
-                this.debugLog.AddMessage("Debug opened/closed");
+                isDebugOpen = !isDebugOpen;
+                debugLog.AddMessage("Debug opened/closed");
             }
 
-            if (GUILayout.Button("Player Menu", new GUILayoutOption[0]))
+            if (GUILayout.Button("Player Menu"))
             {
-                this.isPlayerOpen = !this.isPlayerOpen;
-                this.debugLog.AddMessage("Player opened/closed");
+                isPlayerOpen = !isPlayerOpen;
+                debugLog.AddMessage("Player opened/closed");
             }
 
-            if (GUILayout.Button("Puzzle Menu", new GUILayoutOption[0]))
+            if (GUILayout.Button("Puzzle Menu"))
             {
-                this.isPuzzleOpen = !this.isPuzzleOpen;
-                this.debugLog.AddMessage("Puzzle opened/closed");
+                isPuzzleOpen = !isPuzzleOpen;
+                debugLog.AddMessage("Puzzle opened/closed");
             }
 
-            if (GUILayout.Button("Girl Menu", new GUILayoutOption[0]))
+            if (GUILayout.Button("Girl Menu"))
             {
-                this.isGirlOpen = !this.isGirlOpen;
-                this.debugLog.AddMessage("Girl opened/closed");
+                isGirlOpen = !isGirlOpen;
+                debugLog.AddMessage("Girl opened/closed");
+            }
+
+            if (GUILayout.Button("Scene Menu"))
+            {
+                isSceneOpen = !isSceneOpen;
+                debugLog.AddMessage("Scene opened/closed");
             }
         }
 
         private void OpenDebug()
         {
-            Rect clientRect = new Rect(640f, 20f, 500f, 400f);
-            GUI.Window(1, clientRect, new GUI.WindowFunction(this.DoDebugLog), "Debug log");
+            var clientRect = new Rect(640f, 20f, 500f, 400f);
+            GUI.Window(1, clientRect, DoDebugLog, "Debug log");
         }
 
         private void DoDebugLog(int windowID)
         {
-            foreach (string text in this.debugLog.PrintLastMessages())
-            {
-                GUILayout.Label(text, new GUILayoutOption[0]);
-            }
+            foreach (var text in debugLog.PrintLastMessages()) GUILayout.Label(text);
         }
 
         private void NewSelection(SelectionManager selectionManager, SelectionEventHandler toExec)
         {
             this.selectionManager = selectionManager;
-            this.isSelectionOpen = true;
+            isSelectionOpen = true;
 
             SelectionEvent += toExec;
         }
 
         private void OpenSelection()
         {
-            Rect clientRect = new Rect(550f, 420f, 400f, 400f);
-            GUI.Window(421, clientRect, new GUI.WindowFunction(DoSelection), "Selection");
+            var clientRect = new Rect(550f, 420f, 400f, 400f);
+            GUI.Window(421, clientRect, DoSelection, "Selection");
         }
 
         private void DoSelection(int windowID)
@@ -191,24 +195,18 @@ namespace HoneyPot
             var columns = selectionManager.Columns;
             var rows = (selectionManager.Values.Count - 1) / columns + 1;
 
-            for (int i = 0; i < rows; i++)
+            for (var i = 0; i < rows; i++)
             {
-                GUILayout.BeginHorizontal("i", new GUILayoutOption[0]);
-                for (int j = 0; j < columns; j++)
+                GUILayout.BeginHorizontal("i");
+                for (var j = 0; j < columns; j++)
                 {
                     var currNumber = j + i * columns;
 
-                    if (currNumber >= selectionManager.Values.Count)
-                    {
-                        continue;
-                    }
+                    if (currNumber >= selectionManager.Values.Count) continue;
 
                     var currName = selectionManager.Values[currNumber];
 
-                    if (GUILayout.Button(currName, new GUILayoutOption[0]))
-                    {
-                        SelectionId = currNumber;
-                    }
+                    if (GUILayout.Button(currName)) SelectionId = currNumber;
                 }
 
                 GUILayout.EndHorizontal();
@@ -217,65 +215,65 @@ namespace HoneyPot
 
         private void OpenPlayer()
         {
-            Rect clientRect = new Rect(240f, 20f, 200f, 400f);
-            GUI.Window(2, clientRect, new GUI.WindowFunction(this.DoPlayer), "Player menu");
+            var clientRect = new Rect(240f, 20f, 200f, 400f);
+            GUI.Window(2, clientRect, DoPlayer, "Player menu");
         }
 
         private void DoPlayer(int windowID)
         {
-            GUILayout.BeginHorizontal("money", new GUILayoutOption[0]);
-            this.newMoney = GUILayout.TextField(this.newMoney, 10, new GUILayoutOption[0]);
-            if (GUILayout.Button("ChangeMoney", new GUILayoutOption[0]))
+            GUILayout.BeginHorizontal("money");
+            newMoney = GUILayout.TextField(newMoney, 10);
+            if (GUILayout.Button("ChangeMoney"))
             {
-                GameManager.System.Player.money = int.Parse(this.newMoney);
-                this.debugLog.AddMessage("Money changed to: " + this.newMoney);
+                GameManager.System.Player.money = int.Parse(newMoney);
+                debugLog.AddMessage("Money changed to: " + newMoney);
             }
 
             GUILayout.EndHorizontal();
-            GUILayout.BeginHorizontal("hunie", new GUILayoutOption[0]);
-            this.newHunie = GUILayout.TextField(this.newHunie, 10, new GUILayoutOption[0]);
-            if (GUILayout.Button("ChangeHunie", new GUILayoutOption[0]))
+            GUILayout.BeginHorizontal("hunie");
+            newHunie = GUILayout.TextField(newHunie, 10);
+            if (GUILayout.Button("ChangeHunie"))
             {
-                GameManager.System.Player.hunie = int.Parse(this.newHunie);
-                this.debugLog.AddMessage("Hunie changed to: " + this.newHunie);
+                GameManager.System.Player.hunie = int.Parse(newHunie);
+                debugLog.AddMessage("Hunie changed to: " + newHunie);
             }
 
             GUILayout.EndHorizontal();
-            if (GUILayout.Button("UnlockAll", new GUILayoutOption[0]))
+            if (GUILayout.Button("UnlockAll"))
             {
-                this.UnlockAll();
-                this.debugLog.AddMessage("All unlocked");
+                UnlockAll();
+                debugLog.AddMessage("All unlocked");
             }
 
-            if (GUILayout.Button("UnlockAllAchivements", new GUILayoutOption[0]))
+            if (GUILayout.Button("UnlockAllAchivements"))
             {
-                this.UnlockAllAchivements();
-                this.debugLog.AddMessage("All achivements unlocked");
+                UnlockAllAchivements();
+                debugLog.AddMessage("All achivements unlocked");
             }
         }
 
         private void UnlockAllAchivements()
         {
-            SteamUtils.UnlockAchievement("alpha", true);
-            SteamUtils.UnlockAchievement("alpha_champ", true);
-            SteamUtils.UnlockAchievement("alpha_master", true);
-            SteamUtils.UnlockAchievement("ayy_lmao", true);
-            SteamUtils.UnlockAchievement("beastiality", true);
-            SteamUtils.UnlockAchievement("buying_love", true);
-            SteamUtils.UnlockAchievement("date_the_fairy", true);
-            SteamUtils.UnlockAchievement("heavenly_body", true);
-            SteamUtils.UnlockAchievement("lucky_loser", true);
-            SteamUtils.UnlockAchievement("make_the_move", true);
-            SteamUtils.UnlockAchievement("money_bags", true);
-            SteamUtils.UnlockAchievement("pickup_artist", true);
-            SteamUtils.UnlockAchievement("pickup_legend", true);
-            SteamUtils.UnlockAchievement("quickie", true);
-            SteamUtils.UnlockAchievement("smooth_as_fuck", true);
-            SteamUtils.UnlockAchievement("sobriety", true);
-            SteamUtils.UnlockAchievement("there_may_be_hope", true);
-            SteamUtils.UnlockAchievement("truest_player", true);
-            SteamUtils.UnlockAchievement("vcard_revoked", true);
-            SteamUtils.UnlockAchievement("zero_life", true);
+            SteamUtils.UnlockAchievement("alpha");
+            SteamUtils.UnlockAchievement("alpha_champ");
+            SteamUtils.UnlockAchievement("alpha_master");
+            SteamUtils.UnlockAchievement("ayy_lmao");
+            SteamUtils.UnlockAchievement("beastiality");
+            SteamUtils.UnlockAchievement("buying_love");
+            SteamUtils.UnlockAchievement("date_the_fairy");
+            SteamUtils.UnlockAchievement("heavenly_body");
+            SteamUtils.UnlockAchievement("lucky_loser");
+            SteamUtils.UnlockAchievement("make_the_move");
+            SteamUtils.UnlockAchievement("money_bags");
+            SteamUtils.UnlockAchievement("pickup_artist");
+            SteamUtils.UnlockAchievement("pickup_legend");
+            SteamUtils.UnlockAchievement("quickie");
+            SteamUtils.UnlockAchievement("smooth_as_fuck");
+            SteamUtils.UnlockAchievement("sobriety");
+            SteamUtils.UnlockAchievement("there_may_be_hope");
+            SteamUtils.UnlockAchievement("truest_player");
+            SteamUtils.UnlockAchievement("vcard_revoked");
+            SteamUtils.UnlockAchievement("zero_life");
         }
 
         // Token: 0x06000BCC RID: 3020 RVA: 0x0004DADC File Offset: 0x0004BCDC
@@ -283,9 +281,9 @@ namespace HoneyPot
         {
             GameManager.System.Player.hunie = 99999;
             GameManager.System.Player.money = 99999;
-            foreach (GirlDefinition girlDef in GameManager.Data.Girls.GetAll())
+            foreach (var girlDef in GameManager.Data.Girls.GetAll())
             {
-                GirlPlayerData girlData = GameManager.System.Player.GetGirlData(girlDef);
+                var girlData = GameManager.System.Player.GetGirlData(girlDef);
                 girlData.metStatus = GirlMetStatus.MET;
                 girlData.relationshipLevel = 5;
                 girlData.appetite = 12;
@@ -295,29 +293,17 @@ namespace HoneyPot
                 girlData.AddPhotoEarned(1);
                 girlData.AddPhotoEarned(2);
                 girlData.AddPhotoEarned(3);
-                foreach (ItemDefinition item in girlData.GetGirlDefinition().uniqueGiftList)
-                {
-                    girlData.AddItemToUniqueGifts(item);
-                }
+                foreach (var item in girlData.GetGirlDefinition().uniqueGiftList) girlData.AddItemToUniqueGifts(item);
 
-                foreach (ItemDefinition item2 in girlData.GetGirlDefinition().collection)
-                {
-                    girlData.AddItemToCollection(item2);
-                }
+                foreach (var item2 in girlData.GetGirlDefinition().collection) girlData.AddItemToCollection(item2);
 
-                for (int i = 0; i < girlData.GetGirlDefinition().hairstyles.Count; i++)
-                {
-                    girlData.UnlockHairstyle(i);
-                }
+                for (var i = 0; i < girlData.GetGirlDefinition().hairstyles.Count; i++) girlData.UnlockHairstyle(i);
 
-                for (int j = 0; j < girlData.GetGirlDefinition().outfits.Count; j++)
-                {
-                    girlData.UnlockOutfit(j);
-                }
+                for (var j = 0; j < girlData.GetGirlDefinition().outfits.Count; j++) girlData.UnlockOutfit(j);
 
-                foreach (object obj in Enum.GetValues(typeof(GirlDetailType)))
+                foreach (var obj in Enum.GetValues(typeof(GirlDetailType)))
                 {
-                    GirlDetailType type = (GirlDetailType) obj;
+                    var type = (GirlDetailType) obj;
                     girlData.KnowDetail(type);
                 }
             }
@@ -328,65 +314,63 @@ namespace HoneyPot
         // Token: 0x06000BCD RID: 3021 RVA: 0x0004DD28 File Offset: 0x0004BF28
         private void OpenPuzzle()
         {
-            Rect clientRect = new Rect(440f, 20f, 200f, 400f);
-            GUI.Window(3, clientRect, new GUI.WindowFunction(this.DoPuzzle), "Puzzle menu");
+            var clientRect = new Rect(440f, 20f, 200f, 400f);
+            GUI.Window(3, clientRect, DoPuzzle, "Puzzle menu");
         }
 
         // Token: 0x06000BCE RID: 3022 RVA: 0x0004DD6C File Offset: 0x0004BF6C
         private void DoPuzzle(int windowID)
         {
-            GUILayout.BeginHorizontal(new GUILayoutOption[0]);
-            this.newMoves = GUILayout.TextField(this.newMoves, 10, new GUILayoutOption[0]);
-            if (GUILayout.Button("ChangeMoves", new GUILayoutOption[0]))
+            GUILayout.BeginHorizontal();
+            newMoves = GUILayout.TextField(newMoves, 10);
+            if (GUILayout.Button("ChangeMoves"))
             {
-                GameManager.System.Puzzle.Game.SetResourceValue(PuzzleGameResourceType.MOVES, int.Parse(this.newMoves),
-                    true);
-                this.debugLog.AddMessage("Moves changed to: " + this.newMoves);
+                GameManager.System.Puzzle.Game.SetResourceValue(PuzzleGameResourceType.MOVES, int.Parse(newMoves));
+                debugLog.AddMessage("Moves changed to: " + newMoves);
             }
 
             GUILayout.EndHorizontal();
-            GUILayout.BeginHorizontal(new GUILayoutOption[0]);
-            this.newAffection = GUILayout.TextField(this.newAffection, 10, new GUILayoutOption[0]);
-            if (GUILayout.Button("ChangeAffection", new GUILayoutOption[0]))
+            GUILayout.BeginHorizontal();
+            newAffection = GUILayout.TextField(newAffection, 10);
+            if (GUILayout.Button("ChangeAffection"))
             {
                 GameManager.System.Puzzle.Game.SetResourceValue(PuzzleGameResourceType.AFFECTION,
-                    int.Parse(this.newAffection), true);
-                this.debugLog.AddMessage("Affection changed to: " + this.newAffection);
+                    int.Parse(newAffection));
+                debugLog.AddMessage("Affection changed to: " + newAffection);
             }
 
             GUILayout.EndHorizontal();
-            GUILayout.BeginHorizontal(new GUILayoutOption[0]);
-            this.newPassion = GUILayout.TextField(this.newPassion, 10, new GUILayoutOption[0]);
-            if (GUILayout.Button("ChangePassion", new GUILayoutOption[0]))
+            GUILayout.BeginHorizontal();
+            newPassion = GUILayout.TextField(newPassion, 10);
+            if (GUILayout.Button("ChangePassion"))
             {
                 GameManager.System.Puzzle.Game.SetResourceValue(PuzzleGameResourceType.PASSION,
-                    int.Parse(this.newPassion),
-                    true);
-                this.debugLog.AddMessage("Passion changed to: " + this.newPassion);
+                    int.Parse(newPassion));
+                debugLog.AddMessage("Passion changed to: " + newPassion);
             }
 
             GUILayout.EndHorizontal();
-            GUILayout.BeginHorizontal(new GUILayoutOption[0]);
-            this.newSentiment = GUILayout.TextField(this.newSentiment, 10, new GUILayoutOption[0]);
-            if (GUILayout.Button("ChangeSentiment", new GUILayoutOption[0]))
+            GUILayout.BeginHorizontal();
+            newSentiment = GUILayout.TextField(newSentiment, 10);
+            if (GUILayout.Button("ChangeSentiment"))
             {
                 GameManager.System.Puzzle.Game.SetResourceValue(PuzzleGameResourceType.SENTIMENT,
-                    int.Parse(this.newSentiment), true);
-                this.debugLog.AddMessage("Sentiment changed to: " + this.newSentiment);
+                    int.Parse(newSentiment));
+                debugLog.AddMessage("Sentiment changed to: " + newSentiment);
             }
 
             GUILayout.EndHorizontal();
-            if (GUILayout.Button("NoDrain", new GUILayoutOption[0]))
+            if (GUILayout.Button("NoDrain"))
             {
-                Paranoia.noDrain = !Paranoia.noDrain;
-                this.debugLog.AddMessage("NoDrain now: " + Paranoia.noDrain.ToString());
+                noDrain = !noDrain;
+                debugLog.AddMessage("NoDrain now: " + noDrain);
             }
         }
 
         private void OpenGirl()
         {
-            Rect clientRect = new Rect(240f, 420f, 200f, 400f);
-            GUI.Window(4, clientRect, new GUI.WindowFunction(this.DoGirl), "Girl menu");
+            var clientRect = new Rect(240f, 420f, 200f, 400f);
+            GUI.Window(4, clientRect, DoGirl, "Girl menu");
         }
 
         private void DoGirl(int windowId)
@@ -397,75 +381,66 @@ namespace HoneyPot
             var girlDefinition = girl.definition;
             var girlPlayerData = GameManager.System.Player.GetGirlData(girlDefinition);
 
-            if (GUILayout.Button("Naked", new GUILayoutOption[0]))
+            if (GUILayout.Button("Naked"))
             {
                 Naked(girl, girlDefinition);
 
-                this.debugLog.AddMessage("Girl is now naked hihi");
+                debugLog.AddMessage("Girl is now naked hihi");
             }
 
-            if (GUILayout.Button("Hairstyle", new GUILayoutOption[0]))
+            if (GUILayout.Button("Hairstyle"))
             {
-                List<string> hairstyleNames = new List<string>();
+                var hairstyleNames = new List<string>();
                 foreach (var girlDefinitionHairstyle in girlDefinition.hairstyles)
-                {
                     hairstyleNames.Add(girlDefinitionHairstyle.styleName);
-                }
 
                 NewSelection(new SelectionManager(hairstyleNames, 3), () =>
                 {
                     ChangeHairstyle(selectionId, girl, girlDefinition);
-                    this.debugLog.AddMessage("Changed curr girl hairstyle to: " + hairstyleNames[selectionId]);
+                    debugLog.AddMessage("Changed curr girl hairstyle to: " + hairstyleNames[selectionId]);
                 });
             }
 
-            if (GUILayout.Button("Outfit", new GUILayoutOption[0]))
+            if (GUILayout.Button("Outfit"))
             {
-                List<string> outfitNames = new List<string>();
+                var outfitNames = new List<string>();
                 foreach (var girlDefinitionOutfit in girlDefinition.outfits)
-                {
                     outfitNames.Add(girlDefinitionOutfit.styleName);
-                }
 
                 NewSelection(new SelectionManager(outfitNames, 3), () =>
                 {
                     ChangeOutfit(selectionId, girl, girlDefinition);
-                    this.debugLog.AddMessage("Changed curr girl outfit to: " + outfitNames[selectionId]);
+                    debugLog.AddMessage("Changed curr girl outfit to: " + outfitNames[selectionId]);
                 });
             }
 
-            if (GUILayout.Button("ChangeGirl", new GUILayoutOption[0]))
+            if (GUILayout.Button("ChangeGirl"))
             {
-                List<string> girlNames = new List<string>();
-                foreach (var thisGirl in allGirls)
-                {
-                    girlNames.Add(thisGirl.firstName);
-                }
+                var girlNames = new List<string>();
+                foreach (var thisGirl in allGirls) girlNames.Add(thisGirl.firstName);
 
                 NewSelection(new SelectionManager(girlNames, 3), () =>
                 {
                     ChangeGirl(selectionId + 1);
-                    this.debugLog.AddMessage("Changed girl to: " + girlNames[selectionId]);
+                    debugLog.AddMessage("Changed girl to: " + girlNames[selectionId]);
                 });
             }
 
-            if (GUILayout.Button("Test", new GUILayoutOption[0]))
+            if (GUILayout.Button("Test"))
             {
                 var scenes = GameManager.Data.DialogScenes;
 
                 var dialogManager = GameManager.System.Dialog;
-                
 
-                Dictionary<int, DialogSceneDefinition> _definitions = new Dictionary<int, DialogSceneDefinition>();
-                
-                DialogSceneDefinition[] array = Resources.FindObjectsOfTypeAll(typeof(DialogSceneDefinition)) as DialogSceneDefinition[];
-                for (int i = 0; i < array.Length; i++)
-                {
-                    _definitions.Add(array[i].id, array[i]);
-                }
+
+                var _definitions = new Dictionary<int, DialogSceneDefinition>();
+
+                var array =
+                    Resources.FindObjectsOfTypeAll(typeof(DialogSceneDefinition)) as DialogSceneDefinition[];
+                for (var i = 0; i < array.Length; i++) _definitions.Add(array[i].id, array[i]);
 
                 DialogSceneDefinition sceneX = null;
-                
+
                 foreach (var scene in _definitions.Values)
                 {
                     debugLog.AddMessage("-SCENE-");
@@ -473,10 +448,7 @@ namespace HoneyPot
                     debugLog.AddMessage(scene.name);
                     debugLog.AddMessage(scene.editorFromJsonString);
 
-                    if (scene.id == 4)
-                    {
-                        sceneX = scene;
-                    }
+                    if (scene.id == 4) sceneX = scene;
                 }
 
                 dialogManager.PlayDialogScene(sceneX);
@@ -487,18 +459,18 @@ namespace HoneyPot
         {
             container.RemoveAllChildren(true);
 
-            SpriteObject fronthairSpriteObject =
-                DisplayUtils.CreateSpriteObject(currGirl.spriteCollection, pieceArt.spriteName, "SpriteObject");
+            var fronthairSpriteObject =
+                DisplayUtils.CreateSpriteObject(currGirl.spriteCollection, pieceArt.spriteName);
             container.AddChild(fronthairSpriteObject);
 
             if (currGirl.flip)
             {
                 fronthairSpriteObject.sprite.FlipX = true;
-                fronthairSpriteObject.SetLocalPosition((float) (1200 - pieceArt.x), (float) (-(float) pieceArt.y));
+                fronthairSpriteObject.SetLocalPosition(1200 - pieceArt.x, -(float) pieceArt.y);
             }
             else
             {
-                fronthairSpriteObject.SetLocalPosition((float) pieceArt.x, (float) (-(float) pieceArt.y));
+                fronthairSpriteObject.SetLocalPosition(pieceArt.x, -(float) pieceArt.y);
             }
         }
 
@@ -542,6 +514,42 @@ namespace HoneyPot
 
             var girl = GameManager.Stage.girl;
             girl.ShowGirl(girlDefinition);
+        }
+
+        private void OpenScene()
+        {
+            var clientRect = new Rect(440f, 420f, 200f, 400f);
+            GUI.Window(125, clientRect, DoScene, "Scene menu");
+        }
+
+        private void DoScene(int windowId)
+        {
+            var locationManager = GameManager.System.Location;
+            var LocationDefinitions = new List<LocationDefinition>();
+            
+            LocationDefinition[] locations = Resources.FindObjectsOfTypeAll(typeof(LocationDefinition)) as LocationDefinition[];
+            for (int i = 0; i < locations.Length; i++)
+            {
+                LocationDefinitions.Add(locations[i]);
+            }
+
+            var allGirls = GameManager.Data.Girls.GetAll();
+            var currGirl = GameManager.Stage.girl.definition;
+
+            if (GUILayout.Button("XXX"))
+            {
+                //locationManager.TravelTo(LocationDefinitions[13], currGirl);
+
+                GameManager.System.Location.currentLocation = LocationDefinitions[13];
+                GameManager.Stage.background.UpdateLocation();
+
+                foreach (var locationDefinition in LocationDefinitions)
+                {
+                    debugLog.AddMessage(locationDefinition.id.ToString() + " | " + locationDefinition.fullName + " | " + locationDefinition.type);
+                }
+                
+                debugLog.AddMessage("XXX");
+            }
         }
     }
 }
