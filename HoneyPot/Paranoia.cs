@@ -6,8 +6,6 @@ namespace HoneyPot
 {
     public class Paranoia : MonoBehaviour
     {
-        public delegate void SelectionEventHandler();
-
         public static bool noDrain;
         private DebugLog debugLog;
         private bool isDebugOpen;
@@ -17,7 +15,6 @@ namespace HoneyPot
         private bool isPlayerOpen;
         private bool isPuzzleOpen;
         private bool isSceneOpen;
-        private bool isSelectionOpen;
         private string newAffection;
         private string newHunie;
 
@@ -27,33 +24,13 @@ namespace HoneyPot
         private string newPassion;
         private string newSentiment;
 
-        private int selectionId;
 
         private SelectionManager selectionManager;
-
-        private int SelectionId
-        {
-            get => selectionId;
-            set
-            {
-                selectionId = value;
-                isSelectionOpen = false;
-
-                if (SelectionEvent != null)
-                {
-                    SelectionEvent.Invoke();
-                    foreach (var d in SelectionEvent.GetInvocationList()) SelectionEvent -= (SelectionEventHandler) d;
-                }
-            }
-        }
-
-        private event SelectionEventHandler SelectionEvent;
 
         public void Start()
         {
             debugLog = new DebugLog();
-            selectionManager = new SelectionManager(new List<string>(), 0);
-            SelectionId = -1;
+            selectionManager = new SelectionManager();
             newMoney = "0";
             newHunie = "0";
             newMoves = "0";
@@ -100,7 +77,7 @@ namespace HoneyPot
                 OpenDebug();
             }
 
-            if (isSelectionOpen)
+            if (selectionManager.IsSelectionOpen)
             {
                 OpenSelection();
             }
@@ -176,42 +153,12 @@ namespace HoneyPot
             foreach (var text in debugLog.PrintLastMessages()) GUILayout.Label(text);
         }
 
-        private void NewSelection(SelectionManager selectionManager, SelectionEventHandler toExec)
-        {
-            this.selectionManager = selectionManager;
-            isSelectionOpen = true;
-
-            SelectionEvent += toExec;
-        }
-
         private void OpenSelection()
         {
             var clientRect = new Rect(550f, 420f, 400f, 400f);
-            GUI.Window(421, clientRect, DoSelection, "Selection");
+            GUI.Window(421, clientRect, selectionManager.DoSelection, "Selection");
         }
 
-        private void DoSelection(int windowID)
-        {
-            var columns = selectionManager.Columns;
-            var rows = (selectionManager.Values.Count - 1) / columns + 1;
-
-            for (var i = 0; i < rows; i++)
-            {
-                GUILayout.BeginHorizontal("i");
-                for (var j = 0; j < columns; j++)
-                {
-                    var currNumber = j + i * columns;
-
-                    if (currNumber >= selectionManager.Values.Count) continue;
-
-                    var currName = selectionManager.Values[currNumber];
-
-                    if (GUILayout.Button(currName)) SelectionId = currNumber;
-                }
-
-                GUILayout.EndHorizontal();
-            }
-        }
 
         private void OpenPlayer()
         {
@@ -394,10 +341,10 @@ namespace HoneyPot
                 foreach (var girlDefinitionHairstyle in girlDefinition.hairstyles)
                     hairstyleNames.Add(girlDefinitionHairstyle.styleName);
 
-                NewSelection(new SelectionManager(hairstyleNames, 3), () =>
+                selectionManager.NewSelection(hairstyleNames, 3, () =>
                 {
-                    ChangeHairstyle(selectionId, girl, girlDefinition);
-                    debugLog.AddMessage("Changed curr girl hairstyle to: " + hairstyleNames[selectionId]);
+                    ChangeHairstyle(selectionManager.SelectionId, girl, girlDefinition);
+                    debugLog.AddMessage("Changed curr girl hairstyle to: " + hairstyleNames[selectionManager.SelectionId]);
                 });
             }
 
@@ -407,10 +354,10 @@ namespace HoneyPot
                 foreach (var girlDefinitionOutfit in girlDefinition.outfits)
                     outfitNames.Add(girlDefinitionOutfit.styleName);
 
-                NewSelection(new SelectionManager(outfitNames, 3), () =>
+                selectionManager.NewSelection(outfitNames, 3, () =>
                 {
-                    ChangeOutfit(selectionId, girl, girlDefinition);
-                    debugLog.AddMessage("Changed curr girl outfit to: " + outfitNames[selectionId]);
+                    ChangeOutfit(selectionManager.SelectionId, girl, girlDefinition);
+                    debugLog.AddMessage("Changed curr girl outfit to: " + outfitNames[selectionManager.SelectionId]);
                 });
             }
 
@@ -422,10 +369,10 @@ namespace HoneyPot
                     girlNames.Add(thisGirl.firstName);
                 }
 
-                NewSelection(new SelectionManager(girlNames, 3), () =>
+                selectionManager.NewSelection(girlNames, 3, () =>
                 {
-                    ChangeGirl(selectionId + 1);
-                    debugLog.AddMessage("Changed girl to: " + girlNames[selectionId]);
+                    ChangeGirl(selectionManager.SelectionId + 1);
+                    debugLog.AddMessage("Changed girl to: " + girlNames[selectionManager.SelectionId]);
                 });
             }
 
@@ -551,9 +498,9 @@ namespace HoneyPot
                     }
                 }
 
-                NewSelection(new SelectionManager(sceneNames, 3), () =>
+                selectionManager.NewSelection(sceneNames, 3, () =>
                 {
-                    var name = sceneNames[selectionId];
+                    var name = sceneNames[selectionManager.SelectionId];
                     foreach (var locationDefinition in LocationDefinitions)
                     {
                         if (locationDefinition.fullName == name)
@@ -576,9 +523,9 @@ namespace HoneyPot
                     sceneNames.Add(locationDefinition.fullName);
                 }
 
-                NewSelection(new SelectionManager(sceneNames, 3), () =>
+                selectionManager.NewSelection(sceneNames, 3, () =>
                 {
-                    var name = sceneNames[selectionId];
+                    var name = sceneNames[selectionManager.SelectionId];
                     foreach (var locationDefinition in LocationDefinitions)
                     {
                         if (locationDefinition.fullName == name)
