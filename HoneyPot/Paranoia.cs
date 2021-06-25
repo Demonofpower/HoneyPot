@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using HoneyPot.Menus;
 using UnityEngine;
 
 namespace HoneyPot
@@ -7,7 +8,11 @@ namespace HoneyPot
     public class Paranoia : MonoBehaviour
     {
         public static bool noDrain;
+        
         private DebugLog debugLog;
+
+        private PlayerMenu playerMenu;
+        
         private bool isDebugOpen;
         private bool isGirlOpen;
 
@@ -16,9 +21,6 @@ namespace HoneyPot
         private bool isPuzzleOpen;
         private bool isSceneOpen;
         private string newAffection;
-        private string newHunie;
-
-        private string newMoney;
 
         private string newMoves;
         private string newPassion;
@@ -31,8 +33,9 @@ namespace HoneyPot
         {
             debugLog = new DebugLog();
             selectionManager = new SelectionManager();
-            newMoney = "0";
-            newHunie = "0";
+
+            playerMenu = new PlayerMenu(debugLog);
+            
             newMoves = "0";
             newAffection = "0";
             newPassion = "0";
@@ -106,10 +109,10 @@ namespace HoneyPot
         private void OpenMenu()
         {
             var clientRect = new Rect(120f, 20f, 120f, 150f);
-            GUI.Window(0, clientRect, DoMyWindow, "Cool Menu");
+            GUI.Window(0, clientRect, DoMenu, "Cool Menu");
         }
 
-        private void DoMyWindow(int windowID)
+        private void DoMenu(int windowID)
         {
             if (GUILayout.Button("debug log"))
             {
@@ -158,114 +161,19 @@ namespace HoneyPot
             var clientRect = new Rect(550f, 420f, 400f, 400f);
             GUI.Window(421, clientRect, selectionManager.DoSelection, "Selection");
         }
-
-
+        
         private void OpenPlayer()
         {
             var clientRect = new Rect(240f, 20f, 200f, 400f);
-            GUI.Window(2, clientRect, DoPlayer, "Player menu");
+            GUI.Window(2, clientRect, playerMenu.DoPlayer, "Player menu");
         }
 
-        private void DoPlayer(int windowID)
-        {
-            GUILayout.BeginHorizontal("money");
-            newMoney = GUILayout.TextField(newMoney, 10);
-            if (GUILayout.Button("ChangeMoney"))
-            {
-                GameManager.System.Player.money = int.Parse(newMoney);
-                debugLog.AddMessage("Money changed to: " + newMoney);
-            }
-
-            GUILayout.EndHorizontal();
-            GUILayout.BeginHorizontal("hunie");
-            newHunie = GUILayout.TextField(newHunie, 10);
-            if (GUILayout.Button("ChangeHunie"))
-            {
-                GameManager.System.Player.hunie = int.Parse(newHunie);
-                debugLog.AddMessage("Hunie changed to: " + newHunie);
-            }
-
-            GUILayout.EndHorizontal();
-            if (GUILayout.Button("UnlockAll"))
-            {
-                UnlockAll();
-                debugLog.AddMessage("All unlocked");
-            }
-
-            if (GUILayout.Button("UnlockAllAchivements"))
-            {
-                UnlockAllAchivements();
-                debugLog.AddMessage("All achivements unlocked");
-            }
-        }
-
-        private void UnlockAllAchivements()
-        {
-            SteamUtils.UnlockAchievement("alpha");
-            SteamUtils.UnlockAchievement("alpha_champ");
-            SteamUtils.UnlockAchievement("alpha_master");
-            SteamUtils.UnlockAchievement("ayy_lmao");
-            SteamUtils.UnlockAchievement("beastiality");
-            SteamUtils.UnlockAchievement("buying_love");
-            SteamUtils.UnlockAchievement("date_the_fairy");
-            SteamUtils.UnlockAchievement("heavenly_body");
-            SteamUtils.UnlockAchievement("lucky_loser");
-            SteamUtils.UnlockAchievement("make_the_move");
-            SteamUtils.UnlockAchievement("money_bags");
-            SteamUtils.UnlockAchievement("pickup_artist");
-            SteamUtils.UnlockAchievement("pickup_legend");
-            SteamUtils.UnlockAchievement("quickie");
-            SteamUtils.UnlockAchievement("smooth_as_fuck");
-            SteamUtils.UnlockAchievement("sobriety");
-            SteamUtils.UnlockAchievement("there_may_be_hope");
-            SteamUtils.UnlockAchievement("truest_player");
-            SteamUtils.UnlockAchievement("vcard_revoked");
-            SteamUtils.UnlockAchievement("zero_life");
-        }
-
-        // Token: 0x06000BCC RID: 3020 RVA: 0x0004DADC File Offset: 0x0004BCDC
-        private void UnlockAll()
-        {
-            GameManager.System.Player.hunie = 99999;
-            GameManager.System.Player.money = 99999;
-            foreach (var girlDef in GameManager.Data.Girls.GetAll())
-            {
-                var girlData = GameManager.System.Player.GetGirlData(girlDef);
-                girlData.metStatus = GirlMetStatus.MET;
-                girlData.relationshipLevel = 5;
-                girlData.appetite = 12;
-                girlData.inebriation = 12;
-                girlData.dayDated = false;
-                girlData.AddPhotoEarned(0);
-                girlData.AddPhotoEarned(1);
-                girlData.AddPhotoEarned(2);
-                girlData.AddPhotoEarned(3);
-                foreach (var item in girlData.GetGirlDefinition().uniqueGiftList) girlData.AddItemToUniqueGifts(item);
-
-                foreach (var item2 in girlData.GetGirlDefinition().collection) girlData.AddItemToCollection(item2);
-
-                for (var i = 0; i < girlData.GetGirlDefinition().hairstyles.Count; i++) girlData.UnlockHairstyle(i);
-
-                for (var j = 0; j < girlData.GetGirlDefinition().outfits.Count; j++) girlData.UnlockOutfit(j);
-
-                foreach (var obj in Enum.GetValues(typeof(GirlDetailType)))
-                {
-                    var type = (GirlDetailType) obj;
-                    girlData.KnowDetail(type);
-                }
-            }
-
-            SaveUtils.Save();
-        }
-
-        // Token: 0x06000BCD RID: 3021 RVA: 0x0004DD28 File Offset: 0x0004BF28
         private void OpenPuzzle()
         {
             var clientRect = new Rect(440f, 20f, 200f, 400f);
             GUI.Window(3, clientRect, DoPuzzle, "Puzzle menu");
         }
-
-        // Token: 0x06000BCE RID: 3022 RVA: 0x0004DD6C File Offset: 0x0004BF6C
+        
         private void DoPuzzle(int windowID)
         {
             GUILayout.BeginHorizontal();
