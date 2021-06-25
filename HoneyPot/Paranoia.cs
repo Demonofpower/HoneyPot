@@ -417,7 +417,10 @@ namespace HoneyPot
             if (GUILayout.Button("ChangeGirl"))
             {
                 var girlNames = new List<string>();
-                foreach (var thisGirl in allGirls) girlNames.Add(thisGirl.firstName);
+                foreach (var thisGirl in allGirls)
+                {
+                    girlNames.Add(thisGirl.firstName);
+                }
 
                 NewSelection(new SelectionManager(girlNames, 3), () =>
                 {
@@ -526,8 +529,9 @@ namespace HoneyPot
         {
             var locationManager = GameManager.System.Location;
             var LocationDefinitions = new List<LocationDefinition>();
-            
-            LocationDefinition[] locations = Resources.FindObjectsOfTypeAll(typeof(LocationDefinition)) as LocationDefinition[];
+
+            LocationDefinition[] locations =
+                Resources.FindObjectsOfTypeAll(typeof(LocationDefinition)) as LocationDefinition[];
             for (int i = 0; i < locations.Length; i++)
             {
                 LocationDefinitions.Add(locations[i]);
@@ -536,19 +540,58 @@ namespace HoneyPot
             var allGirls = GameManager.Data.Girls.GetAll();
             var currGirl = GameManager.Stage.girl.definition;
 
-            if (GUILayout.Button("XXX"))
+            if (GUILayout.Button("Travel"))
             {
-                //locationManager.TravelTo(LocationDefinitions[13], currGirl);
-
-                GameManager.System.Location.currentLocation = LocationDefinitions[13];
-                GameManager.Stage.background.UpdateLocation();
-
+                var sceneNames = new List<string>();
                 foreach (var locationDefinition in LocationDefinitions)
                 {
-                    debugLog.AddMessage(locationDefinition.id.ToString() + " | " + locationDefinition.fullName + " | " + locationDefinition.type);
+                    if (locationDefinition.type == LocationType.NORMAL)
+                    {
+                        sceneNames.Add(locationDefinition.fullName);
+                    }
                 }
-                
-                debugLog.AddMessage("XXX");
+
+                NewSelection(new SelectionManager(sceneNames, 3), () =>
+                {
+                    var name = sceneNames[selectionId];
+                    foreach (var locationDefinition in LocationDefinitions)
+                    {
+                        if (locationDefinition.fullName == name)
+                        {
+                            locationManager.TravelTo(locationDefinition, currGirl);
+                            break;
+                        }
+                    }
+
+
+                    debugLog.AddMessage("Traveled to " + name);
+                });
+            }
+
+            if (GUILayout.Button("Background"))
+            {
+                var sceneNames = new List<string>();
+                foreach (var locationDefinition in LocationDefinitions)
+                {
+                    sceneNames.Add(locationDefinition.fullName);
+                }
+
+                NewSelection(new SelectionManager(sceneNames, 3), () =>
+                {
+                    var name = sceneNames[selectionId];
+                    foreach (var locationDefinition in LocationDefinitions)
+                    {
+                        if (locationDefinition.fullName == name)
+                        {
+                            GameManager.System.Location.currentLocation = locationDefinition;
+                            GameManager.Stage.background.UpdateLocation();
+                            break;
+                        }
+                    }
+
+
+                    debugLog.AddMessage("Scene changed to " + name);
+                });
             }
         }
     }
