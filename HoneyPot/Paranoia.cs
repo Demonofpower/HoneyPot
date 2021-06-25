@@ -7,11 +7,13 @@ namespace HoneyPot
 {
     public class Paranoia : MonoBehaviour
     {
-        public static bool noDrain;
         
         private DebugLog debugLog;
-
+        
+        private SelectionManager selectionManager;
+        
         private PlayerMenu playerMenu;
+        private PuzzleMenu puzzleMenu;
         
         private bool isDebugOpen;
         private bool isGirlOpen;
@@ -20,27 +22,15 @@ namespace HoneyPot
         private bool isPlayerOpen;
         private bool isPuzzleOpen;
         private bool isSceneOpen;
-        private string newAffection;
-
-        private string newMoves;
-        private string newPassion;
-        private string newSentiment;
-
-
-        private SelectionManager selectionManager;
 
         public void Start()
         {
             debugLog = new DebugLog();
+            
             selectionManager = new SelectionManager();
 
             playerMenu = new PlayerMenu(debugLog);
-            
-            newMoves = "0";
-            newAffection = "0";
-            newPassion = "0";
-            newSentiment = "0";
-            noDrain = false;
+            puzzleMenu = new PuzzleMenu(debugLog);
         }
 
         public void Update()
@@ -171,57 +161,9 @@ namespace HoneyPot
         private void OpenPuzzle()
         {
             var clientRect = new Rect(440f, 20f, 200f, 400f);
-            GUI.Window(3, clientRect, DoPuzzle, "Puzzle menu");
+            GUI.Window(3, clientRect, puzzleMenu.DoPuzzle, "Puzzle menu");
         }
         
-        private void DoPuzzle(int windowID)
-        {
-            GUILayout.BeginHorizontal();
-            newMoves = GUILayout.TextField(newMoves, 10);
-            if (GUILayout.Button("ChangeMoves"))
-            {
-                GameManager.System.Puzzle.Game.SetResourceValue(PuzzleGameResourceType.MOVES, int.Parse(newMoves));
-                debugLog.AddMessage("Moves changed to: " + newMoves);
-            }
-
-            GUILayout.EndHorizontal();
-            GUILayout.BeginHorizontal();
-            newAffection = GUILayout.TextField(newAffection, 10);
-            if (GUILayout.Button("ChangeAffection"))
-            {
-                GameManager.System.Puzzle.Game.SetResourceValue(PuzzleGameResourceType.AFFECTION,
-                    int.Parse(newAffection));
-                debugLog.AddMessage("Affection changed to: " + newAffection);
-            }
-
-            GUILayout.EndHorizontal();
-            GUILayout.BeginHorizontal();
-            newPassion = GUILayout.TextField(newPassion, 10);
-            if (GUILayout.Button("ChangePassion"))
-            {
-                GameManager.System.Puzzle.Game.SetResourceValue(PuzzleGameResourceType.PASSION,
-                    int.Parse(newPassion));
-                debugLog.AddMessage("Passion changed to: " + newPassion);
-            }
-
-            GUILayout.EndHorizontal();
-            GUILayout.BeginHorizontal();
-            newSentiment = GUILayout.TextField(newSentiment, 10);
-            if (GUILayout.Button("ChangeSentiment"))
-            {
-                GameManager.System.Puzzle.Game.SetResourceValue(PuzzleGameResourceType.SENTIMENT,
-                    int.Parse(newSentiment));
-                debugLog.AddMessage("Sentiment changed to: " + newSentiment);
-            }
-
-            GUILayout.EndHorizontal();
-            if (GUILayout.Button("NoDrain"))
-            {
-                noDrain = !noDrain;
-                debugLog.AddMessage("NoDrain now: " + noDrain);
-            }
-        }
-
         private void OpenGirl()
         {
             var clientRect = new Rect(240f, 420f, 200f, 400f);
