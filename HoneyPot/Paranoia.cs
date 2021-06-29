@@ -142,12 +142,7 @@ namespace HoneyPot
         private void OpenDebug()
         {
             var clientRect = new Rect(640f, 20f, 500f, 400f);
-            GUI.Window(1, clientRect, DoDebugLog, "Debug log");
-        }
-
-        private void DoDebugLog(int windowID)
-        {
-            foreach (var text in debugLog.PrintLastMessages()) GUILayout.Label(text);
+            GUI.Window(1, clientRect, debugLog.DoDebugLog, "Debug log");
         }
 
         private void OpenSelection()
@@ -179,7 +174,5 @@ namespace HoneyPot
             var clientRect = new Rect(440f, 420f, 200f, 400f);
             GUI.Window(125, clientRect, sceneMenu.DoScene, "Scene menu");
         }
-
-        
     }
 }
