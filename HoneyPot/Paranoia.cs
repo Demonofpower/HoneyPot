@@ -14,13 +14,15 @@ namespace HoneyPot
         
         private PlayerMenu playerMenu;
         private PuzzleMenu puzzleMenu;
+        private GirlMenu girlMenu;
+        private SceneMenu sceneMenu;
         
         private bool isDebugOpen;
-        private bool isGirlOpen;
-
+        
         private bool isMenuOpen;
         private bool isPlayerOpen;
         private bool isPuzzleOpen;
+        private bool isGirlOpen;
         private bool isSceneOpen;
 
         public void Start()
@@ -31,6 +33,8 @@ namespace HoneyPot
 
             playerMenu = new PlayerMenu(debugLog);
             puzzleMenu = new PuzzleMenu(debugLog);
+            girlMenu = new GirlMenu(debugLog, selectionManager);
+            sceneMenu = new SceneMenu(debugLog, selectionManager);
         }
 
         public void Update()
@@ -167,229 +171,15 @@ namespace HoneyPot
         private void OpenGirl()
         {
             var clientRect = new Rect(240f, 420f, 200f, 400f);
-            GUI.Window(4, clientRect, DoGirl, "Girl menu");
-        }
-
-        private void DoGirl(int windowId)
-        {
-            var allGirls = GameManager.Data.Girls.GetAll();
-
-            var girl = GameManager.Stage.girl;
-            var girlDefinition = girl.definition;
-            var girlPlayerData = GameManager.System.Player.GetGirlData(girlDefinition);
-
-            if (GUILayout.Button("Naked"))
-            {
-                Naked(girl, girlDefinition);
-
-                debugLog.AddMessage("Girl is now naked hihi");
-            }
-
-            if (GUILayout.Button("Hairstyle"))
-            {
-                var hairstyleNames = new List<string>();
-                foreach (var girlDefinitionHairstyle in girlDefinition.hairstyles)
-                    hairstyleNames.Add(girlDefinitionHairstyle.styleName);
-
-                selectionManager.NewSelection(hairstyleNames, 3, () =>
-                {
-                    ChangeHairstyle(selectionManager.SelectionId, girl, girlDefinition);
-                    debugLog.AddMessage("Changed curr girl hairstyle to: " + hairstyleNames[selectionManager.SelectionId]);
-                });
-            }
-
-            if (GUILayout.Button("Outfit"))
-            {
-                var outfitNames = new List<string>();
-                foreach (var girlDefinitionOutfit in girlDefinition.outfits)
-                    outfitNames.Add(girlDefinitionOutfit.styleName);
-
-                selectionManager.NewSelection(outfitNames, 3, () =>
-                {
-                    ChangeOutfit(selectionManager.SelectionId, girl, girlDefinition);
-                    debugLog.AddMessage("Changed curr girl outfit to: " + outfitNames[selectionManager.SelectionId]);
-                });
-            }
-
-            if (GUILayout.Button("ChangeGirl"))
-            {
-                var girlNames = new List<string>();
-                foreach (var thisGirl in allGirls)
-                {
-                    girlNames.Add(thisGirl.firstName);
-                }
-
-                selectionManager.NewSelection(girlNames, 3, () =>
-                {
-                    ChangeGirl(selectionManager.SelectionId + 1);
-                    debugLog.AddMessage("Changed girl to: " + girlNames[selectionManager.SelectionId]);
-                });
-            }
-
-            if (GUILayout.Button("Test"))
-            {
-                var scenes = GameManager.Data.DialogScenes;
-
-                var dialogManager = GameManager.System.Dialog;
-
-
-                var _definitions = new Dictionary<int, DialogSceneDefinition>();
-
-                var array =
-                    Resources.FindObjectsOfTypeAll(typeof(DialogSceneDefinition)) as DialogSceneDefinition[];
-                for (var i = 0; i < array.Length; i++) _definitions.Add(array[i].id, array[i]);
-
-                DialogSceneDefinition sceneX = null;
-
-                foreach (var scene in _definitions.Values)
-                {
-                    debugLog.AddMessage("-SCENE-");
-                    debugLog.AddMessage(scene.id.ToString());
-                    debugLog.AddMessage(scene.name);
-                    debugLog.AddMessage(scene.editorFromJsonString);
-
-                    if (scene.id == 4) sceneX = scene;
-                }
-
-                dialogManager.PlayDialogScene(sceneX);
-            }
-        }
-
-        private void ChangePiece(GirlPieceArt pieceArt, DisplayObject container, Girl currGirl)
-        {
-            container.RemoveAllChildren(true);
-
-            var fronthairSpriteObject =
-                DisplayUtils.CreateSpriteObject(currGirl.spriteCollection, pieceArt.spriteName);
-            container.AddChild(fronthairSpriteObject);
-
-            if (currGirl.flip)
-            {
-                fronthairSpriteObject.sprite.FlipX = true;
-                fronthairSpriteObject.SetLocalPosition(1200 - pieceArt.x, -(float) pieceArt.y);
-            }
-            else
-            {
-                fronthairSpriteObject.SetLocalPosition(pieceArt.x, -(float) pieceArt.y);
-            }
-        }
-
-        private void Naked(Girl currGirl, GirlDefinition currGirlDef)
-        {
-            //Save and change vars
-            var oldLocType = GameManager.System.Location.currentLocation.type;
-            GameManager.System.Location.currentLocation.type = LocationType.DATE;
-            var oldIsBonusRoundloc = GameManager.System.Location.currentLocation.bonusRoundLocation;
-            GameManager.System.Location.currentLocation.bonusRoundLocation = true;
-
-            //DO
-            currGirl.ShowGirl(currGirlDef);
-            GameManager.Stage.girl.HideBra();
-            GameManager.Stage.girl.ChangeExpression(GirlExpressionType.HORNY, true, true, true, 0f);
-
-            //Reset old vars
-            GameManager.System.Location.currentLocation.type = oldLocType;
-            GameManager.System.Location.currentLocation.bonusRoundLocation = oldIsBonusRoundloc;
-        }
-
-        private void ChangeHairstyle(int id, Girl currGirl, GirlDefinition currGirlDef)
-        {
-            var currGirlPiece = currGirlDef.pieces[currGirlDef.hairstyles[id].artIndex];
-
-            ChangePiece(currGirlPiece.primaryArt, currGirl.fronthair, currGirl);
-            ChangePiece(currGirlPiece.secondaryArt, currGirl.backhair, currGirl);
-        }
-
-        private void ChangeOutfit(int id, Girl currGirl, GirlDefinition currGirlDef)
-        {
-            var currGirlPiece = currGirlDef.pieces[currGirlDef.outfits[id].artIndex];
-
-            ChangePiece(currGirlPiece.primaryArt, currGirl.outfit, currGirl);
-            //this.AddGirlPiece(this.definition.pieces[18]);
-        }
-
-        private void ChangeGirl(int id)
-        {
-            var girlDefinition = GameManager.Data.Girls.Get(id);
-
-            var girl = GameManager.Stage.girl;
-            girl.ShowGirl(girlDefinition);
+            GUI.Window(4, clientRect, girlMenu.DoGirl, "Girl menu");
         }
 
         private void OpenScene()
         {
             var clientRect = new Rect(440f, 420f, 200f, 400f);
-            GUI.Window(125, clientRect, DoScene, "Scene menu");
+            GUI.Window(125, clientRect, sceneMenu.DoScene, "Scene menu");
         }
 
-        private void DoScene(int windowId)
-        {
-            var locationManager = GameManager.System.Location;
-            var LocationDefinitions = new List<LocationDefinition>();
-
-            LocationDefinition[] locations =
-                Resources.FindObjectsOfTypeAll(typeof(LocationDefinition)) as LocationDefinition[];
-            for (int i = 0; i < locations.Length; i++)
-            {
-                LocationDefinitions.Add(locations[i]);
-            }
-
-            var allGirls = GameManager.Data.Girls.GetAll();
-            var currGirl = GameManager.Stage.girl.definition;
-
-            if (GUILayout.Button("Travel"))
-            {
-                var sceneNames = new List<string>();
-                foreach (var locationDefinition in LocationDefinitions)
-                {
-                    if (locationDefinition.type == LocationType.NORMAL)
-                    {
-                        sceneNames.Add(locationDefinition.fullName);
-                    }
-                }
-
-                selectionManager.NewSelection(sceneNames, 3, () =>
-                {
-                    var name = sceneNames[selectionManager.SelectionId];
-                    foreach (var locationDefinition in LocationDefinitions)
-                    {
-                        if (locationDefinition.fullName == name)
-                        {
-                            locationManager.TravelTo(locationDefinition, currGirl);
-                            break;
-                        }
-                    }
-
-
-                    debugLog.AddMessage("Traveled to " + name);
-                });
-            }
-
-            if (GUILayout.Button("Background"))
-            {
-                var sceneNames = new List<string>();
-                foreach (var locationDefinition in LocationDefinitions)
-                {
-                    sceneNames.Add(locationDefinition.fullName);
-                }
-
-                selectionManager.NewSelection(sceneNames, 3, () =>
-                {
-                    var name = sceneNames[selectionManager.SelectionId];
-                    foreach (var locationDefinition in LocationDefinitions)
-                    {
-                        if (locationDefinition.fullName == name)
-                        {
-                            GameManager.System.Location.currentLocation = locationDefinition;
-                            GameManager.Stage.background.UpdateLocation();
-                            break;
-                        }
-                    }
-
-
-                    debugLog.AddMessage("Scene changed to " + name);
-                });
-            }
-        }
+        
     }
 }
