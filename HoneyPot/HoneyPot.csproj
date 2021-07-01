@@ -55,7 +55,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DebugLog.cs" />
+    <Compile Include="Debug\DebugLog.cs" />
+    <Compile Include="Debug\Dump.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="Menus\GirlMenu.cs" />
     <Compile Include="Menus\PlayerMenu.cs" />

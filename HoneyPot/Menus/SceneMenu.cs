@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using HoneyPot.Debug;
 using UnityEngine;
 
 namespace HoneyPot.Menus
@@ -97,31 +99,46 @@ namespace HoneyPot.Menus
                     _definitions.Add(array[i].id, array[i]);
                 }
 
-                DialogSceneDefinition sceneX = new DialogSceneDefinition();
+                DialogSceneDefinition sceneX = null;
+
+                foreach (var scene in _definitions.Values)
+                {
+                    if (scene.id == 4)
+                    {
+                        sceneX = scene;
+                        break;
+                    }
+                }
+
+                new Dump(debugLog).SceneStepsDump(sceneX);
                 
-                DialogSceneStep stepX = new DialogSceneStep();
-
-                stepX.type = DialogSceneStepType.SEND_MESSAGE;
-
-                stepX.locationDefinition = GameManager.System.Location.currentLocation;
-
-                stepX.girlDefinition = currGirl;
-
-                stepX.soundEffect = null; //TODO
-
-                DialogSceneLine sceneLineX = new DialogSceneLine();
-                sceneLineX.altGirl = false;
-                DialogLine dialogLineX = new DialogLine();
-                dialogLineX.text = "i love you";
-                sceneLineX.dialogLine = dialogLineX;
-                stepX.sceneLine = sceneLineX;
-                
-                
-                
-                
-                sceneX.steps.Add(stepX);
-
                 dialogManager.PlayDialogScene(sceneX);
+
+                //DialogSceneDefinition sceneX = new DialogSceneDefinition();
+
+                //DialogSceneStep stepX = new DialogSceneStep();
+
+                //stepX.type = DialogSceneStepType.SEND_MESSAGE;
+
+                //stepX.locationDefinition = GameManager.System.Location.currentLocation;
+
+                //stepX.girlDefinition = currGirl;
+
+                //stepX.soundEffect = null; //TODO
+
+                //DialogSceneLine sceneLineX = new DialogSceneLine();
+                //sceneLineX.altGirl = false;
+                //DialogLine dialogLineX = new DialogLine();
+                //dialogLineX.text = "i love you";
+                //sceneLineX.dialogLine = dialogLineX;
+                //stepX.sceneLine = sceneLineX;
+
+
+
+
+                //sceneX.steps.Add(stepX);
+
+                //dialogManager.PlayDialogScene(sceneX);
             }
         }
     }

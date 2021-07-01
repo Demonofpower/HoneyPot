@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using HoneyPot.Debug;
 using UnityEngine;
 
 namespace HoneyPot.Menus
@@ -68,34 +69,6 @@ namespace HoneyPot.Menus
                     ChangeGirl(selectionManager.SelectionId + 1);
                     debugLog.AddMessage("Changed girl to: " + girlNames[selectionManager.SelectionId]);
                 });
-            }
-
-            if (GUILayout.Button("Test"))
-            {
-                var scenes = GameManager.Data.DialogScenes;
-
-                var dialogManager = GameManager.System.Dialog;
-
-
-                var _definitions = new Dictionary<int, DialogSceneDefinition>();
-
-                var array =
-                    Resources.FindObjectsOfTypeAll(typeof(DialogSceneDefinition)) as DialogSceneDefinition[];
-                for (var i = 0; i < array.Length; i++) _definitions.Add(array[i].id, array[i]);
-
-                DialogSceneDefinition sceneX = null;
-
-                foreach (var scene in _definitions.Values)
-                {
-                    debugLog.AddMessage("-SCENE-");
-                    debugLog.AddMessage(scene.id.ToString());
-                    debugLog.AddMessage(scene.name);
-                    debugLog.AddMessage(scene.editorFromJsonString);
-
-                    if (scene.id == 4) sceneX = scene;
-                }
-
-                dialogManager.PlayDialogScene(sceneX);
             }
         }
 
