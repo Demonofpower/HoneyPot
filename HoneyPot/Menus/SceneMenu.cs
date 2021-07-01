@@ -101,12 +101,15 @@ namespace HoneyPot.Menus
 
                 DialogSceneDefinition sceneX = new DialogSceneDefinition();
 
-                foreach (var girlDefinition in allGirls)
-                {
-                    DialogSceneStep step = ShowAltGirlStep(girlDefinition, girlDefinition.defaultHairstyle, girlDefinition.defaultOutfit);
+                var girlDefinition = allGirls[8];
+                var girlDefinition2 = allGirls[1];
 
-                    sceneX.steps.Add(step);
-                }
+
+                sceneX.steps.Add(ShowAltGirlStep(girlDefinition, girlDefinition.defaultHairstyle, girlDefinition.defaultOutfit));
+                
+                sceneX.steps.Add(DialogLineStep("hahaha"));
+                
+                sceneX.steps.Add(ShowAltGirlStep(girlDefinition2, girlDefinition2.defaultHairstyle, girlDefinition2.defaultOutfit));
 
                 dialogManager.PlayDialogScene(sceneX);
             }
@@ -126,6 +129,50 @@ namespace HoneyPot.Menus
             step.hideOppositeSpeechBubble = false;
 
             step.altGirl = altGirl;
+
+            step.waitTime = 0;
+            step.metStatus = GirlMetStatus.MET;
+            step.dialogTriggerIndex = 0;
+            step.girlDetailType = GirlDetailType.LAST_NAME;
+            step.stepBackSteps = 0;
+            step.toEquipment = false;
+            step.wrapped = false;
+            step.tokenCount = 0;
+            step.xPos = 0;
+            step.yPos = 0;
+
+            return step;
+        }
+
+        private DialogSceneStep DialogLineStep(string text, bool altGirl = false)
+        {
+            DialogSceneStep step = new DialogSceneStep();
+            step.type = DialogSceneStepType.DIALOG_LINE;
+
+            var sceneLine = new DialogSceneLine();
+            var dialogLine = new DialogLine();
+            dialogLine.text = text;
+            dialogLine.secondary = false;
+            dialogLine.secondaryText = "";
+            var dialogLineExp = new DialogLineExpression();
+            dialogLineExp.changeEyes = false;
+            dialogLineExp.changeMouth = false;
+            dialogLineExp.closeEyes = false;
+            dialogLineExp.expression = GirlExpressionType.HORNY;
+            dialogLineExp.startAtCharIndex = 0;
+            dialogLine.startExpression = dialogLineExp;
+            sceneLine.dialogLine = dialogLine;
+            sceneLine.altGirl = altGirl;
+            step.sceneLine = sceneLine;
+
+            step.preventOptionShuffle = false;
+            step.hasBestOption = false;
+
+            step.responseOptions = new List<DialogSceneResponseOption>();
+
+            step.hasBestBranch = false;
+            step.showGirlStyles = "";
+            step.hideOppositeSpeechBubble = false;
 
             step.waitTime = 0;
             step.metStatus = GirlMetStatus.MET;
