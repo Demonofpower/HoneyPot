@@ -100,6 +100,12 @@ namespace HoneyPot
             }
         }
 
+        private void OpenSelection()
+        {
+            var clientRect = new Rect(550f, 420f, 400f, 400f);
+            GUI.Window(421, clientRect, selectionManager.DoSelection, "Selection");
+        }
+
         private void OpenMenu()
         {
             var clientRect = new Rect(120f, 20f, 120f, 150f);
@@ -143,12 +149,6 @@ namespace HoneyPot
         {
             var clientRect = new Rect(640f, 20f, 500f, 400f);
             GUI.Window(1, clientRect, debugLog.DoDebugLog, "Debug log");
-        }
-
-        private void OpenSelection()
-        {
-            var clientRect = new Rect(550f, 420f, 400f, 400f);
-            GUI.Window(421, clientRect, selectionManager.DoSelection, "Selection");
         }
         
         private void OpenPlayer()

@@ -82,6 +82,47 @@ namespace HoneyPot.Menus
                     debugLog.AddMessage("Scene changed to " + name);
                 });
             }
+
+            if (GUILayout.Button("xxx"))
+            {
+                var scenes = GameManager.Data.DialogScenes;
+
+                var dialogManager = GameManager.System.Dialog;
+
+                var _definitions = new Dictionary<int, DialogSceneDefinition>();
+
+                var array = Resources.FindObjectsOfTypeAll(typeof(DialogSceneDefinition)) as DialogSceneDefinition[];
+                for (var i = 0; i < array.Length; i++)
+                {
+                    _definitions.Add(array[i].id, array[i]);
+                }
+
+                DialogSceneDefinition sceneX = new DialogSceneDefinition();
+                
+                DialogSceneStep stepX = new DialogSceneStep();
+
+                stepX.type = DialogSceneStepType.SEND_MESSAGE;
+
+                stepX.locationDefinition = GameManager.System.Location.currentLocation;
+
+                stepX.girlDefinition = currGirl;
+
+                stepX.soundEffect = null; //TODO
+
+                DialogSceneLine sceneLineX = new DialogSceneLine();
+                sceneLineX.altGirl = false;
+                DialogLine dialogLineX = new DialogLine();
+                dialogLineX.text = "i love you";
+                sceneLineX.dialogLine = dialogLineX;
+                stepX.sceneLine = sceneLineX;
+                
+                
+                
+                
+                sceneX.steps.Add(stepX);
+
+                dialogManager.PlayDialogScene(sceneX);
+            }
         }
     }
 }
