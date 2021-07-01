@@ -99,47 +99,46 @@ namespace HoneyPot.Menus
                     _definitions.Add(array[i].id, array[i]);
                 }
 
-                DialogSceneDefinition sceneX = null;
+                DialogSceneDefinition sceneX = new DialogSceneDefinition();
 
-                foreach (var scene in _definitions.Values)
+                foreach (var girlDefinition in allGirls)
                 {
-                    if (scene.id == 4)
-                    {
-                        sceneX = scene;
-                        break;
-                    }
+                    DialogSceneStep step = ShowAltGirlStep(girlDefinition, girlDefinition.defaultHairstyle, girlDefinition.defaultOutfit);
+
+                    sceneX.steps.Add(step);
                 }
 
-                new Dump(debugLog).SceneStepsDump(sceneX);
-                
                 dialogManager.PlayDialogScene(sceneX);
-
-                //DialogSceneDefinition sceneX = new DialogSceneDefinition();
-
-                //DialogSceneStep stepX = new DialogSceneStep();
-
-                //stepX.type = DialogSceneStepType.SEND_MESSAGE;
-
-                //stepX.locationDefinition = GameManager.System.Location.currentLocation;
-
-                //stepX.girlDefinition = currGirl;
-
-                //stepX.soundEffect = null; //TODO
-
-                //DialogSceneLine sceneLineX = new DialogSceneLine();
-                //sceneLineX.altGirl = false;
-                //DialogLine dialogLineX = new DialogLine();
-                //dialogLineX.text = "i love you";
-                //sceneLineX.dialogLine = dialogLineX;
-                //stepX.sceneLine = sceneLineX;
-
-
-
-
-                //sceneX.steps.Add(stepX);
-
-                //dialogManager.PlayDialogScene(sceneX);
             }
+        }
+
+        private DialogSceneStep ShowAltGirlStep(GirlDefinition altGirl, int altGirlHairId, int altGirlOutfitId)
+        {
+            DialogSceneStep step = new DialogSceneStep();
+            step.type = DialogSceneStepType.SHOW_ALT_GIRL;
+            step.preventOptionShuffle = false;
+            step.hasBestOption = false;
+
+            step.responseOptions = new List<DialogSceneResponseOption>();
+
+            step.hasBestBranch = false;
+            step.showGirlStyles = altGirlHairId + "," + altGirlOutfitId;
+            step.hideOppositeSpeechBubble = false;
+
+            step.altGirl = altGirl;
+
+            step.waitTime = 0;
+            step.metStatus = GirlMetStatus.MET;
+            step.dialogTriggerIndex = 0;
+            step.girlDetailType = GirlDetailType.LAST_NAME;
+            step.stepBackSteps = 0;
+            step.toEquipment = false;
+            step.wrapped = false;
+            step.tokenCount = 0;
+            step.xPos = 0;
+            step.yPos = 0;
+
+            return step;
         }
     }
 }
