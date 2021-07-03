@@ -107,10 +107,14 @@ namespace HoneyPot.Menus
 
                 sceneX.steps.Add(ShowAltGirlStep(girlDefinition, girlDefinition.defaultHairstyle, girlDefinition.defaultOutfit));
                 
+                sceneX.steps.Add(HideAltGirlStep());
+
                 sceneX.steps.Add(DialogLineStep("hahaha"));
                 
+                sceneX.steps.Add(BranchDialogStep());
+
                 sceneX.steps.Add(WaitStep(5));
-                
+
                 sceneX.steps.Add(ShowAltGirlStep(girlDefinition2, girlDefinition2.defaultHairstyle, girlDefinition2.defaultOutfit));
 
                 dialogManager.PlayDialogScene(sceneX);
@@ -142,6 +146,14 @@ namespace HoneyPot.Menus
             step.tokenCount = 0;
             step.xPos = 0;
             step.yPos = 0;
+
+            return step;
+        }
+
+        private DialogSceneStep HideAltGirlStep()
+        {
+            DialogSceneStep step = new DialogSceneStep();
+            step.type = DialogSceneStepType.HIDE_ALT_GIRL;
 
             return step;
         }
@@ -198,6 +210,36 @@ namespace HoneyPot.Menus
             step.waitTime = waitTime;
 
             return step;
+        }
+
+        private DialogSceneStep BranchDialogStep()
+        {
+            //TODOOOO
+            
+            DialogSceneStep step = new DialogSceneStep();
+            step.type = DialogSceneStepType.BRANCH_DIALOG;
+            
+
+            return step;
+        }
+
+        
+        
+        
+        private void TalkTest()
+        {
+            var dialogLine = new DialogLine();
+            dialogLine.text = "i love you <3";
+            dialogLine.secondary = false;
+            dialogLine.secondaryText = "";
+            var dialogLineExp = new DialogLineExpression();
+            dialogLineExp.changeEyes = false;
+            dialogLineExp.changeMouth = false;
+            dialogLineExp.closeEyes = false;
+            dialogLineExp.expression = GirlExpressionType.HORNY;
+            dialogLineExp.startAtCharIndex = 0;
+            dialogLine.startExpression = dialogLineExp;
+            GameManager.Stage.girl.ReadDialogLine(dialogLine, false, false, false, false);
         }
     }
 }
