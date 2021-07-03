@@ -23,11 +23,23 @@ namespace HoneyPot.Menus
             var girlDefinition = girl.definition;
             var girlPlayerData = GameManager.System.Player.GetGirlData(girlDefinition);
 
-            if (GUILayout.Button("Naked"))
+            if (GUILayout.Button("Bra"))
             {
                 Naked(girl, girlDefinition);
 
-                debugLog.AddMessage("Girl is now naked hihi");
+                debugLog.AddMessage("Girl has now bra haha");
+            }
+            if (GUILayout.Button("NoBra"))
+            {
+                Naked(girl, girlDefinition);
+
+                debugLog.AddMessage("Girl is now braless hihi");
+            }
+            if (GUILayout.Button("Nude"))
+            {
+                ChangePiece(null, girl.outfit, girl);
+
+                debugLog.AddMessage("Girl is now naked hehe");
             }
 
             if (GUILayout.Button("Hairstyle"))
@@ -39,7 +51,8 @@ namespace HoneyPot.Menus
                 selectionManager.NewSelection(hairstyleNames, 3, () =>
                 {
                     ChangeHairstyle(selectionManager.SelectionId, girl, girlDefinition);
-                    debugLog.AddMessage("Changed curr girl hairstyle to: " + hairstyleNames[selectionManager.SelectionId]);
+                    debugLog.AddMessage("Changed curr girl hairstyle to: " +
+                                        hairstyleNames[selectionManager.SelectionId]);
                 });
             }
 
@@ -70,6 +83,44 @@ namespace HoneyPot.Menus
                     debugLog.AddMessage("Changed girl to: " + girlNames[selectionManager.SelectionId]);
                 });
             }
+
+            if (GUILayout.Button("HumanKyu"))
+            {
+
+                var kyu = new GirlDefinition();
+                foreach (var thisGirl in allGirls)
+                {
+                    if (thisGirl.firstName == "Kyu")
+                    {
+                        kyu = thisGirl;
+                    }
+                }
+
+                ChangeGirl(kyu.id);
+
+                foreach (var displayObject in GameManager.Stage.girl.extraOne.GetChildren())
+                {
+                    debugLog.AddMessage(displayObject.name);
+                }
+                debugLog.AddMessage("....");
+                foreach (var displayObject in GameManager.Stage.girl.extraTwo.GetChildren())
+                {
+                    debugLog.AddMessage(displayObject.name);
+                }
+                
+
+                var frontHair = girl.definition.pieces[girl.definition.pieces.Count - 2];
+                var backHair = girl.definition.pieces[girl.definition.pieces.Count - 1];
+                ChangePiece(frontHair.primaryArt, girl.fronthair, girl);
+                ChangePiece(backHair.primaryArt, girl.backhair, girl);
+                
+                //var wings = girl.definition.pieces[girl.definition.pieces.Count - 3];
+                //ChangePiece(wings.primaryArt, girl.extraOne, girl);
+                
+                girl.extraOne.RemoveAllChildren(true);
+
+                debugLog.AddMessage("Kyu is now human-like");
+            }
         }
 
         private void ChangePiece(GirlPieceArt pieceArt, DisplayObject container, Girl currGirl)
@@ -83,11 +134,11 @@ namespace HoneyPot.Menus
             if (currGirl.flip)
             {
                 fronthairSpriteObject.sprite.FlipX = true;
-                fronthairSpriteObject.SetLocalPosition(1200 - pieceArt.x, -(float)pieceArt.y);
+                fronthairSpriteObject.SetLocalPosition(1200 - pieceArt.x, -(float) pieceArt.y);
             }
             else
             {
-                fronthairSpriteObject.SetLocalPosition(pieceArt.x, -(float)pieceArt.y);
+                fronthairSpriteObject.SetLocalPosition(pieceArt.x, -(float) pieceArt.y);
             }
         }
 

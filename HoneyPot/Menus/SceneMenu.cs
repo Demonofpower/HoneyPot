@@ -110,23 +110,23 @@ namespace HoneyPot.Menus
                 sceneX.steps.Add(ShowAltGirlStep(girlDefinition, girlDefinition.defaultHairstyle, girlDefinition.defaultOutfit));
 
                 var dic = new Dictionary<string, List<DialogSceneStep>>();
-                dic.Add("Yep", new List<DialogSceneStep>() {DialogLineStep("Ilu <3")});
-                dic.Add("Nope", new List<DialogSceneStep>() {DialogLineStep("I hate you </3")});
-                
+                dic.Add("Yep", new List<DialogSceneStep>() { DialogLineStep("Ilu <3") });
+                dic.Add("Nope", new List<DialogSceneStep>() { DialogLineStep("I hate you </3") });
+
                 sceneX.steps.Add(DialogLineStep("rly?"));
-                
+
                 sceneX.steps.Add(ResponseOptionsStep(dic));
-                
+
                 sceneX.steps.Add(HideAltGirlStep());
 
                 sceneX.steps.Add(DialogLineStep("hahaha"));
-                
+
                 sceneX.steps.Add(BranchDialogStep());
 
                 sceneX.steps.Add(WaitStep(3));
 
                 sceneX.steps.Add(ShowAltGirlStep(girlDefinition2, girlDefinition2.defaultHairstyle, girlDefinition2.defaultOutfit));
-                
+
                 sceneX.steps.Add(WaitStep(1));
 
                 sceneX.steps.Add(HideAltGirlStep());
