@@ -23,21 +23,41 @@ namespace HoneyPot.Menus
             var girlDefinition = girl.definition;
             var girlPlayerData = GameManager.System.Player.GetGirlData(girlDefinition);
 
-            if (GUILayout.Button("Bra"))
+            if (GUILayout.Button("WithBra"))
             {
-                Naked(girl, girlDefinition);
+                ChangePiece(girlDefinition.braPiece, girl.bra, girl);
 
-                debugLog.AddMessage("Girl has now bra haha");
+                debugLog.AddMessage("Girl has now  bra hoho");
             }
-            if (GUILayout.Button("NoBra"))
+            if (GUILayout.Button("Underwear"))
             {
-                Naked(girl, girlDefinition);
+                girl.outfit.RemoveAllChildren(true);
+                ChangePiece(girlDefinition.pantiesPiece, girl.panties, girl);
+                ChangePiece(girlDefinition.braPiece, girl.bra, girl);
 
-                debugLog.AddMessage("Girl is now braless hihi");
+                debugLog.AddMessage("Girl has now underwear xaxa");
+            }
+            if (GUILayout.Button("OnlyBra"))
+            {
+                girl.outfit.RemoveAllChildren(true);
+                ChangePiece(girlDefinition.braPiece, girl.bra, girl);
+                girl.panties.RemoveAllChildren(true);
+
+                debugLog.AddMessage("Girl has now only bra haha");
+            }
+            if (GUILayout.Button("OnlyPanties"))
+            {
+                girl.outfit.RemoveAllChildren(true);
+                girl.bra.RemoveAllChildren(true);
+                ChangePiece(girlDefinition.pantiesPiece, girl.panties, girl);
+
+                debugLog.AddMessage("Girl has now only panties hihi");
             }
             if (GUILayout.Button("Nude"))
             {
-                ChangePiece(null, girl.outfit, girl);
+                girl.outfit.RemoveAllChildren(true);
+                girl.bra.RemoveAllChildren(true);
+                girl.panties.RemoveAllChildren(true);
 
                 debugLog.AddMessage("Girl is now naked hehe");
             }
@@ -140,24 +160,6 @@ namespace HoneyPot.Menus
             {
                 fronthairSpriteObject.SetLocalPosition(pieceArt.x, -(float) pieceArt.y);
             }
-        }
-
-        private void Naked(Girl currGirl, GirlDefinition currGirlDef)
-        {
-            //Save and change vars
-            var oldLocType = GameManager.System.Location.currentLocation.type;
-            GameManager.System.Location.currentLocation.type = LocationType.DATE;
-            var oldIsBonusRoundloc = GameManager.System.Location.currentLocation.bonusRoundLocation;
-            GameManager.System.Location.currentLocation.bonusRoundLocation = true;
-
-            //DO
-            currGirl.ShowGirl(currGirlDef);
-            GameManager.Stage.girl.HideBra();
-            GameManager.Stage.girl.ChangeExpression(GirlExpressionType.HORNY, true, true, true, 0f);
-
-            //Reset old vars
-            GameManager.System.Location.currentLocation.type = oldLocType;
-            GameManager.System.Location.currentLocation.bonusRoundLocation = oldIsBonusRoundloc;
         }
 
         private void ChangeHairstyle(int id, Girl currGirl, GirlDefinition currGirlDef)
