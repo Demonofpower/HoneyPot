@@ -109,6 +109,8 @@ namespace HoneyPot.Menus
                 
                 sceneX.steps.Add(DialogLineStep("hahaha"));
                 
+                sceneX.steps.Add(WaitStep(5));
+                
                 sceneX.steps.Add(ShowAltGirlStep(girlDefinition2, girlDefinition2.defaultHairstyle, girlDefinition2.defaultOutfit));
 
                 dialogManager.PlayDialogScene(sceneX);
@@ -184,6 +186,16 @@ namespace HoneyPot.Menus
             step.tokenCount = 0;
             step.xPos = 0;
             step.yPos = 0;
+
+            return step;
+        }
+
+        private DialogSceneStep WaitStep(int waitTime)
+        {
+            DialogSceneStep step = new DialogSceneStep();
+            step.type = DialogSceneStepType.WAIT;
+
+            step.waitTime = waitTime;
 
             return step;
         }
