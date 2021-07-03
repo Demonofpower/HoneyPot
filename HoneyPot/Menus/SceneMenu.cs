@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using HoneyPot.Debug;
 using UnityEngine;
 
 namespace HoneyPot.Menus
@@ -105,7 +104,18 @@ namespace HoneyPot.Menus
                 var girlDefinition2 = allGirls[1];
 
 
+                GameManager.System.Location.currentLocation = locations[2];
+                GameManager.Stage.background.UpdateLocation();
+
                 sceneX.steps.Add(ShowAltGirlStep(girlDefinition, girlDefinition.defaultHairstyle, girlDefinition.defaultOutfit));
+
+                var dic = new Dictionary<string, List<DialogSceneStep>>();
+                dic.Add("Yep", new List<DialogSceneStep>() {DialogLineStep("Ilu <3")});
+                dic.Add("Nope", new List<DialogSceneStep>() {DialogLineStep("I hate you </3")});
+                
+                sceneX.steps.Add(DialogLineStep("rly?"));
+                
+                sceneX.steps.Add(ResponseOptionsStep(dic));
                 
                 sceneX.steps.Add(HideAltGirlStep());
 
@@ -113,9 +123,13 @@ namespace HoneyPot.Menus
                 
                 sceneX.steps.Add(BranchDialogStep());
 
-                sceneX.steps.Add(WaitStep(5));
+                sceneX.steps.Add(WaitStep(3));
 
                 sceneX.steps.Add(ShowAltGirlStep(girlDefinition2, girlDefinition2.defaultHairstyle, girlDefinition2.defaultOutfit));
+                
+                sceneX.steps.Add(WaitStep(1));
+
+                sceneX.steps.Add(HideAltGirlStep());
 
                 dialogManager.PlayDialogScene(sceneX);
             }
@@ -158,7 +172,7 @@ namespace HoneyPot.Menus
             return step;
         }
 
-        private DialogSceneStep DialogLineStep(string text, bool altGirl = false)
+        private DialogSceneStep DialogLineStep(string text, bool altGirl = false, List<DialogSceneResponseOption> responseOptions = null)
         {
             DialogSceneStep step = new DialogSceneStep();
             step.type = DialogSceneStepType.DIALOG_LINE;
@@ -182,7 +196,7 @@ namespace HoneyPot.Menus
             step.preventOptionShuffle = false;
             step.hasBestOption = false;
 
-            step.responseOptions = new List<DialogSceneResponseOption>();
+            step.responseOptions = responseOptions ?? new List<DialogSceneResponseOption>();
 
             step.hasBestBranch = false;
             step.showGirlStyles = "";
@@ -223,9 +237,41 @@ namespace HoneyPot.Menus
             return step;
         }
 
-        
-        
-        
+        private DialogSceneStep ResponseOptionsStep(Dictionary<string, List<DialogSceneStep>> responseOptions)
+        {
+            DialogSceneStep step = new DialogSceneStep();
+            step.type = DialogSceneStepType.RESPONSE_OPTIONS;
+
+            var options = new List<DialogSceneResponseOption>();
+
+            int i = 0;
+            foreach (var responseOption in responseOptions)
+            {
+                var option = new DialogSceneResponseOption();
+                option.specialIndex = i;
+                option.text = responseOption.Key;
+                option.steps = responseOption.Value;
+
+                options.Add(option);
+                
+                i += 1;
+            }
+
+            step.responseOptions = options;
+            
+            return step;
+        }
+
+        private DialogSceneStep TravelStep(LocationDefinition newLoc)
+        {
+            DialogSceneStep step = new DialogSceneStep();
+            step.type = DialogSceneStepType.SET_NEXT_LOCATION;
+
+            step.locationDefinition = newLoc;
+
+            return step;
+        }
+
         private void TalkTest()
         {
             var dialogLine = new DialogLine();
