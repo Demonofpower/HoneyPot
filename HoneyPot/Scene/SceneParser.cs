@@ -76,6 +76,7 @@ namespace HoneyPot.Scene
                     }
                     var currSceneDef = scenes[scenes.Count - 1].sceneDef;
                     currSceneDef.steps.Add(step);
+                    currSceneDef.steps.Add(new SceneCreator(debugLog, selectionManager).WaitStep(1));
                 }
             }
 
