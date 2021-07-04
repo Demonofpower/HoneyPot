@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using HoneyPot.Scene;
 using UnityEngine;
 
 namespace HoneyPot.Menus
@@ -86,190 +87,66 @@ namespace HoneyPot.Menus
 
             if (GUILayout.Button("xxx"))
             {
-                var scenes = GameManager.Data.DialogScenes;
-
-                var dialogManager = GameManager.System.Dialog;
-
-                var _definitions = new Dictionary<int, DialogSceneDefinition>();
-
-                var array = Resources.FindObjectsOfTypeAll(typeof(DialogSceneDefinition)) as DialogSceneDefinition[];
-                for (var i = 0; i < array.Length; i++)
+                try
                 {
-                    _definitions.Add(array[i].id, array[i]);
+                    new SceneCreator(debugLog, selectionManager).PlayScene(@"A:\Daten\testScene2.txt");
                 }
-
-                DialogSceneDefinition sceneX = new DialogSceneDefinition();
-
-                var girlDefinition = allGirls[8];
-                var girlDefinition2 = allGirls[1];
-
-
-                GameManager.System.Location.currentLocation = locations[2];
-                GameManager.Stage.background.UpdateLocation();
-
-                sceneX.steps.Add(ShowAltGirlStep(girlDefinition, girlDefinition.defaultHairstyle, girlDefinition.defaultOutfit));
-
-                var dic = new Dictionary<string, List<DialogSceneStep>>();
-                dic.Add("Yep", new List<DialogSceneStep>() { DialogLineStep("Ilu <3") });
-                dic.Add("Nope", new List<DialogSceneStep>() { DialogLineStep("I hate you </3") });
-
-                sceneX.steps.Add(DialogLineStep("rly?"));
-
-                sceneX.steps.Add(ResponseOptionsStep(dic));
-
-                sceneX.steps.Add(HideAltGirlStep());
-
-                sceneX.steps.Add(DialogLineStep("hahaha"));
-
-                sceneX.steps.Add(BranchDialogStep());
-
-                sceneX.steps.Add(WaitStep(3));
-
-                sceneX.steps.Add(ShowAltGirlStep(girlDefinition2, girlDefinition2.defaultHairstyle, girlDefinition2.defaultOutfit));
-
-                sceneX.steps.Add(WaitStep(1));
-
-                sceneX.steps.Add(HideAltGirlStep());
-
-                dialogManager.PlayDialogScene(sceneX);
-            }
-        }
-
-        private DialogSceneStep ShowAltGirlStep(GirlDefinition altGirl, int altGirlHairId, int altGirlOutfitId)
-        {
-            DialogSceneStep step = new DialogSceneStep();
-            step.type = DialogSceneStepType.SHOW_ALT_GIRL;
-            step.preventOptionShuffle = false;
-            step.hasBestOption = false;
-
-            step.responseOptions = new List<DialogSceneResponseOption>();
-
-            step.hasBestBranch = false;
-            step.showGirlStyles = altGirlHairId + "," + altGirlOutfitId;
-            step.hideOppositeSpeechBubble = false;
-
-            step.altGirl = altGirl;
-
-            step.waitTime = 0;
-            step.metStatus = GirlMetStatus.MET;
-            step.dialogTriggerIndex = 0;
-            step.girlDetailType = GirlDetailType.LAST_NAME;
-            step.stepBackSteps = 0;
-            step.toEquipment = false;
-            step.wrapped = false;
-            step.tokenCount = 0;
-            step.xPos = 0;
-            step.yPos = 0;
-
-            return step;
-        }
-
-        private DialogSceneStep HideAltGirlStep()
-        {
-            DialogSceneStep step = new DialogSceneStep();
-            step.type = DialogSceneStepType.HIDE_ALT_GIRL;
-
-            return step;
-        }
-
-        private DialogSceneStep DialogLineStep(string text, bool altGirl = false, List<DialogSceneResponseOption> responseOptions = null)
-        {
-            DialogSceneStep step = new DialogSceneStep();
-            step.type = DialogSceneStepType.DIALOG_LINE;
-
-            var sceneLine = new DialogSceneLine();
-            var dialogLine = new DialogLine();
-            dialogLine.text = text;
-            dialogLine.secondary = false;
-            dialogLine.secondaryText = "";
-            var dialogLineExp = new DialogLineExpression();
-            dialogLineExp.changeEyes = false;
-            dialogLineExp.changeMouth = false;
-            dialogLineExp.closeEyes = false;
-            dialogLineExp.expression = GirlExpressionType.HORNY;
-            dialogLineExp.startAtCharIndex = 0;
-            dialogLine.startExpression = dialogLineExp;
-            sceneLine.dialogLine = dialogLine;
-            sceneLine.altGirl = altGirl;
-            step.sceneLine = sceneLine;
-
-            step.preventOptionShuffle = false;
-            step.hasBestOption = false;
-
-            step.responseOptions = responseOptions ?? new List<DialogSceneResponseOption>();
-
-            step.hasBestBranch = false;
-            step.showGirlStyles = "";
-            step.hideOppositeSpeechBubble = false;
-
-            step.waitTime = 0;
-            step.metStatus = GirlMetStatus.MET;
-            step.dialogTriggerIndex = 0;
-            step.girlDetailType = GirlDetailType.LAST_NAME;
-            step.stepBackSteps = 0;
-            step.toEquipment = false;
-            step.wrapped = false;
-            step.tokenCount = 0;
-            step.xPos = 0;
-            step.yPos = 0;
-
-            return step;
-        }
-
-        private DialogSceneStep WaitStep(int waitTime)
-        {
-            DialogSceneStep step = new DialogSceneStep();
-            step.type = DialogSceneStepType.WAIT;
-
-            step.waitTime = waitTime;
-
-            return step;
-        }
-
-        private DialogSceneStep BranchDialogStep()
-        {
-            //TODOOOO
-            
-            DialogSceneStep step = new DialogSceneStep();
-            step.type = DialogSceneStepType.BRANCH_DIALOG;
-            
-
-            return step;
-        }
-
-        private DialogSceneStep ResponseOptionsStep(Dictionary<string, List<DialogSceneStep>> responseOptions)
-        {
-            DialogSceneStep step = new DialogSceneStep();
-            step.type = DialogSceneStepType.RESPONSE_OPTIONS;
-
-            var options = new List<DialogSceneResponseOption>();
-
-            int i = 0;
-            foreach (var responseOption in responseOptions)
-            {
-                var option = new DialogSceneResponseOption();
-                option.specialIndex = i;
-                option.text = responseOption.Key;
-                option.steps = responseOption.Value;
-
-                options.Add(option);
+                catch (Exception e)
+                {
+                    debugLog.AddMessage(e.Message);
+                    debugLog.AddMessage(e.StackTrace);
+                    debugLog.AddMessage(e.ToString());
+                }
                 
-                i += 1;
+                //var creator = new SceneCreator(debugLog, selectionManager);
+                
+                //var scenes = GameManager.Data.DialogScenes;
+
+                //var dialogManager = GameManager.System.Dialog;
+
+                //var _definitions = new Dictionary<int, DialogSceneDefinition>();
+
+                //var array = Resources.FindObjectsOfTypeAll(typeof(DialogSceneDefinition)) as DialogSceneDefinition[];
+                //for (var i = 0; i < array.Length; i++)
+                //{
+                //    _definitions.Add(array[i].id, array[i]);
+                //}
+
+                //DialogSceneDefinition sceneX = new DialogSceneDefinition();
+
+                //var girlDefinition = allGirls[8];
+                //var girlDefinition2 = allGirls[1];
+
+
+                //GameManager.System.Location.currentLocation = locations[2];
+                //GameManager.Stage.background.UpdateLocation();
+
+                //sceneX.steps.Add(creator.ShowAltGirlStep(girlDefinition, girlDefinition.defaultHairstyle, girlDefinition.defaultOutfit));
+
+                //var dic = new Dictionary<string, List<DialogSceneStep>>();
+                //dic.Add("Yep", new List<DialogSceneStep>() { creator.DialogLineStep("Ilu <3") });
+                //dic.Add("Nope", new List<DialogSceneStep>() { creator.DialogLineStep("I hate you </3") });
+
+                //sceneX.steps.Add(creator.DialogLineStep("rly?"));
+
+                //sceneX.steps.Add(creator.ResponseOptionsStep(dic));
+
+                //sceneX.steps.Add(creator.HideAltGirlStep());
+
+                //sceneX.steps.Add(creator.DialogLineStep("hahaha"));
+
+                //sceneX.steps.Add(creator.BranchDialogStep());
+
+                //sceneX.steps.Add(creator.WaitStep(3));
+
+                //sceneX.steps.Add(creator.ShowAltGirlStep(girlDefinition2, girlDefinition2.defaultHairstyle, girlDefinition2.defaultOutfit));
+
+                //sceneX.steps.Add(creator.WaitStep(1));
+
+                //sceneX.steps.Add(creator.HideAltGirlStep());
+
+                //dialogManager.PlayDialogScene(sceneX);
             }
-
-            step.responseOptions = options;
-            
-            return step;
-        }
-
-        private DialogSceneStep TravelStep(LocationDefinition newLoc)
-        {
-            DialogSceneStep step = new DialogSceneStep();
-            step.type = DialogSceneStepType.SET_NEXT_LOCATION;
-
-            step.locationDefinition = newLoc;
-
-            return step;
         }
 
         private void TalkTest()

@@ -31,9 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="0Harmony, Version=2.0.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Lib.Harmony.2.0.4\lib\net45\0Harmony.dll</HintPath>
-    </Reference>
     <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>A:\Steam\steamapps\common\HuniePop\HuniePop_Data\Managed\Assembly-CSharp.dll</HintPath>
@@ -57,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Debug\DebugLog.cs" />
     <Compile Include="Debug\Dump.cs" />
+    <Compile Include="Scene\JsonParser.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="Menus\GirlMenu.cs" />
     <Compile Include="Menus\PlayerMenu.cs" />
@@ -64,10 +62,10 @@
     <Compile Include="Menus\SceneMenu.cs" />
     <Compile Include="Paranoia.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scene\JsonClasses.cs" />
+    <Compile Include="Scene\SceneCreator.cs" />
+    <Compile Include="Scene\SceneParser.cs" />
     <Compile Include="SelectionManager.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

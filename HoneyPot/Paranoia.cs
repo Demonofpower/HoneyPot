@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using HoneyPot.Menus;
+﻿using HoneyPot.Menus;
 using UnityEngine;
 
 namespace HoneyPot
 {
     public class Paranoia : MonoBehaviour
     {
-        
         private DebugLog debugLog;
         
         private SelectionManager selectionManager;
