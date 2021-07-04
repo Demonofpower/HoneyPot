@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Reflection;
 using System.Threading;
 
@@ -25,30 +24,48 @@ namespace HoneyPot.Scene
             var scene = parser.Parse(path);
             debugLog.AddMessage("Scene parsed");
             debugLog.AddMessage("Start playing..");
-            
-            
-            foreach (var sceneStep in scene)
-            {
-                //while (typeof(DialogManager)
-                //    .GetField("_activeDialogScene", BindingFlags.NonPublic | BindingFlags.Instance)
-                //    ?.GetValue(dialogManager) != null)
-                //{
-                //    debugLog.AddMessage("A scene is running..");
-                //    Thread.Sleep(200);
-                //}
 
-                if (sceneStep.locDef != null)
-                {
-                    debugLog.AddMessage("TRAVEL");
-                    GameManager.System.Location.currentLocation = sceneStep.locDef;
-                    GameManager.Stage.background.UpdateLocation();
-                }
-                else
-                {
-                    debugLog.AddMessage("PLAYSCENE");
-                    dialogManager.PlayDialogScene(sceneStep.sceneDef);
-                }
+            var firstSceneStep = scene[0];
+            if (firstSceneStep.locDef != null)
+            {
+                debugLog.AddMessage("TRAVEL");
+                GameManager.System.Location.currentLocation = firstSceneStep.locDef;
+                GameManager.Stage.background.UpdateLocation();
             }
+            else
+            {
+                debugLog.AddMessage("PLAYSCENE");
+                dialogManager.PlayDialogScene(firstSceneStep.sceneDef);
+            }
+
+            scene.Remove(firstSceneStep);
+
+            Thread t = new Thread(() =>
+            {
+                foreach (var sceneStep in scene)
+                {
+                    while (typeof(DialogManager)
+                        .GetField("_activeDialogScene", BindingFlags.NonPublic | BindingFlags.Instance)
+                        ?.GetValue(dialogManager) != null)
+                    {
+                        debugLog.AddMessage("A scene is running..");
+                        Thread.Sleep(200);
+                    }
+
+                    if (sceneStep.locDef != null)
+                    {
+                        debugLog.AddMessage("TRAVEL");
+                        GameManager.System.Location.currentLocation = sceneStep.locDef;
+                        GameManager.Stage.background.UpdateLocation();
+                    }
+                    else
+                    {
+                        debugLog.AddMessage("PLAYSCENE");
+                        dialogManager.PlayDialogScene(sceneStep.sceneDef);
+                    }
+                }
+            });
+            t.Start();
         }
         
         public DialogSceneStep ShowAltGirlStep(GirlDefinition altGirl, int altGirlHairId, int altGirlOutfitId)
