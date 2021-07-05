@@ -22,6 +22,8 @@ namespace HoneyPot
         private bool isGirlOpen;
         private bool isSceneOpen;
 
+        public static bool IsBlackScreen;
+
         public void Start()
         {
             debugLog = new DebugLog();
@@ -32,6 +34,8 @@ namespace HoneyPot
             puzzleMenu = new PuzzleMenu(debugLog);
             girlMenu = new GirlMenu(debugLog, selectionManager);
             sceneMenu = new SceneMenu(debugLog, selectionManager);
+
+            IsBlackScreen = false;
         }
 
         public void Update()
@@ -44,12 +48,6 @@ namespace HoneyPot
                 isGirlOpen = false;
                 isSceneOpen = false;
                 debugLog.AddMessage("Menu opened/closed");
-            }
-
-            if (Input.GetKeyDown(KeyCode.F2))
-            {
-                GameManager.Stage.girl.HideBra();
-                GameManager.Stage.girl.ChangeExpression(GirlExpressionType.HORNY, true, true, true, 0f);
             }
         }
 
@@ -94,6 +92,11 @@ namespace HoneyPot
             if (isSceneOpen)
             {
                 OpenScene();
+            }
+
+            if (IsBlackScreen)
+            {
+                MakeScreenBlack();
             }
         }
 
@@ -170,6 +173,15 @@ namespace HoneyPot
         {
             var clientRect = new Rect(440f, 420f, 200f, 400f);
             GUI.Window(125, clientRect, sceneMenu.DoScene, "Scene menu");
+        }
+
+        private void MakeScreenBlack()
+        {
+            Texture2D texture = new Texture2D(1, 1);
+            texture.SetPixel(0, 0, Color.black);
+            texture.Apply();
+            GUI.skin.box.normal.background = texture;
+            GUI.Box(new Rect(0, 0, 3000, 3000), GUIContent.none);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 using System.Threading;
+using UnityEngine;
 
 namespace HoneyPot.Scene
 {
@@ -17,6 +18,9 @@ namespace HoneyPot.Scene
         
         public void PlayScene(string path)
         {
+            //GameManager.Stage.uiWindows.HideActiveWindow();
+            //return;
+
             var dialogManager = GameManager.System.Dialog;
 
             var parser = new SceneParser(debugLog, selectionManager);
@@ -49,14 +53,20 @@ namespace HoneyPot.Scene
                         ?.GetValue(dialogManager) != null)
                     {
                         debugLog.AddMessage("A scene is running..");
-                        Thread.Sleep(200);
+                        Thread.Sleep(50);
                     }
 
                     if (sceneStep.locDef != null)
                     {
                         debugLog.AddMessage("TRAVEL");
+                        
+                        Paranoia.IsBlackScreen = true;
+                        Thread.Sleep(1000);
+
                         GameManager.System.Location.currentLocation = sceneStep.locDef;
                         GameManager.Stage.background.UpdateLocation();
+
+                        Paranoia.IsBlackScreen = false;
                     }
                     else
                     {
