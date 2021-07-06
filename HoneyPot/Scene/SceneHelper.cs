@@ -38,5 +38,31 @@ namespace HoneyPot.Scene
 
             dialogSceneSequence.Play();
         }
+
+        public void ShowUI()
+        {
+            GameManager.Stage.uiGirl.transform.localScale = new Vector3(1, 1, 1);
+            GameManager.Stage.uiTop.transform.localScale = new Vector3(1, 1, 1);
+
+            ActionMenuWindow[] actionMenuWindow =
+                Resources.FindObjectsOfTypeAll(typeof(ActionMenuWindow)) as ActionMenuWindow[];
+            foreach (var actionWindow in actionMenuWindow)
+            {
+                actionWindow.transform.localScale = new Vector3(1, 1, 1);
+            }
+        }
+
+        public void HideUI()
+        {
+            GameManager.Stage.uiGirl.transform.localScale = new Vector3(0, 0, 0);
+            GameManager.Stage.uiTop.transform.localScale = new Vector3(0, 0, 0);
+
+            ActionMenuWindow[] actionMenuWindow =
+                Resources.FindObjectsOfTypeAll(typeof(ActionMenuWindow)) as ActionMenuWindow[];
+            foreach (var actionWindow in actionMenuWindow)
+            {
+                actionWindow.transform.localScale = new Vector3(0, 0, 0);
+            }
+        }
     }
 }

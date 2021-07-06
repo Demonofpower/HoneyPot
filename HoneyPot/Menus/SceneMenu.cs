@@ -11,10 +11,14 @@ namespace HoneyPot.Menus
         private readonly DebugLog debugLog;
         private readonly SelectionManager selectionManager;
 
+        private bool hideUI;
+
         public SceneMenu(DebugLog debugLog, SelectionManager selectionManager)
         {
             this.debugLog = debugLog;
             this.selectionManager = selectionManager;
+
+            hideUI = false;
         }
 
         public void DoScene(int windowId)
@@ -85,7 +89,19 @@ namespace HoneyPot.Menus
                     debugLog.AddMessage("Scene changed to " + name);
                 });
             }
+            if (GUILayout.Button("ToggleUI"))
+            {
+                if (hideUI)
+                {
+                    new SceneHelper().ShowUI();
+                }
+                else
+                {
+                    new SceneHelper().HideUI();
+                }
 
+                hideUI = !hideUI;
+            }
             if (GUILayout.Button("xxx"))
             {
                 try
@@ -98,14 +114,6 @@ namespace HoneyPot.Menus
                     debugLog.AddMessage(e.StackTrace);
                     debugLog.AddMessage(e.ToString());
                 }
-            }
-            if (GUILayout.Button("yyy"))
-            {
-                var dialogSceneSequence = new Sequence(new SequenceParms());
-                dialogSceneSequence.Insert(0f, HOTween.To(GameManager.Stage.altGirl.girlSpeechBubble.gameObj.transform, 0f, new TweenParms().Prop("localScale", new Vector3(0.8f, 0.8f, 1f)).Ease(EaseType.EaseInBack)));
-                dialogSceneSequence.Insert(0f, HOTween.To(GameManager.Stage.altGirl.girlSpeechBubble, 0f, new TweenParms().Prop("childrenAlpha", 0).Ease(EaseType.EaseInBack)));
-                
-                dialogSceneSequence.Play();
             }
         }
 

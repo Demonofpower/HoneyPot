@@ -18,14 +18,13 @@ namespace HoneyPot.Scene
         
         public void PlayScene(string path)
         {
-            //GameManager.Stage.uiWindows.HideActiveWindow();
-            //return;
-
             var dialogManager = GameManager.System.Dialog;
 
             var parser = new SceneParser(debugLog, selectionManager);
 
             var helper = new SceneHelper();
+            
+            helper.HideUI();
 
             activeTravel = false;
 
@@ -83,6 +82,7 @@ namespace HoneyPot.Scene
                         helper.HideAltGirl();
                         helper.HideGirlSpeechBubble();
                         helper.HideAltGirlSpeechBubble();
+                        helper.ShowUI();
                     }
                 }
             });
