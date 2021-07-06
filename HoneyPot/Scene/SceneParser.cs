@@ -59,6 +59,7 @@ namespace HoneyPot.Scene
 
                         var dialogDef = new DialogSceneDefinition();
                         dialogDef.steps = new List<DialogSceneStep>();
+                        dialogDef.steps.Add(new SceneCreator(debugLog, selectionManager).WaitStep(2));
                         scenes.Add(new SceneStep(dialogDef));
                         break;
                     default:
