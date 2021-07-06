@@ -52,17 +52,27 @@ namespace HoneyPot.Scene
     {
         public DialogSceneDefinition sceneDef;
         public LocationDefinition locDef;
+        public bool cleanDef;
         
         public SceneStep(DialogSceneDefinition sceneDef)
         {
             this.sceneDef = sceneDef;
             this.locDef = null;
+            cleanDef = false;
         }
 
         public SceneStep(LocationDefinition locDef)
         {
             this.sceneDef = null;
             this.locDef = locDef;
+            cleanDef = false;
+        }
+
+        public SceneStep(bool cleanDef)
+        {
+            this.sceneDef = null;
+            this.locDef = null;
+            this.cleanDef = cleanDef;
         }
     }
 }

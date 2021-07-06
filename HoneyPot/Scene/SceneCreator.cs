@@ -25,6 +25,8 @@ namespace HoneyPot.Scene
 
             var parser = new SceneParser(debugLog, selectionManager);
 
+            var helper = new SceneHelper();
+
             activeTravel = false;
 
             var scene = parser.Parse(path);
@@ -67,11 +69,20 @@ namespace HoneyPot.Scene
 
                         GameManager.System.Location.currentLocation = sceneStep.locDef;
                         GameManager.Stage.background.UpdateLocation();
+
+                        helper.HideGirlSpeechBubble();
+                        helper.HideAltGirlSpeechBubble();
                     }
-                    else
+                    else if(sceneStep.sceneDef != null)
                     {
                         debugLog.AddMessage("PLAYSCENE");
                         dialogManager.PlayDialogScene(sceneStep.sceneDef);
+                    }
+                    else if(sceneStep.cleanDef)
+                    {
+                        helper.HideAltGirl();
+                        helper.HideGirlSpeechBubble();
+                        helper.HideAltGirlSpeechBubble();
                     }
                 }
             });

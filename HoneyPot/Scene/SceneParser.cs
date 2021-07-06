@@ -82,6 +82,8 @@ namespace HoneyPot.Scene
                     currSceneDef.steps.Add(new SceneCreator(debugLog, selectionManager).WaitStep(1));
                 }
             }
+            
+            scenes.Add(new SceneStep(true));
 
             return scenes;
         }

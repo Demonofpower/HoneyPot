@@ -5,6 +5,22 @@ namespace HoneyPot.Scene
 {
     class SceneHelper
     {
+        public void HideGirl()
+        {
+            var dialogSceneSequence = new Sequence(new SequenceParms());
+            dialogSceneSequence.Insert(0f, HOTween.To(GameManager.Stage.girl.girlPieceContainers, 1f, new TweenParms().Prop("localX", -600).Ease(EaseType.EaseInCubic)));
+
+            dialogSceneSequence.Play();
+        }
+        
+        public void HideAltGirl()
+        {
+            var dialogSceneSequence = new Sequence(new SequenceParms());
+            dialogSceneSequence.Insert(0f, HOTween.To(GameManager.Stage.altGirl.girlPieceContainers, 1f, new TweenParms().Prop("localX", -600).Ease(EaseType.EaseInCubic)));
+
+            dialogSceneSequence.Play();
+        }
+
         public void HideGirlSpeechBubble()
         {
             var dialogSceneSequence = new Sequence(new SequenceParms());
