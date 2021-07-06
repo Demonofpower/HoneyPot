@@ -1,4 +1,5 @@
 ﻿using HoneyPot.Menus;
+using HoneyPot.Scene;
 using UnityEngine;
 
 namespace HoneyPot
@@ -96,10 +97,21 @@ namespace HoneyPot
 
             if (IsBlackScreen)
             {
+                blackScreenCounter -= 1;
+                if (blackScreenCounter <= 0)
+                {
+                    blackScreenCounter = 300;
+                    IsBlackScreen = false;
+                    
+                    SceneCreator.activeTravel = false;
+                }
+                
                 MakeScreenBlack();
             }
         }
 
+        private int blackScreenCounter = 300;
+        
         private void OpenSelection()
         {
             var clientRect = new Rect(550f, 420f, 400f, 400f);

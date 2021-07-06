@@ -25,6 +25,8 @@ namespace HoneyPot.Scene
 
             var parser = new SceneParser(debugLog, selectionManager);
 
+            activeTravel = false;
+
             var scene = parser.Parse(path);
             debugLog.AddMessage("Scene parsed");
             debugLog.AddMessage("Start playing..");
@@ -50,7 +52,7 @@ namespace HoneyPot.Scene
                 {
                     while (typeof(DialogManager)
                         .GetField("_activeDialogScene", BindingFlags.NonPublic | BindingFlags.Instance)
-                        ?.GetValue(dialogManager) != null)
+                        ?.GetValue(dialogManager) != null || activeTravel)
                     {
                         debugLog.AddMessage("A scene is running..");
                         Thread.Sleep(50);
@@ -58,15 +60,13 @@ namespace HoneyPot.Scene
 
                     if (sceneStep.locDef != null)
                     {
+                        activeTravel = true;
                         debugLog.AddMessage("TRAVEL");
                         
                         Paranoia.IsBlackScreen = true;
-                        Thread.Sleep(1000);
 
                         GameManager.System.Location.currentLocation = sceneStep.locDef;
                         GameManager.Stage.background.UpdateLocation();
-
-                        Paranoia.IsBlackScreen = false;
                     }
                     else
                     {
@@ -77,6 +77,8 @@ namespace HoneyPot.Scene
             });
             t.Start();
         }
+
+        public static bool activeTravel;
         
         public DialogSceneStep ShowAltGirlStep(GirlDefinition altGirl, int altGirlHairId, int altGirlOutfitId)
         {
