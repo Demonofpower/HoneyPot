@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Holoville.HOTween;
 using HoneyPot.Scene;
 using UnityEngine;
 
@@ -97,55 +98,14 @@ namespace HoneyPot.Menus
                     debugLog.AddMessage(e.StackTrace);
                     debugLog.AddMessage(e.ToString());
                 }
+            }
+            if (GUILayout.Button("yyy"))
+            {
+                var dialogSceneSequence = new Sequence(new SequenceParms());
+                dialogSceneSequence.Insert(0f, HOTween.To(GameManager.Stage.altGirl.girlSpeechBubble.gameObj.transform, 0f, new TweenParms().Prop("localScale", new Vector3(0.8f, 0.8f, 1f)).Ease(EaseType.EaseInBack)));
+                dialogSceneSequence.Insert(0f, HOTween.To(GameManager.Stage.altGirl.girlSpeechBubble, 0f, new TweenParms().Prop("childrenAlpha", 0).Ease(EaseType.EaseInBack)));
                 
-                //var creator = new SceneCreator(debugLog, selectionManager);
-                
-                //var scenes = GameManager.Data.DialogScenes;
-
-                //var dialogManager = GameManager.System.Dialog;
-
-                //var _definitions = new Dictionary<int, DialogSceneDefinition>();
-
-                //var array = Resources.FindObjectsOfTypeAll(typeof(DialogSceneDefinition)) as DialogSceneDefinition[];
-                //for (var i = 0; i < array.Length; i++)
-                //{
-                //    _definitions.Add(array[i].id, array[i]);
-                //}
-
-                //DialogSceneDefinition sceneX = new DialogSceneDefinition();
-
-                //var girlDefinition = allGirls[8];
-                //var girlDefinition2 = allGirls[1];
-
-
-                //GameManager.System.Location.currentLocation = locations[2];
-                //GameManager.Stage.background.UpdateLocation();
-
-                //sceneX.steps.Add(creator.ShowAltGirlStep(girlDefinition, girlDefinition.defaultHairstyle, girlDefinition.defaultOutfit));
-
-                //var dic = new Dictionary<string, List<DialogSceneStep>>();
-                //dic.Add("Yep", new List<DialogSceneStep>() { creator.DialogLineStep("Ilu <3") });
-                //dic.Add("Nope", new List<DialogSceneStep>() { creator.DialogLineStep("I hate you </3") });
-
-                //sceneX.steps.Add(creator.DialogLineStep("rly?"));
-
-                //sceneX.steps.Add(creator.ResponseOptionsStep(dic));
-
-                //sceneX.steps.Add(creator.HideAltGirlStep());
-
-                //sceneX.steps.Add(creator.DialogLineStep("hahaha"));
-
-                //sceneX.steps.Add(creator.BranchDialogStep());
-
-                //sceneX.steps.Add(creator.WaitStep(3));
-
-                //sceneX.steps.Add(creator.ShowAltGirlStep(girlDefinition2, girlDefinition2.defaultHairstyle, girlDefinition2.defaultOutfit));
-
-                //sceneX.steps.Add(creator.WaitStep(1));
-
-                //sceneX.steps.Add(creator.HideAltGirlStep());
-
-                //dialogManager.PlayDialogScene(sceneX);
+                dialogSceneSequence.Play();
             }
         }
 

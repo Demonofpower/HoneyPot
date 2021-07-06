@@ -42,6 +42,7 @@ namespace HoneyPot.Scene
     public enum StepType
     {
         ShowAltGirl,
+        HideAltGirl,
         DialogLine,
         Travel,
         ResponseOptions

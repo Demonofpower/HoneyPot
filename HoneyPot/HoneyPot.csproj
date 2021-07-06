@@ -64,6 +64,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scene\JsonClasses.cs" />
     <Compile Include="Scene\SceneCreator.cs" />
+    <Compile Include="Scene\SceneHelper.cs" />
     <Compile Include="Scene\SceneParser.cs" />
     <Compile Include="SelectionManager.cs" />
   </ItemGroup>

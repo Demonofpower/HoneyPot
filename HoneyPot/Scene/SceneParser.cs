@@ -49,6 +49,7 @@ namespace HoneyPot.Scene
                 switch (currStep.type)
                 {
                     case StepType.ShowAltGirl:
+                    case StepType.HideAltGirl:
                     case StepType.DialogLine:
                     case StepType.ResponseOptions:
                         step = CreateStep(currStep);
@@ -96,6 +97,9 @@ namespace HoneyPot.Scene
                 case StepType.ShowAltGirl:
                     step = creator.ShowAltGirlStep(GetGirlByName(currStep.altGirl), currStep.altGirlHairId,
                         currStep.altGirlOutfitId);
+                    break;
+                case StepType.HideAltGirl:
+                    step = creator.HideAltGirlStep();
                     break;
                 case StepType.DialogLine:
                     step = creator.DialogLineStep(currStep.text, currStep.altGirlSpeaks);
