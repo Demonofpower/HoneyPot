@@ -1,4 +1,5 @@
-﻿using HoneyPot.Menus;
+﻿using HoneyPot.Debug;
+using HoneyPot.Menus;
 using HoneyPot.Scene;
 using HoneyPot.Scene.Old;
 using UnityEngine;
@@ -50,6 +51,11 @@ namespace HoneyPot
                 isGirlOpen = false;
                 isSceneOpen = false;
                 debugLog.AddMessage("Menu opened/closed");
+            }
+
+            if (ScenePlayer.Instance != null)
+            {
+                ScenePlayer.Instance.Update();
             }
         }
 

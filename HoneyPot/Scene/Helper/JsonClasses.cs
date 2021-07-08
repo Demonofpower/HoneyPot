@@ -56,27 +56,27 @@ namespace HoneyPot.Scene.Helper
         ResponseOptions
     }
 
-    public struct SceneStep
+    public struct SceneStepV1
     {
         public DialogSceneDefinition sceneDef;
         public LocationDefinition locDef;
         public bool cleanDef;
         
-        public SceneStep(DialogSceneDefinition sceneDef)
+        public SceneStepV1(DialogSceneDefinition sceneDef)
         {
             this.sceneDef = sceneDef;
             this.locDef = null;
             cleanDef = false;
         }
 
-        public SceneStep(LocationDefinition locDef)
+        public SceneStepV1(LocationDefinition locDef)
         {
             this.sceneDef = null;
             this.locDef = locDef;
             cleanDef = false;
         }
 
-        public SceneStep(bool cleanDef)
+        public SceneStepV1(bool cleanDef)
         {
             this.sceneDef = null;
             this.locDef = null;

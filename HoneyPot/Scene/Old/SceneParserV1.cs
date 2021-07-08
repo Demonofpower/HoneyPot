@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using HoneyPot.Debug;
 using HoneyPot.Scene.Helper;
 using UnityEngine;
 
@@ -18,7 +19,7 @@ namespace HoneyPot.Scene.Old
             this.selectionManager = selectionManager;
         }
 
-        public List<SceneStep> Parse(string path)
+        public List<SceneStepV1> Parse(string path)
         {
             debugLog.AddMessage("---SceneLoader---");
 
@@ -39,7 +40,7 @@ namespace HoneyPot.Scene.Old
             debugLog.AddMessage("Name: " + scene.name);
             debugLog.AddMessage("Author: " + scene.author);
 
-            var scenes = new List<SceneStep>();
+            var scenes = new List<SceneStepV1>();
 
             for (int i = 0; i < scene.steps.Count; i++)
             {
@@ -58,12 +59,12 @@ namespace HoneyPot.Scene.Old
                         break;
                     case StepType.Travel:
                         var locDef = GetLocationByName(currStep.newLoc);
-                        scenes.Add(new SceneStep(locDef));
+                        scenes.Add(new SceneStepV1(locDef));
 
                         var dialogDef = new DialogSceneDefinition();
                         dialogDef.steps = new List<DialogSceneStep>();
                         dialogDef.steps.Add(new SceneCreatorV1(debugLog, selectionManager).WaitStep(2));
-                        scenes.Add(new SceneStep(dialogDef));
+                        scenes.Add(new SceneStepV1(dialogDef));
                         break;
                     default:
                         debugLog.AddMessage("Unknown step type at step " + currStep.id);
@@ -76,7 +77,7 @@ namespace HoneyPot.Scene.Old
                     {
                         var dialogDef = new DialogSceneDefinition();
                         dialogDef.steps = new List<DialogSceneStep>();
-                        scenes.Add(new SceneStep(dialogDef));
+                        scenes.Add(new SceneStepV1(dialogDef));
                     }
                     
                     var currSceneDef = scenes[scenes.Count - 1].sceneDef;
@@ -85,7 +86,7 @@ namespace HoneyPot.Scene.Old
                 }
             }
             
-            scenes.Add(new SceneStep(true));
+            scenes.Add(new SceneStepV1(true));
 
             return scenes;
         }

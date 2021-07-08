@@ -109,7 +109,7 @@ namespace HoneyPot.Menus
             {
                 try
                 {
-                    new SceneCreatorV1(debugLog, selectionManager).PlayScene(@"A:\Daten\testScene2.txt");
+                    new ScenePlayer(debugLog).Play(@"A:\Daten\testScene2.txt");
                 }
                 catch (Exception e)
                 {
@@ -120,42 +120,8 @@ namespace HoneyPot.Menus
             }
             if (GUILayout.Button("yyy"))
             {
-                TalkTest();
+                
             }
-            if (GUILayout.Button("zzz"))
-            {
-                GameManager.Stage.girl.ClearDialog();
-                GameManager.Stage.altGirl.ClearDialog();
-            }
-        }
-
-        private void TalkTest()
-        {
-            var dialogLine = new DialogLine();
-            dialogLine.text = "i love you <3";
-            dialogLine.secondary = false;
-            dialogLine.secondaryText = "";
-            var dialogLineExp = new DialogLineExpression();
-            dialogLineExp.changeEyes = false;
-            dialogLineExp.changeMouth = false;
-            dialogLineExp.closeEyes = false;
-            dialogLineExp.expression = GirlExpressionType.HORNY;
-            dialogLineExp.startAtCharIndex = 0;
-            dialogLine.startExpression = dialogLineExp;
-            GameManager.Stage.girl.ReadDialogLine(dialogLine, false, false, false, false);
-
-            var dialogLine2 = new DialogLine();
-            dialogLine2.text = "too <3";
-            dialogLine2.secondary = false;
-            dialogLine2.secondaryText = "";
-            var dialogLineExp2 = new DialogLineExpression();
-            dialogLineExp2.changeEyes = false;
-            dialogLineExp2.changeMouth = false;
-            dialogLineExp2.closeEyes = false;
-            dialogLineExp2.expression = GirlExpressionType.HORNY;
-            dialogLineExp2.startAtCharIndex = 0;
-            dialogLine2.startExpression = dialogLineExp2;
-            GameManager.Stage.altGirl.ReadDialogLine(dialogLine2, false, false, false, false);
         }
     }
 }
