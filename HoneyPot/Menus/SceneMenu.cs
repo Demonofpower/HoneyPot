@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using Holoville.HOTween;
+using System.IO;
 using HoneyPot.Debug;
 using HoneyPot.Scene;
 using HoneyPot.Scene.Helper;
-using HoneyPot.Scene.Old;
 using UnityEngine;
 
 namespace HoneyPot.Menus
 {
     class SceneMenu
     {
+        private static readonly string ScenesPath = Environment.CurrentDirectory + @"\Scenes";
+
         private readonly DebugLog debugLog;
         private readonly SelectionManager selectionManager;
 
@@ -22,6 +23,8 @@ namespace HoneyPot.Menus
             this.selectionManager = selectionManager;
 
             hideUI = false;
+
+            Directory.CreateDirectory(ScenesPath);
         }
 
         public void DoScene(int windowId)
@@ -105,11 +108,28 @@ namespace HoneyPot.Menus
 
                 hideUI = !hideUI;
             }
-            if (GUILayout.Button("xxx"))
+            if (GUILayout.Button("PlayScene"))
             {
                 try
                 {
-                    new ScenePlayer(debugLog).Play(@"A:\Daten\testScene2.txt");
+                    var filesArray = Directory.GetFiles(ScenesPath);
+                    var fileNames = new List<string>();
+                    foreach (var file in filesArray)
+                    {
+                        fileNames.Add(Path.GetFileName(file));
+                    }
+                    
+                    if (filesArray.Length == 0)
+                    {
+                        debugLog.AddMessage("Scenes folder is empty! " + ScenesPath);
+                        return;
+                    }
+                  
+                    selectionManager.NewSelection(fileNames, 1, () =>
+                    {
+                        var name = filesArray[selectionManager.SelectionId];
+                        new ScenePlayer(debugLog).Play(name);
+                    });
                 }
                 catch (Exception e)
                 {
@@ -117,11 +137,6 @@ namespace HoneyPot.Menus
                     debugLog.AddMessage(e.StackTrace);
                     debugLog.AddMessage(e.ToString());
                 }
-            }
-            if (GUILayout.Button("yyy"))
-            {
-                GirlDefinition[] girls = Resources.FindObjectsOfTypeAll(typeof(GirlDefinition)) as GirlDefinition[];
-                new Dump(debugLog).HairstylesOutfitDump(girls);
             }
         }
     }

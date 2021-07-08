@@ -1,8 +1,6 @@
-﻿using System.Runtime.CompilerServices;
-using HoneyPot.Debug;
+﻿using HoneyPot.Debug;
 using HoneyPot.Menus;
 using HoneyPot.Scene;
-using HoneyPot.Scene.Old;
 using HoneyPot.Scene.Steps;
 using UnityEngine;
 
