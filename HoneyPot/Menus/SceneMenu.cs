@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Holoville.HOTween;
 using HoneyPot.Debug;
 using HoneyPot.Scene;
+using HoneyPot.Scene.Helper;
+using HoneyPot.Scene.Old;
 using UnityEngine;
 
 namespace HoneyPot.Menus
@@ -107,7 +109,7 @@ namespace HoneyPot.Menus
             {
                 try
                 {
-                    new SceneCreator(debugLog, selectionManager).PlayScene(@"A:\Daten\testScene2.txt");
+                    new SceneCreatorV1(debugLog, selectionManager).PlayScene(@"A:\Daten\testScene2.txt");
                 }
                 catch (Exception e)
                 {
@@ -118,6 +120,12 @@ namespace HoneyPot.Menus
             }
             if (GUILayout.Button("yyy"))
             {
+                TalkTest();
+            }
+            if (GUILayout.Button("zzz"))
+            {
+                GameManager.Stage.girl.ClearDialog();
+                GameManager.Stage.altGirl.ClearDialog();
             }
         }
 
@@ -135,6 +143,19 @@ namespace HoneyPot.Menus
             dialogLineExp.startAtCharIndex = 0;
             dialogLine.startExpression = dialogLineExp;
             GameManager.Stage.girl.ReadDialogLine(dialogLine, false, false, false, false);
+
+            var dialogLine2 = new DialogLine();
+            dialogLine2.text = "too <3";
+            dialogLine2.secondary = false;
+            dialogLine2.secondaryText = "";
+            var dialogLineExp2 = new DialogLineExpression();
+            dialogLineExp2.changeEyes = false;
+            dialogLineExp2.changeMouth = false;
+            dialogLineExp2.closeEyes = false;
+            dialogLineExp2.expression = GirlExpressionType.HORNY;
+            dialogLineExp2.startAtCharIndex = 0;
+            dialogLine2.startExpression = dialogLineExp2;
+            GameManager.Stage.altGirl.ReadDialogLine(dialogLine2, false, false, false, false);
         }
     }
 }

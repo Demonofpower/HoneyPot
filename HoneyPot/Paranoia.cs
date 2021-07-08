@@ -1,5 +1,6 @@
 ﻿using HoneyPot.Menus;
 using HoneyPot.Scene;
+using HoneyPot.Scene.Old;
 using UnityEngine;
 
 namespace HoneyPot
@@ -103,7 +104,7 @@ namespace HoneyPot
                     blackScreenCounter = 300;
                     IsBlackScreen = false;
                     
-                    SceneCreator.activeTravel = false;
+                    SceneCreatorV1.activeTravel = false;
                 }
                 
                 MakeScreenBlack();

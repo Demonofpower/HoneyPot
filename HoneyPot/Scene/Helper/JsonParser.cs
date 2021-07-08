@@ -30,7 +30,7 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 
-namespace HoneyPot.Scene
+namespace HoneyPot.Scene.Helper
 {
 #pragma warning disable 1591
     public class ParserException : Exception

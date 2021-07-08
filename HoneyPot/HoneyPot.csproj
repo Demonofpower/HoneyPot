@@ -54,7 +54,7 @@
   <ItemGroup>
     <Compile Include="Debug\DebugLog.cs" />
     <Compile Include="Debug\Dump.cs" />
-    <Compile Include="Scene\JsonParser.cs" />
+    <Compile Include="Scene\Helper\JsonParser.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="Menus\GirlMenu.cs" />
     <Compile Include="Menus\PlayerMenu.cs" />
@@ -62,10 +62,13 @@
     <Compile Include="Menus\SceneMenu.cs" />
     <Compile Include="Paranoia.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scene\JsonClasses.cs" />
+    <Compile Include="Scene\Helper\JsonClasses.cs" />
+    <Compile Include="Scene\Old\SceneCreatorV1.cs" />
+    <Compile Include="Scene\Helper\SceneHelper.cs" />
+    <Compile Include="Scene\Old\SceneParserV1.cs" />
     <Compile Include="Scene\SceneCreator.cs" />
-    <Compile Include="Scene\SceneHelper.cs" />
     <Compile Include="Scene\SceneParser.cs" />
+    <Compile Include="Scene\ScenePlayer.cs" />
     <Compile Include="SelectionManager.cs" />
   </ItemGroup>
   <ItemGroup />

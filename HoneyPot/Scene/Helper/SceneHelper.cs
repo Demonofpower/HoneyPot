@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using Holoville.HOTween;
+﻿using Holoville.HOTween;
 using UnityEngine;
 
-namespace HoneyPot.Scene
+namespace HoneyPot.Scene.Helper
 {
     class SceneHelper
     {

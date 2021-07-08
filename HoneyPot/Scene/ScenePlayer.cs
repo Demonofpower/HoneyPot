@@ -1,6 +1,6 @@
 ﻿namespace HoneyPot.Scene
 {
-    class SceneParser
+    class ScenePlayer
     {
     }
 }
