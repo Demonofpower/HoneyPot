@@ -52,8 +52,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Debug\DebugLog.cs" />
-    <Compile Include="Debug\Dump.cs" />
+    <Compile Include="DebugUtil\DebugLog.cs" />
+    <Compile Include="DebugUtil\Dump.cs" />
     <Compile Include="Scene\Helper\JsonParser.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="Menus\GirlMenu.cs" />
