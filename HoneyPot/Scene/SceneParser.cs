@@ -54,7 +54,11 @@ namespace HoneyPot.Scene
                 switch (currStep.type)
                 {
                     case StepType.ShowGirl:
+                        steps.Add(creator.CreateShowGirlStep(currStep.girl, currStep.girlHairId, currStep.girlOutfitId));
+                        break;
                     case StepType.HideGirl:
+                        steps.Add(creator.CreateHideGirlStep());
+                        break;
                     case StepType.ShowAltGirl:
                         steps.Add(creator.CreateShowAltGirlStep(currStep.altGirl, currStep.altGirlHairId, currStep.altGirlOutfitId));
                         break;

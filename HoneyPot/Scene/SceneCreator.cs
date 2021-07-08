@@ -20,6 +20,15 @@ namespace HoneyPot.Scene
             return new DialogStep(text, altGirlSpeaks);
         }
 
+        public ShowGirlStep CreateShowGirlStep(string girlName, int altGirlHairId, int altGirlOutfitId)
+        {
+            return new ShowGirlStep(GetGirlByName(girlName), altGirlHairId, altGirlOutfitId);
+        }
+        public HideGirlStep CreateHideGirlStep()
+        {
+            return new HideGirlStep();
+        }
+
         public ShowAltGirlStep CreateShowAltGirlStep(string girlName, int altGirlHairId, int altGirlOutfitId)
         {
             return new ShowAltGirlStep(GetGirlByName(girlName), altGirlHairId, altGirlOutfitId);
