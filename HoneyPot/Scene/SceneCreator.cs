@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Threading;
+using HoneyPot.Debug;
 using UnityEngine;
 
 namespace HoneyPot.Scene
@@ -22,7 +24,7 @@ namespace HoneyPot.Scene
 
             var parser = new SceneParser(debugLog, selectionManager);
 
-            var helper = new SceneHelper();
+            var helper = new SceneHelper(debugLog);
             
             helper.HideUI();
 
@@ -31,7 +33,7 @@ namespace HoneyPot.Scene
             var scene = parser.Parse(path);
             debugLog.AddMessage("Scene parsed");
             debugLog.AddMessage("Start playing..");
-
+            
             var firstSceneStep = scene[0];
             if (firstSceneStep.locDef != null)
             {
@@ -76,6 +78,8 @@ namespace HoneyPot.Scene
                     {
                         debugLog.AddMessage("PLAYSCENE");
                         dialogManager.PlayDialogScene(sceneStep.sceneDef);
+                        typeof(DialogManager).GetField("_altGirlShowing", BindingFlags.NonPublic | BindingFlags.Instance)?.SetValue(dialogManager, true);
+
                     }
                     else if(sceneStep.cleanDef)
                     {
@@ -90,7 +94,44 @@ namespace HoneyPot.Scene
         }
 
         public static bool activeTravel;
+
+        public DialogSceneStep ShowGirlStep(GirlDefinition girl, int girlHairId, int girlOutfitId)
+        {
+            DialogSceneStep step = new DialogSceneStep();
+            step.type = DialogSceneStepType.SHOW_GIRL;
+            step.preventOptionShuffle = false;
+            step.hasBestOption = false;
+
+            step.responseOptions = new List<DialogSceneResponseOption>();
+
+            step.hasBestBranch = false;
+            step.showGirlStyles = girlHairId + "," + girlOutfitId;
+            step.hideOppositeSpeechBubble = false;
+
+            step.girlDefinition = girl;
+
+            step.waitTime = 0;
+            step.metStatus = GirlMetStatus.MET;
+            step.dialogTriggerIndex = 0;
+            step.girlDetailType = GirlDetailType.LAST_NAME;
+            step.stepBackSteps = 0;
+            step.toEquipment = false;
+            step.wrapped = false;
+            step.tokenCount = 0;
+            step.xPos = 0;
+            step.yPos = 0;
+
+            return step;
+        }
         
+        public DialogSceneStep HideGirlStep()
+        {
+            DialogSceneStep step = new DialogSceneStep();
+            step.type = DialogSceneStepType.HIDE_GIRL;
+
+            return step;
+        }
+
         public DialogSceneStep ShowAltGirlStep(GirlDefinition altGirl, int altGirlHairId, int altGirlOutfitId)
         {
             DialogSceneStep step = new DialogSceneStep();

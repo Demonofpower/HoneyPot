@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Holoville.HOTween;
+using HoneyPot.Debug;
 using HoneyPot.Scene;
 using UnityEngine;
 
@@ -93,11 +94,11 @@ namespace HoneyPot.Menus
             {
                 if (hideUI)
                 {
-                    new SceneHelper().ShowUI();
+                    new SceneHelper(debugLog).ShowUI();
                 }
                 else
                 {
-                    new SceneHelper().HideUI();
+                    new SceneHelper(debugLog).HideUI();
                 }
 
                 hideUI = !hideUI;
@@ -114,6 +115,9 @@ namespace HoneyPot.Menus
                     debugLog.AddMessage(e.StackTrace);
                     debugLog.AddMessage(e.ToString());
                 }
+            }
+            if (GUILayout.Button("yyy"))
+            {
             }
         }
 

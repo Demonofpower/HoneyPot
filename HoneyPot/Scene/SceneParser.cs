@@ -48,6 +48,8 @@ namespace HoneyPot.Scene
                 DialogSceneStep step = null;
                 switch (currStep.type)
                 {
+                    case StepType.ShowGirl:
+                    case StepType.HideGirl:
                     case StepType.ShowAltGirl:
                     case StepType.HideAltGirl:
                     case StepType.DialogLine:
@@ -96,6 +98,13 @@ namespace HoneyPot.Scene
 
             switch (currStep.type)
             {
+                case StepType.ShowGirl:
+                    step = creator.ShowGirlStep(GetGirlByName(currStep.girl), currStep.girlHairId,
+                        currStep.girlOutfitId);
+                    break;
+                case StepType.HideGirl:
+                    step = creator.HideGirlStep();
+                    break;
                 case StepType.ShowAltGirl:
                     step = creator.ShowAltGirlStep(GetGirlByName(currStep.altGirl), currStep.altGirlHairId,
                         currStep.altGirlOutfitId);
@@ -129,9 +138,11 @@ namespace HoneyPot.Scene
         {
             var dialogSteps = new List<DialogSceneStep>();
 
+            dialogSteps.Add(new SceneCreator(debugLog, selectionManager).WaitStep(1));
             foreach (var step in steps)
             {
                 dialogSteps.Add(CreateStep(step));
+                dialogSteps.Add(new SceneCreator(debugLog, selectionManager).WaitStep(1));
             }
 
             return dialogSteps;

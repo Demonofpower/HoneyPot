@@ -1,10 +1,18 @@
-﻿using Holoville.HOTween;
+﻿using System.Collections.Generic;
+using Holoville.HOTween;
 using UnityEngine;
 
 namespace HoneyPot.Scene
 {
     class SceneHelper
     {
+        private readonly DebugLog debugLog;
+        
+        public SceneHelper(DebugLog debugLog)
+        {
+            this.debugLog = debugLog;
+        }
+        
         public void HideGirl()
         {
             var dialogSceneSequence = new Sequence(new SequenceParms());

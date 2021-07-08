@@ -8,6 +8,12 @@ namespace HoneyPot.Scene
 
         public StepType type { get; set; }
 
+        public string girl { get; set; }
+
+        public int girlHairId { get; set; }
+
+        public int girlOutfitId { get; set; }
+        
         public string altGirl { get; set; }
 
         public int altGirlHairId { get; set; }
@@ -41,6 +47,8 @@ namespace HoneyPot.Scene
 
     public enum StepType
     {
+        ShowGirl,
+        HideGirl,
         ShowAltGirl,
         HideAltGirl,
         DialogLine,
