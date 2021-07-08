@@ -120,7 +120,8 @@ namespace HoneyPot.Menus
             }
             if (GUILayout.Button("yyy"))
             {
-                
+                GirlDefinition[] girls = Resources.FindObjectsOfTypeAll(typeof(GirlDefinition)) as GirlDefinition[];
+                new Dump(debugLog).HairstylesOutfitDump(girls);
             }
         }
     }

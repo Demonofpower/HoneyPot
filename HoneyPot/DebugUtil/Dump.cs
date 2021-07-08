@@ -12,6 +12,43 @@ namespace HoneyPot.Debug
             this.debugLog = debugLog;
         }
 
+        public void HairstylesOutfitDump(IEnumerable<GirlDefinition> girlDefinitions)
+        {
+            try
+            {
+                debugLog.AddMessage("-------------");
+                debugLog.AddMessage("HAIRSTYLE/OUTFIT DUMP");
+                debugLog.AddMessage("-------------");
+                foreach (var girlDefinition in girlDefinitions)
+                {
+                    debugLog.AddMessage("-------------");
+                    debugLog.AddMessage("HAIRSTYLE/OUTFIT DUMP");
+                    debugLog.AddMessage("-------------");
+                    debugLog.AddMessage(girlDefinition.firstName);
+                    debugLog.AddMessage("---");
+                    foreach (var girlDefinitionHairstyle in girlDefinition.hairstyles)
+                    {
+                        debugLog.AddMessage(girlDefinitionHairstyle.styleName + " | " + girlDefinitionHairstyle.artIndex);
+                    }
+                    debugLog.AddMessage("---");
+                    foreach (var girlDefinitionOutfit in girlDefinition.outfits)
+                    {
+                        debugLog.AddMessage(girlDefinitionOutfit.styleName + " | " + girlDefinitionOutfit.artIndex);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                debugLog.AddMessage("Dump failed!: " + e.Message);
+            }
+            finally
+            {
+                debugLog.AddMessage("-------------");
+                debugLog.AddMessage("-------------");
+                debugLog.AddMessage("-------------");
+            }
+        }
+
         public void LocationsDump(IEnumerable<LocationDefinition> locationDefinitions)
         {
             try
