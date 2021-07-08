@@ -1,7 +1,9 @@
-﻿using HoneyPot.Debug;
+﻿using System.Runtime.CompilerServices;
+using HoneyPot.Debug;
 using HoneyPot.Menus;
 using HoneyPot.Scene;
 using HoneyPot.Scene.Old;
+using HoneyPot.Scene.Steps;
 using UnityEngine;
 
 namespace HoneyPot
@@ -26,6 +28,15 @@ namespace HoneyPot
         private bool isSceneOpen;
 
         public static bool IsBlackScreen;
+        private static int blackScreenCounter = 300;
+        private static StepFinishedEventHandler stepFinishedEvent;
+
+        public static void ActivateBlackScreen(int duration, StepFinishedEventHandler stepFinishedEvent = null)
+        {
+            blackScreenCounter = duration;
+            IsBlackScreen = true;
+            Paranoia.stepFinishedEvent = stepFinishedEvent;
+        }
 
         public void Start()
         {
@@ -109,15 +120,13 @@ namespace HoneyPot
                 {
                     blackScreenCounter = 300;
                     IsBlackScreen = false;
-                    
-                    SceneCreatorV1.activeTravel = false;
+                    stepFinishedEvent?.Invoke();
                 }
                 
                 MakeScreenBlack();
             }
         }
-
-        private int blackScreenCounter = 300;
+        
         
         private void OpenSelection()
         {
