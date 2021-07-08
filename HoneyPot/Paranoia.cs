@@ -160,7 +160,7 @@ namespace HoneyPot
 
         private void DoMenu(int windowID)
         {
-            if (GUILayout.Button("debug log"))
+            if (GUILayout.Button("Debug log"))
             {
                 isDebugOpen = !isDebugOpen;
                 debugLog.AddMessage("Debug opened/closed");
