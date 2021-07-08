@@ -29,8 +29,6 @@ namespace HoneyPot.Scene
 
             Helper.Scene scene = (Helper.Scene)ConvertToClass(parseDictionary, typeof(Helper.Scene));
             
-            var creator = new SceneCreator(debugLog);
-            
             if (scene == null)
             {
                 debugLog.AddMessage("Scene file is corrupted");
@@ -39,13 +37,20 @@ namespace HoneyPot.Scene
 
             debugLog.AddMessage("Name: " + scene.name);
             debugLog.AddMessage("Author: " + scene.author);
+            
+            return CreateIStepsFromSteps(scene.steps);
+        }
+
+        public List<IStep> CreateIStepsFromSteps(List<Step> sceneSteps)
+        {
+            var creator = new SceneCreator(debugLog);
 
             var steps = new List<IStep>();
-
-            for (int i = 0; i < scene.steps.Count; i++)
+            
+            for (int i = 0; i < sceneSteps.Count; i++)
             {
-                var currStep = GetStepWithId(scene.steps, i);
-                
+                var currStep = GetStepWithId(sceneSteps, i);
+
                 switch (currStep.type)
                 {
                     case StepType.ShowGirl:
@@ -60,6 +65,8 @@ namespace HoneyPot.Scene
                         steps.Add(creator.CreateDialogStep(currStep.text, currStep.altGirlSpeaks));
                         break;
                     case StepType.ResponseOptions:
+                        steps.Add(creator.CreateResponseOptionsStep(currStep.responses));
+                        break;
                     case StepType.Travel:
                         steps.Add(creator.CreateTravelStep(currStep.newLoc));
                         break;
@@ -71,6 +78,7 @@ namespace HoneyPot.Scene
 
             return steps;
         }
+        
         private Step GetStepWithId(List<Step> steps, int id)
         {
             foreach (var step in steps)

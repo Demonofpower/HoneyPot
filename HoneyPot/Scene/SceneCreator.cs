@@ -1,4 +1,6 @@
-﻿using HoneyPot.Debug;
+﻿using System.Collections.Generic;
+using HoneyPot.Debug;
+using HoneyPot.Scene.Helper;
 using HoneyPot.Scene.Steps;
 using UnityEngine;
 
@@ -31,6 +33,11 @@ namespace HoneyPot.Scene
         public TravelStep CreateTravelStep(string name)
         {
             return new TravelStep(GetLocationByName(name));
+        }
+
+        public ResponseOptionsStep CreateResponseOptionsStep(List<Response> responseOptions)
+        {
+            return new ResponseOptionsStep(responseOptions);
         }
 
         private GirlDefinition GetGirlByName(string name)

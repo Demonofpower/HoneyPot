@@ -73,5 +73,14 @@ namespace HoneyPot.Scene
         {
             inStep = false;
         }
+
+        public void AddScenesAtFirst(List<Step> steps)
+        {
+            var newSteps = new List<IStep>();
+            newSteps.AddRange(new SceneParser(debugLog).CreateIStepsFromSteps(steps));
+            newSteps.AddRange(remainingSteps);
+
+            remainingSteps = newSteps;
+        }
     }
 }

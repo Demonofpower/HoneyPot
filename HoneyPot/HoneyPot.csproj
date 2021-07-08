@@ -72,6 +72,7 @@
     <Compile Include="Scene\Steps\DialogStep.cs" />
     <Compile Include="Scene\Steps\HideAltGirlStep.cs" />
     <Compile Include="Scene\Steps\IStep.cs" />
+    <Compile Include="Scene\Steps\ResponseOptionsStep.cs" />
     <Compile Include="Scene\Steps\ShowAltGirlStep.cs" />
     <Compile Include="Scene\Steps\TravelStep.cs" />
     <Compile Include="SelectionManager.cs" />

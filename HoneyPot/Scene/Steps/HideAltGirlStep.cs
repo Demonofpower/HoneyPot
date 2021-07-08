@@ -1,6 +1,4 @@
-﻿using System;
-using Holoville.HOTween;
-using Holoville.HOTween.Core;
+﻿using Holoville.HOTween;
 using UnityEngine;
 
 namespace HoneyPot.Scene.Steps
