@@ -42,6 +42,7 @@ namespace HoneyPot.Scene
             helper.HideUI();
             
             remainingSteps = steps;
+            
             active = true;
             inStep = false;
         }
@@ -59,10 +60,12 @@ namespace HoneyPot.Scene
             inStep = true;
 
             var currStep = remainingSteps[0];
+            
 
             currStep.StepFinished += CurrStepOnStepFinished;
             
             remainingSteps.Remove(currStep);
+            
             currStep.InvokeStep();
         }
 
