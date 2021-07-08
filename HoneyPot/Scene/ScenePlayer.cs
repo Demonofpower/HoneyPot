@@ -40,6 +40,8 @@ namespace HoneyPot.Scene
             var steps = parser.Parse(path);
 
             helper.HideUI();
+            helper.HideGirlSpeechBubble();
+            helper.HideAltGirlSpeechBubble();
             
             remainingSteps = steps;
             
@@ -51,9 +53,7 @@ namespace HoneyPot.Scene
         {
             if (remainingSteps.Count == 0)
             {
-                new SceneHelper(debugLog).ShowUI();
-                active = false;
-                Instance = null;
+                Clear();
                 return;
             }
 
@@ -67,6 +67,19 @@ namespace HoneyPot.Scene
             remainingSteps.Remove(currStep);
             
             currStep.InvokeStep();
+        }
+
+        private void Clear()
+        {
+            var helper = new SceneHelper(debugLog);
+            
+            helper.HideGirlSpeechBubble();
+            helper.HideAltGirlSpeechBubble();
+            helper.HideAltGirl();
+            helper.ShowUI();
+            
+            active = false;
+            Instance = null;
         }
 
         private void CurrStepOnStepFinished()

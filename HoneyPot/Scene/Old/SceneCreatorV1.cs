@@ -65,7 +65,7 @@ namespace HoneyPot.Scene.Old
                         activeTravel = true;
                         debugLog.AddMessage("TRAVEL");
                         
-                        Paranoia.IsBlackScreen = true;
+                        Paranoia.isBlackScreen = true;
 
                         GameManager.System.Location.currentLocation = sceneStep.locDef;
                         GameManager.Stage.background.UpdateLocation();

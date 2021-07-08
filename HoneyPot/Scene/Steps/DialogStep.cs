@@ -44,13 +44,13 @@ namespace HoneyPot.Scene.Steps
         private void GirlOnDialogLineReadEvent()
         {
             GameManager.Stage.girl.DialogLineReadEvent -= GirlOnDialogLineReadEvent;
-            StepFinished?.Invoke();
+            Paranoia.ActivateIsSpeaking(150, StepFinished);
         }
         
         private void AltGirlOnDialogLineReadEvent()
         {
             GameManager.Stage.altGirl.DialogLineReadEvent -= AltGirlOnDialogLineReadEvent;
-            StepFinished?.Invoke();
+            Paranoia.ActivateIsSpeaking(150, StepFinished);
         }
     }
 }

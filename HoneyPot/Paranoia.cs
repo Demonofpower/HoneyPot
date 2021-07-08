@@ -27,14 +27,22 @@ namespace HoneyPot
         private bool isGirlOpen;
         private bool isSceneOpen;
 
-        public static bool IsBlackScreen;
-        private static int blackScreenCounter = 300;
         private static StepFinishedEventHandler stepFinishedEvent;
+        public static bool isBlackScreen;
+        private static int blackScreenCounter = 300;
+        public static bool isSpeaking;
+        private static int speakingCounter = 150;
 
         public static void ActivateBlackScreen(int duration, StepFinishedEventHandler stepFinishedEvent = null)
         {
             blackScreenCounter = duration;
-            IsBlackScreen = true;
+            isBlackScreen = true;
+            Paranoia.stepFinishedEvent = stepFinishedEvent;
+        }
+        public static void ActivateIsSpeaking(int duration, StepFinishedEventHandler stepFinishedEvent = null)
+        {
+            speakingCounter = duration;
+            isSpeaking = true;
             Paranoia.stepFinishedEvent = stepFinishedEvent;
         }
 
@@ -49,7 +57,8 @@ namespace HoneyPot
             girlMenu = new GirlMenu(debugLog, selectionManager);
             sceneMenu = new SceneMenu(debugLog, selectionManager);
 
-            IsBlackScreen = false;
+            isBlackScreen = false;
+            isSpeaking = false;
         }
 
         public void Update()
@@ -113,17 +122,28 @@ namespace HoneyPot
                 OpenScene();
             }
 
-            if (IsBlackScreen)
+            if (isBlackScreen)
             {
                 blackScreenCounter -= 1;
                 if (blackScreenCounter <= 0)
                 {
                     blackScreenCounter = 300;
-                    IsBlackScreen = false;
+                    isBlackScreen = false;
                     stepFinishedEvent?.Invoke();
                 }
                 
                 MakeScreenBlack();
+            }
+
+            if (isSpeaking)
+            {
+                speakingCounter -= 1;
+                if (speakingCounter <= 0)
+                {
+                    speakingCounter = 150;
+                    isSpeaking = false;
+                    stepFinishedEvent?.Invoke();
+                }
             }
         }
         
