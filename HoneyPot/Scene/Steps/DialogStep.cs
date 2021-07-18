@@ -11,10 +11,16 @@ namespace HoneyPot.Scene.Steps
 
         public bool AltGirlSpeaks { get; }
 
-        public DialogStep(string text, bool altGirlSpeaks)
+        public GirlExpressionType ExpressionType { get; }
+        
+        public bool CloseEyes { get; }
+
+        public DialogStep(string text, bool altGirlSpeaks, GirlExpressionType expressionType, bool closeEyes)
         {
-            AltGirlSpeaks = altGirlSpeaks;
             Text = text;
+            AltGirlSpeaks = altGirlSpeaks;
+            ExpressionType = expressionType;
+            CloseEyes = closeEyes;
         }
 
         public void InvokeStep()
@@ -22,13 +28,13 @@ namespace HoneyPot.Scene.Steps
             var dialogLine = new DialogLine();
             dialogLine.text = Text;
             var dialogLineExp = new DialogLineExpression();
-            dialogLineExp.changeEyes = false;
-            dialogLineExp.changeMouth = false;
-            dialogLineExp.closeEyes = false;
-            dialogLineExp.expression = GirlExpressionType.HORNY;
+            dialogLineExp.changeEyes = true;
+            dialogLineExp.changeMouth = true;
+            dialogLineExp.closeEyes = CloseEyes;
+            dialogLineExp.expression = ExpressionType;
             dialogLineExp.startAtCharIndex = 0;
             dialogLine.startExpression = dialogLineExp;
-
+            
             if (AltGirlSpeaks)
             {
                 GameManager.Stage.altGirl.DialogLineReadEvent += AltGirlOnDialogLineReadEvent;

@@ -95,6 +95,7 @@ namespace HoneyPot.Menus
                     debugLog.AddMessage("Scene changed to " + name);
                 });
             }
+
             if (GUILayout.Button("ToggleUI"))
             {
                 if (hideUI)
@@ -108,6 +109,7 @@ namespace HoneyPot.Menus
 
                 hideUI = !hideUI;
             }
+
             if (GUILayout.Button("PlayScene"))
             {
                 try
@@ -118,17 +120,24 @@ namespace HoneyPot.Menus
                     {
                         fileNames.Add(Path.GetFileName(file));
                     }
-                    
+
                     if (filesArray.Length == 0)
                     {
                         debugLog.AddMessage("Scenes folder is empty! " + ScenesPath);
                         return;
                     }
-                  
+
                     selectionManager.NewSelection(fileNames, 1, () =>
                     {
                         var name = filesArray[selectionManager.SelectionId];
-                        new ScenePlayer(debugLog).Play(name);
+                        try
+                        {
+                            new ScenePlayer(debugLog).Play(name);
+                        }
+                        catch (Exception e)
+                        {
+                            debugLog.AddMessage(e.Message);
+                        }
                     });
                 }
                 catch (Exception e)

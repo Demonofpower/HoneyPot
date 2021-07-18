@@ -66,7 +66,7 @@ namespace HoneyPot.Scene
                         steps.Add(creator.CreateHideAltGirlStep());
                         break;
                     case StepType.DialogLine:
-                        steps.Add(creator.CreateDialogStep(currStep.text, currStep.altGirlSpeaks));
+                        steps.Add(creator.CreateDialogStep(currStep.text, currStep.altGirlSpeaks, currStep.expression, currStep.closeEyes));
                         break;
                     case StepType.ResponseOptions:
                         steps.Add(creator.CreateResponseOptionsStep(currStep.responses));
@@ -133,7 +133,13 @@ namespace HoneyPot.Scene
                     continue;
                 }
 
-                if (property.Name.Contains("type"))
+                if (property.Name.Contains("expression"))
+                {
+                    GirlExpressionType expressionType = (GirlExpressionType)Enum.Parse(typeof(GirlExpressionType), (string)item.Value);
+                    property.SetValue(obj, expressionType, index: null);
+                    continue;
+                } 
+                else if (property.Name.Contains("type"))
                 {
                     StepType stepType = (StepType)Enum.Parse(typeof(StepType), (string)item.Value);
                     property.SetValue(obj, stepType, index: null);

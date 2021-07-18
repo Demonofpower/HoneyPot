@@ -23,6 +23,10 @@ namespace HoneyPot.Scene.Helper
         public string text { get; set; }
 
         public bool altGirlSpeaks { get; set; }
+        
+        public bool closeEyes { get; set; }
+        
+        public GirlExpressionType expression { get; set; }
 
         public string newLoc { get; set; }
 
