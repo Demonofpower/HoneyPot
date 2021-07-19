@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Threading;
 using HoneyPot.Debug;
+using HoneyPot.DebugUtil;
 using HoneyPot.Scene.Helper;
 
 namespace HoneyPot.Scene.Old

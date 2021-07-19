@@ -4,12 +4,16 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
-namespace HoneyPot.Debug
+namespace HoneyPot.DebugUtil
 {
     public class DebugLog
     {
         public static DebugLog Instance;
-        
+
+        private readonly List<string> messages;
+
+        private int number;
+
         public DebugLog()
         {
             Instance = this;
@@ -24,12 +28,6 @@ namespace HoneyPot.Debug
             this.messages.Add(this.number + ": " + message);
             File.AppendAllText(Environment.CurrentDirectory + @"\log.txt", this.number + ": " + message + Environment.NewLine);
         }
-        
-        public List<string> PrintLastMessages()
-        {
-            return this.messages.Skip(Math.Max(0, this.messages.Count<string>() - 15)).ToList<string>();
-        }
-
         public void DoDebugLog(int windowID)
         {
             foreach (var text in PrintLastMessages())
@@ -37,9 +35,10 @@ namespace HoneyPot.Debug
                 GUILayout.Label(text);
             }
         }
-
-        private List<string> messages;
         
-        private int number;
+        private List<string> PrintLastMessages()
+        {
+            return this.messages.Skip(Math.Max(0, this.messages.Count<string>() - 15)).ToList<string>();
+        }
     }
 }

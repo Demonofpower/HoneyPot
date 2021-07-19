@@ -1,4 +1,5 @@
 ﻿using HoneyPot.Debug;
+using HoneyPot.DebugUtil;
 using UnityEngine;
 
 namespace HoneyPot.Menus

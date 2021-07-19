@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using HoneyPot.Debug;
+using HoneyPot.DebugUtil;
 using HoneyPot.Scene.Helper;
 using HoneyPot.Scene.Steps;
 
