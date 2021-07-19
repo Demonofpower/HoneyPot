@@ -15,9 +15,9 @@ namespace HoneyPot.Scene
             this.debugLog = debugLog;
         }
 
-        public DialogStep CreateDialogStep(string text, bool altGirlSpeaks, GirlExpressionType expressionType, bool closeEyes)
+        public DialogStep CreateDialogStep(string text, bool altGirlSpeaks, GirlExpressionType expressionType, bool closeEyes, string audioName)
         {
-            return new DialogStep(text, altGirlSpeaks, expressionType, closeEyes);
+            return new DialogStep(text, altGirlSpeaks, expressionType, closeEyes, audioName);
         }
 
         public ShowGirlStep CreateShowGirlStep(string girlName, int altGirlHairId, int altGirlOutfitId)

@@ -26,6 +26,8 @@ namespace HoneyPot.Scene.Helper
         
         public bool closeEyes { get; set; }
         
+        public string audio { get; set; }
+        
         public GirlExpressionType expression { get; set; }
 
         public string newLoc { get; set; }

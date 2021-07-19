@@ -66,7 +66,7 @@ namespace HoneyPot.Scene
                         steps.Add(creator.CreateHideAltGirlStep());
                         break;
                     case StepType.DialogLine:
-                        steps.Add(creator.CreateDialogStep(currStep.text, currStep.altGirlSpeaks, currStep.expression, currStep.closeEyes));
+                        steps.Add(creator.CreateDialogStep(currStep.text, currStep.altGirlSpeaks, currStep.expression, currStep.closeEyes, currStep.audio));
                         break;
                     case StepType.ResponseOptions:
                         steps.Add(creator.CreateResponseOptionsStep(currStep.responses));

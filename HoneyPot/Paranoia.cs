@@ -1,6 +1,7 @@
 ﻿using HoneyPot.Debug;
 using HoneyPot.Menus;
 using HoneyPot.Scene;
+using HoneyPot.Scene.Helper;
 using HoneyPot.Scene.Steps;
 using UnityEngine;
 
@@ -57,6 +58,8 @@ namespace HoneyPot
 
             isBlackScreen = false;
             isSpeaking = false;
+            
+            new SceneAudioLoader(debugLog).LoadClips();
         }
 
         public void Update()
