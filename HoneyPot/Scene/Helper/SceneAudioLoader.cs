@@ -36,6 +36,13 @@ namespace HoneyPot.Scene.Helper
                 
                 debugLog.AddMessage("Now loading: " + name);
 
+                var extension = Path.GetExtension(audioPath);
+                if (extension != ".wav")
+                {
+                    debugLog.AddError("File type not supported! Use .wav");
+                    continue;
+                }
+
                 var clip = LoadClip("file:///" + audioPath);
                 LoadedClips.Add(name, clip);
             }

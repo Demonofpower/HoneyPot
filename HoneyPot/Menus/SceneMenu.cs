@@ -137,7 +137,7 @@ namespace HoneyPot.Menus
                         }
                         catch (Exception e)
                         {
-                            debugLog.AddMessage(e.Message);
+                            debugLog.AddError(e.Message);
                         }
                     });
                 }
