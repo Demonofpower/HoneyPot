@@ -152,7 +152,7 @@ namespace HoneyPot
         
         private void OpenSelection()
         {
-            var clientRect = new Rect(550f, 420f, 400f, 400f);
+            var clientRect = new Rect(640f, 420f, 400f, 400f);
             GUI.Window(421, clientRect, selectionManager.DoSelection, "Selection");
         }
 
