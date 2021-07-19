@@ -18,6 +18,7 @@ namespace HoneyPot
         private PuzzleMenu puzzleMenu;
         private GirlMenu girlMenu;
         private SceneMenu sceneMenu;
+        private MiscMenu miscMenu;
         
         private bool isDebugOpen;
         
@@ -26,6 +27,7 @@ namespace HoneyPot
         private bool isPuzzleOpen;
         private bool isGirlOpen;
         private bool isSceneOpen;
+        private bool isMiscOpen;
 
         private static StepFinishedEventHandler stepFinishedEvent;
         public static bool isBlackScreen;
@@ -56,6 +58,7 @@ namespace HoneyPot
             puzzleMenu = new PuzzleMenu(debugLog);
             girlMenu = new GirlMenu(debugLog, selectionManager);
             sceneMenu = new SceneMenu(debugLog, selectionManager);
+            miscMenu = new MiscMenu(debugLog);
 
             isBlackScreen = false;
             isSpeaking = false;
@@ -72,6 +75,7 @@ namespace HoneyPot
                 isPuzzleOpen = false;
                 isGirlOpen = false;
                 isSceneOpen = false;
+                isMiscOpen = false;
                 debugLog.AddMessage("Menu opened/closed");
             }
 
@@ -124,6 +128,11 @@ namespace HoneyPot
                 OpenScene();
             }
 
+            if (isMiscOpen)
+            {
+                OpenMisc();
+            }
+
             if (isBlackScreen)
             {
                 blackScreenCounter -= 1;
@@ -158,7 +167,7 @@ namespace HoneyPot
 
         private void OpenMenu()
         {
-            var clientRect = new Rect(120f, 20f, 120f, 150f);
+            var clientRect = new Rect(120f, 20f, 120f, 170f);
             GUI.Window(0, clientRect, DoMenu, "Cool Menu");
         }
 
@@ -193,6 +202,12 @@ namespace HoneyPot
                 isSceneOpen = !isSceneOpen;
                 debugLog.AddMessage("Scene opened/closed");
             }
+            
+            if (GUILayout.Button("Other"))
+            {
+                isMiscOpen = !isMiscOpen;
+                debugLog.AddMessage("Other opened/closed");
+            }
         }
 
         private void OpenDebug()
@@ -223,6 +238,12 @@ namespace HoneyPot
         {
             var clientRect = new Rect(440f, 420f, 200f, 400f);
             GUI.Window(125, clientRect, sceneMenu.DoScene, "Scene menu");
+        }
+
+        private void OpenMisc()
+        {
+            var clientRect = new Rect(0f, 420f, 200f, 400f);
+            GUI.Window(162, clientRect, miscMenu.DoMisc, "Misc menu");
         }
 
         private void MakeScreenBlack()
