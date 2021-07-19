@@ -1,4 +1,5 @@
 ﻿using HoneyPot.DebugUtil;
+using UnityEngine;
 
 namespace HoneyPot.Menus
 {
@@ -13,7 +14,11 @@ namespace HoneyPot.Menus
 
         public void DoMisc(int windowID)
         {
-            
+            if (GUILayout.Button("Exit/Unload"))
+            {
+                debugLog.AddMessage("Unloading..");
+                Loader.Unload();
+            }
         }
     }
 }
