@@ -10,6 +10,8 @@ namespace HoneyPot.DebugUtil
     {
         public static DebugLog Instance;
 
+        private static readonly string Path = Environment.CurrentDirectory + @"\log.txt";
+
         private readonly List<string> messages;
 
         private int number;
@@ -25,17 +27,29 @@ namespace HoneyPot.DebugUtil
         public void AddMessage(string message)
         {
             this.number++;
-            this.messages.Add(this.number + ": " + message);
-            File.AppendAllText(Environment.CurrentDirectory + @"\log.txt",
-                this.number + ": " + message + Environment.NewLine);
+            this.messages.Add(number + ": " + message);
+            File.AppendAllText(Path, number + ": " + message + Environment.NewLine);
         }
 
         public void AddError(string error)
         {
             this.number++;
-            this.messages.Add(this.number + " ERROR: " + error);
-            File.AppendAllText(Environment.CurrentDirectory + @"\log.txt",
-                this.number + ": " + error + Environment.NewLine);
+            this.messages.Add(number + " ERROR: " + error);
+            File.AppendAllText(Path, number + ": " + error + Environment.NewLine);
+        }
+
+        public void Clear()
+        {
+            try
+            {
+                File.Delete(Path);
+                number = 0;
+            }
+            catch (Exception e)
+            {
+                AddError("File deletion failed.");
+                AddError(e.Message);
+            }
         }
 
         public void DoDebugLog(int windowID)
