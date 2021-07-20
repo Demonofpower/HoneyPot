@@ -23,7 +23,7 @@ namespace HoneyPot.Load
             Directory.CreateDirectory(AudiosPath);
         }
 
-        public void LoadClips()
+        private void LoadClips()
         {
             debugLog.AddMessage("Loading audio..");
 

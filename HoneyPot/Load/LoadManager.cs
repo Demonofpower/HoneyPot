@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using HoneyPot.DebugUtil;
 
@@ -8,7 +9,7 @@ namespace HoneyPot.Load
     {
         private readonly DebugLog debugLog;
         
-        private List<ILoader> toLoad;
+        private readonly List<ILoader> toLoad;
 
         public LoadManager(DebugLog debugLog)
         {
@@ -21,18 +22,26 @@ namespace HoneyPot.Load
         {
             Init();
 
-            LoadNext();
+            var t = new Thread(LoadNext);
+            t.Start();
         }
 
         public void LoadNext()
         {
-            if (toLoad.Count == 0)
+            try
             {
-                return;
-            }
+                if (toLoad.Count == 0)
+                {
+                    return;
+                }
 
-            toLoad[0].LoadFinished += LoaderOnLoadFinished;
-            toLoad[0].Load();
+                toLoad[0].LoadFinished += LoaderOnLoadFinished;
+                toLoad[0].Load();
+            }
+            catch (Exception e)
+            {
+                debugLog.AddError(e.Message);
+            }
         }
 
         private void Init()
