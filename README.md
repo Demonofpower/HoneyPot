@@ -43,3 +43,7 @@ like my work? https://www.buymeacoffee.com/paranoia
 - Change background  
 - Toggle UI  
 - **Play scene**
+
+## Misc  
+
+-Unload  
