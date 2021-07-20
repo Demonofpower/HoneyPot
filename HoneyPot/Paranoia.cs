@@ -1,11 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using HoneyPot.Debug;
-using HoneyPot.DebugUtil;
+﻿using HoneyPot.DebugUtil;
 using HoneyPot.Load;
 using HoneyPot.Menus;
 using HoneyPot.Scene;
-using HoneyPot.Scene.Helper;
 using HoneyPot.Scene.Steps;
 using UnityEngine;
 
@@ -80,6 +76,12 @@ namespace HoneyPot
                 isSceneOpen = false;
                 isMiscOpen = false;
                 debugLog.AddMessage("Menu opened/closed");
+            }
+
+            if (Input.GetKeyDown(KeyCode.F5))
+            {
+                debugLog.AddMessage("Unloading..");
+                Loader.Unload();
             }
 
             if (ScenePlayer.Instance != null)
