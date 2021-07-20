@@ -1,6 +1,8 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using HoneyPot.Debug;
 using HoneyPot.DebugUtil;
+using HoneyPot.Load;
 using HoneyPot.Menus;
 using HoneyPot.Scene;
 using HoneyPot.Scene.Helper;
@@ -64,8 +66,7 @@ namespace HoneyPot
             isBlackScreen = false;
             isSpeaking = false;
 
-            var t = new Thread(new SceneAudioLoader(debugLog).LoadClips);
-            t.Start();
+            new LoadManager(debugLog).LoadAll();
         }
 
         public void Update()

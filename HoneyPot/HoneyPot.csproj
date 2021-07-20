@@ -55,6 +55,9 @@
   <ItemGroup>
     <Compile Include="DebugUtil\DebugLog.cs" />
     <Compile Include="DebugUtil\Dump.cs" />
+    <Compile Include="Load\ExistingDialogLoader.cs" />
+    <Compile Include="Load\ILoader.cs" />
+    <Compile Include="Load\LoadManager.cs" />
     <Compile Include="Menus\MiscMenu.cs" />
     <Compile Include="Scene\Helper\JsonParser.cs" />
     <Compile Include="Loader.cs" />
@@ -65,7 +68,7 @@
     <Compile Include="Paranoia.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scene\Helper\JsonClasses.cs" />
-    <Compile Include="Scene\Helper\SceneAudioLoader.cs" />
+    <Compile Include="Load\SceneAudioLoader.cs" />
     <Compile Include="Scene\Old\SceneCreatorV1.cs" />
     <Compile Include="Scene\Helper\SceneHelper.cs" />
     <Compile Include="Scene\Old\SceneParserV1.cs" />

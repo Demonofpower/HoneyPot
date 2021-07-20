@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
-using HoneyPot.Debug;
 using HoneyPot.DebugUtil;
 using UnityEngine;
 
-namespace HoneyPot.Scene.Helper
+namespace HoneyPot.Load
 {
-    class SceneAudioLoader
+    class SceneAudioLoader : ILoader
     {
         public static Dictionary<string, AudioClip> LoadedClips;
-        
+
         private static readonly string AudiosPath = Environment.CurrentDirectory + @"\Scenes\Audio";
 
         private readonly DebugLog debugLog;
@@ -33,7 +32,7 @@ namespace HoneyPot.Scene.Helper
             foreach (var audioPath in filesArray)
             {
                 var name = Path.GetFileName(audioPath);
-                
+
                 debugLog.AddMessage("Now loading: " + name);
 
                 var extension = Path.GetExtension(audioPath);
@@ -59,6 +58,14 @@ namespace HoneyPot.Scene.Helper
             }
 
             return w.audioClip;
+        }
+
+        public event LoadFinishedEventHandler LoadFinished;
+
+        public void Load()
+        {
+            LoadClips();
+            LoadFinished?.Invoke(this);
         }
     }
 }
