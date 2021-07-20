@@ -27,13 +27,11 @@ like my work? https://www.buymeacoffee.com/paranoia
 
 ## Girl
 
-Appearance  
 - Add bra  
 - Only underwear  
 - Only bra  
 - Only panties  
 - Nude  
-
 - Change hairstyle  
 - Change outfit  
 - Change girl
@@ -44,4 +42,4 @@ Appearance
 - Travel  
 - Change background  
 - Toggle UI  
-- *Play scene*
+- **Play scene**
