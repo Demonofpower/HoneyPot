@@ -73,6 +73,7 @@
     <Compile Include="Scene\SceneParser.cs" />
     <Compile Include="Scene\ScenePlayer.cs" />
     <Compile Include="Scene\Steps\DialogStep.cs" />
+    <Compile Include="Scene\Steps\ExistingDialogStep.cs" />
     <Compile Include="Scene\Steps\HideAltGirlStep.cs" />
     <Compile Include="Scene\Steps\HideGirlStep.cs" />
     <Compile Include="Scene\Steps\IStep.cs" />

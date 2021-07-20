@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using HoneyPot.Debug;
 using HoneyPot.DebugUtil;
 using HoneyPot.Scene.Helper;
 using HoneyPot.Scene.Steps;
@@ -74,6 +73,9 @@ namespace HoneyPot.Scene
                         break;
                     case StepType.Travel:
                         steps.Add(creator.CreateTravelStep(currStep.newLoc));
+                        break;
+                    case StepType.ExistingDialogLine:
+                        steps.Add(creator.CreateExistingDialogStep(currStep.dialogId, currStep.altGirlSpeaks));
                         break;
                     default:
                         debugLog.AddMessage("Unknown step type at step " + currStep.id);

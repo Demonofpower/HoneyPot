@@ -1,8 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using HoneyPot.Debug;
-using HoneyPot.Scene.Helper;
-using UnityEngine;
+﻿using HoneyPot.Scene.Helper;
 
 namespace HoneyPot.Scene.Steps
 {

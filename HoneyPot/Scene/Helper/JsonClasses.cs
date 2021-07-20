@@ -33,6 +33,8 @@ namespace HoneyPot.Scene.Helper
         public string newLoc { get; set; }
 
         public List<Response> responses { get; set; }
+        
+        public int dialogId { get; set; }
     }
 
     public class Response
@@ -59,7 +61,8 @@ namespace HoneyPot.Scene.Helper
         HideAltGirl,
         DialogLine,
         Travel,
-        ResponseOptions
+        ResponseOptions,
+        ExistingDialogLine
     }
 
     public struct SceneStepV1

@@ -49,6 +49,10 @@ namespace HoneyPot.Scene
         {
             return new ResponseOptionsStep(responseOptions);
         }
+        public ExistingDialogStep CreateExistingDialogStep(int currStepDialogId, bool currStepAltGirlSpeaks)
+        {
+            return new ExistingDialogStep(currStepDialogId, currStepAltGirlSpeaks);
+        }
 
         private GirlDefinition GetGirlByName(string name)
         {
