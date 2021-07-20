@@ -228,30 +228,30 @@ namespace HoneyPot.Debug
 
                     if (step.type == DialogSceneStepType.DIALOG_LINE)
                     {
-                        debugLog.AddMessage(step.sceneLine.dialogLine.text.GetHashCode().ToString());
-                        debugLog.AddMessage(dialogSceneDefinition.name);
+                        debugLog.AddMessage(step.sceneLine.dialogLine.text.GetHashCode().ToString(), false);
+                        debugLog.AddMessage(dialogSceneDefinition.name, false);
 
 
                         if (step.sceneLine.altGirl)
                         {
                             if (currDialogSceneName.Contains("Question"))
                             {
-                                debugLog.AddMessage(currDialogSceneName.Remove(0, 8));
+                                debugLog.AddMessage(currDialogSceneName.Remove(0, 8), false);
                             }
                             else if (currDialogSceneName.Contains("Quiz"))
                             {
-                                debugLog.AddMessage(currDialogSceneName.Remove(0, 4));
+                                debugLog.AddMessage(currDialogSceneName.Remove(0, 4), false);
                             }
                             else
                             {
                                 // ReSharper disable once ReplaceWithStringIsNullOrEmpty
                                 if (currAltGirl == null || currAltGirl == "")
                                 {
-                                    debugLog.AddMessage("Kyu");
+                                    debugLog.AddMessage("Kyu", false);
                                 }
                                 else
                                 {
-                                    debugLog.AddMessage(currAltGirl);
+                                    debugLog.AddMessage(currAltGirl, false);
                                 }
                             }
                         }
@@ -259,29 +259,29 @@ namespace HoneyPot.Debug
                         {
                             if (currDialogSceneName.Contains("Intro"))
                             {
-                                debugLog.AddMessage(currDialogSceneName.Remove(0, 5));
+                                debugLog.AddMessage(currDialogSceneName.Remove(0, 5), false);
                             }
                             else if (currDialogSceneName.Contains("Question"))
                             {
-                                debugLog.AddMessage(currDialogSceneName.Remove(0, 8));
+                                debugLog.AddMessage(currDialogSceneName.Remove(0, 8), false);
                             }
                             else
                             {
                                 // ReSharper disable once ReplaceWithStringIsNullOrEmpty
                                 if (currGirl == null || currGirl == "")
                                 {
-                                    debugLog.AddMessage("Kyu");
+                                    debugLog.AddMessage("Kyu", false);
                                 }
                                 else
                                 {
-                                    debugLog.AddMessage(currGirl);
+                                    debugLog.AddMessage(currGirl, false);
                                 }
                             }
                         }
 
 
-                        debugLog.AddMessage(step.sceneLine.dialogLine.text);
-                        debugLog.AddMessage("");
+                        debugLog.AddMessage(step.sceneLine.dialogLine.text, false);
+                        debugLog.AddMessage("", false);
                     }
                 }
             }

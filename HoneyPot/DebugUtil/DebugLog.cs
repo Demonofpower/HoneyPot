@@ -24,11 +24,20 @@ namespace HoneyPot.DebugUtil
             this.messages = new List<string>();
         }
 
-        public void AddMessage(string message)
+        public void AddMessage(string message, bool withNumber = true)
         {
-            this.number++;
-            this.messages.Add(number + ": " + message);
-            File.AppendAllText(Path, number + ": " + message + Environment.NewLine);
+            if (withNumber)
+            {
+                number++;
+                messages.Add(number + ": " + message);
+                File.AppendAllText(Path, number + ": " + message + Environment.NewLine);
+            }
+            else
+            {
+                messages.Add(message);
+                File.AppendAllText(Path, message + Environment.NewLine);
+            }
+            
         }
 
         public void AddError(string error)
