@@ -1,5 +1,5 @@
 # HoneyPot
-dont tell the cops. they already know
+hi
 
 Need help?  
 Wiki: https://github.com/Demonofpower/HoneyPot/wiki  
