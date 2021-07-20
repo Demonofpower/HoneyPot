@@ -12,7 +12,7 @@ namespace HoneyPot.DebugUtil
 
         private static readonly string Path = Environment.CurrentDirectory + @"\log.txt";
 
-        private readonly List<string> messages;
+        private List<string> messages;
 
         private int number;
 
@@ -43,6 +43,7 @@ namespace HoneyPot.DebugUtil
             try
             {
                 File.Delete(Path);
+                messages = new List<string>();
                 number = 0;
             }
             catch (Exception e)

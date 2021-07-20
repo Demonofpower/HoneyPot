@@ -29,8 +29,10 @@ namespace HoneyPot.Debug
                     debugLog.AddMessage("---");
                     foreach (var girlDefinitionHairstyle in girlDefinition.hairstyles)
                     {
-                        debugLog.AddMessage(girlDefinitionHairstyle.styleName + " | " + girlDefinitionHairstyle.artIndex);
+                        debugLog.AddMessage(
+                            girlDefinitionHairstyle.styleName + " | " + girlDefinitionHairstyle.artIndex);
                     }
+
                     debugLog.AddMessage("---");
                     foreach (var girlDefinitionOutfit in girlDefinition.outfits)
                     {
@@ -183,7 +185,8 @@ namespace HoneyPot.Debug
                     debugLog.AddMessage("tokenDefinition: " + dialogSceneStep.tokenDefinition?.name);
                     debugLog.AddMessage("gridKey: " + dialogSceneStep.gridKey);
                     debugLog.AddMessage("tokenCount: " + dialogSceneStep.tokenCount);
-                    debugLog.AddMessage("particleEmitterDefinition: " + dialogSceneStep.particleEmitterDefinition?.name);
+                    debugLog.AddMessage("particleEmitterDefinition: " +
+                                        dialogSceneStep.particleEmitterDefinition?.name);
                     debugLog.AddMessage("spriteGroupDefinition: " + dialogSceneStep.spriteGroupDefinition?.name);
                     debugLog.AddMessage("xPos: " + dialogSceneStep.xPos);
                     debugLog.AddMessage("yPos: " + dialogSceneStep.yPos);
@@ -199,6 +202,88 @@ namespace HoneyPot.Debug
                 debugLog.AddMessage("-------------");
                 debugLog.AddMessage("-------------");
                 debugLog.AddMessage("-------------");
+            }
+        }
+
+        public void DialogsDump(DialogSceneDefinition[] dialogScenes)
+        {
+            foreach (var dialogSceneDefinition in dialogScenes)
+            {
+                var currDialogSceneName = dialogSceneDefinition.name;
+
+                string currGirl = "";
+                string currAltGirl = "";
+
+                foreach (var step in dialogSceneDefinition.steps)
+                {
+                    if (step.type == DialogSceneStepType.SHOW_ALT_GIRL)
+                    {
+                        currAltGirl = step.altGirl?.firstName;
+                    }
+
+                    if (step.type == DialogSceneStepType.SHOW_GIRL)
+                    {
+                        currGirl = step.girlDefinition?.firstName;
+                    }
+
+                    if (step.type == DialogSceneStepType.DIALOG_LINE)
+                    {
+                        debugLog.AddMessage(step.sceneLine.dialogLine.text.GetHashCode().ToString());
+                        debugLog.AddMessage(dialogSceneDefinition.name);
+
+
+                        if (step.sceneLine.altGirl)
+                        {
+                            if (currDialogSceneName.Contains("Question"))
+                            {
+                                debugLog.AddMessage(currDialogSceneName.Remove(0, 8));
+                            }
+                            else if (currDialogSceneName.Contains("Quiz"))
+                            {
+                                debugLog.AddMessage(currDialogSceneName.Remove(0, 4));
+                            }
+                            else
+                            {
+                                // ReSharper disable once ReplaceWithStringIsNullOrEmpty
+                                if (currAltGirl == null || currAltGirl == "")
+                                {
+                                    debugLog.AddMessage("Kyu");
+                                }
+                                else
+                                {
+                                    debugLog.AddMessage(currAltGirl);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (currDialogSceneName.Contains("Intro"))
+                            {
+                                debugLog.AddMessage(currDialogSceneName.Remove(0, 5));
+                            }
+                            else if (currDialogSceneName.Contains("Question"))
+                            {
+                                debugLog.AddMessage(currDialogSceneName.Remove(0, 8));
+                            }
+                            else
+                            {
+                                // ReSharper disable once ReplaceWithStringIsNullOrEmpty
+                                if (currGirl == null || currGirl == "")
+                                {
+                                    debugLog.AddMessage("Kyu");
+                                }
+                                else
+                                {
+                                    debugLog.AddMessage(currGirl);
+                                }
+                            }
+                        }
+
+
+                        debugLog.AddMessage(step.sceneLine.dialogLine.text);
+                        debugLog.AddMessage("");
+                    }
+                }
             }
         }
     }

@@ -148,6 +148,12 @@ namespace HoneyPot.Menus
                     debugLog.AddMessage(e.ToString());
                 }
             }
+
+            if (GUILayout.Button("XXX"))
+            {
+                DialogSceneDefinition[] dialogScenes = Resources.FindObjectsOfTypeAll(typeof(DialogSceneDefinition)) as DialogSceneDefinition[];
+                new Dump(debugLog).DialogsDump(dialogScenes);
+            }
         }
     }
 }
