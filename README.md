@@ -10,4 +10,10 @@ like my work? https://www.buymeacoffee.com/paranoia
 
 # Features
 
+## Player
+
+test
+
+## Puzzle
+
 test
