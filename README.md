@@ -7,3 +7,7 @@ Discord: https://discord.com/invite/z5FaGaaucU
 
 
 like my work? https://www.buymeacoffee.com/paranoia
+
+# Features
+
+test
