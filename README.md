@@ -1,6 +1,8 @@
 # HoneyPot
 hi
 
+**check out the new scene creator gui:** https://github.com/Demonofpower/HoneyPot.SceneCreator
+
 Need help?  
 Wiki: https://github.com/Demonofpower/HoneyPot/wiki  
 Discord: https://discord.com/invite/z5FaGaaucU
