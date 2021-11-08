@@ -1,4 +1,6 @@
-﻿using HoneyPot.DebugUtil;
+﻿using System;
+using System.Reflection;
+using HoneyPot.DebugUtil;
 using UnityEngine;
 
 namespace HoneyPot.Menus
@@ -14,7 +16,17 @@ namespace HoneyPot.Menus
 
         public void DoMisc(int windowID)
         {
-            if (GUILayout.Button("Exit/Unload"))
+            if (GUILayout.Button("Restart game (curr)"))
+            {
+                GameManager.System.SaveFile.started = false;
+
+                var methodInfo = typeof(GameManager).GetMethod("BeginGameSession", BindingFlags.NonPublic | BindingFlags.Instance);
+                methodInfo?.Invoke(GameManager.System, null);
+
+                debugLog.AddMessage("Restart game..");
+            }
+
+            if (GUILayout.Button("Unload"))
             {
                 debugLog.AddMessage("Unloading..");
                 Loader.Unload();
@@ -26,7 +38,7 @@ namespace HoneyPot.Menus
 
                 debugLog.AddMessage("Log cleared.");
             }
-            
+
             if (GUILayout.Button("Github"))
             {
                 System.Diagnostics.Process.Start("https://github.com/Demonofpower/HoneyPot");
@@ -39,6 +51,7 @@ namespace HoneyPot.Menus
 
                 debugLog.AddMessage("Thank you <3");
             }
+
             GUI.contentColor = Color.white;
         }
     }
