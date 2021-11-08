@@ -151,8 +151,8 @@ namespace HoneyPot.Menus
 
             if (GUILayout.Button("XXX"))
             {
-                DialogSceneDefinition[] dialogScenes = Resources.FindObjectsOfTypeAll(typeof(DialogSceneDefinition)) as DialogSceneDefinition[];
-                new Dump(debugLog).DialogsDump(dialogScenes);
+                GirlDefinition[] girls = Resources.FindObjectsOfTypeAll(typeof(GirlDefinition)) as GirlDefinition[];
+                new Dump(debugLog).HairstylesOutfitDump(girls);
             }
         }
     }
