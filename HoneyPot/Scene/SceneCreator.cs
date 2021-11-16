@@ -76,7 +76,15 @@ namespace HoneyPot.Scene
 
             foreach (var location in locations)
             {
-                if (location.fullName == name)
+                if (location.name == name)
+                {
+                    return location;
+                }
+                if(name == "DPark" && location.fullName == "Dawnwood Park")
+                {
+                    return location;
+                }
+                if (name == "WPark" && location.fullName == "Water Park")
                 {
                     return location;
                 }
