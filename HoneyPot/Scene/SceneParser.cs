@@ -77,6 +77,9 @@ namespace HoneyPot.Scene
                     case StepType.ExistingDialogLine:
                         steps.Add(creator.CreateExistingDialogStep(currStep.dialogId, currStep.altGirlSpeaks));
                         break;
+                    case StepType.Idle:
+                        steps.Add(creator.CreateIdleStep(currStep.idleTimeInMs));
+                        break;
                     default:
                         debugLog.AddMessage("Unknown step type at step " + currStep.id);
                         throw new Exception("Unknown step type at step " + currStep.id);

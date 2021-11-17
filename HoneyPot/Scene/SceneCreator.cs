@@ -54,6 +54,11 @@ namespace HoneyPot.Scene
             return new ExistingDialogStep(currStepDialogId, currStepAltGirlSpeaks);
         }
 
+        public IdleStep CreateIdleStep(int idleTimeInMs)
+        {
+            return new IdleStep(idleTimeInMs);
+        }
+
         private GirlDefinition GetGirlByName(string name)
         {
             GirlDefinition[] girls = Resources.FindObjectsOfTypeAll(typeof(GirlDefinition)) as GirlDefinition[];

@@ -35,6 +35,8 @@ namespace HoneyPot.Scene.Helper
         public List<Response> responses { get; set; }
         
         public int dialogId { get; set; }
+        
+        public int idleTimeInMs { get; set; }
     }
 
     public class Response
@@ -62,7 +64,8 @@ namespace HoneyPot.Scene.Helper
         DialogLine,
         Travel,
         ResponseOptions,
-        ExistingDialogLine
+        ExistingDialogLine,
+        Idle
     }
 
     public struct SceneStepV1
