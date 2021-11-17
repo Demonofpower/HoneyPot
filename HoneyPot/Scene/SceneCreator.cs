@@ -59,6 +59,11 @@ namespace HoneyPot.Scene
             return new IdleStep(idleTimeInMs);
         }
 
+        public UndressStep createUndressStep(DressType dressType)
+        {
+            return new UndressStep(dressType);
+        }
+
         private GirlDefinition GetGirlByName(string name)
         {
             GirlDefinition[] girls = Resources.FindObjectsOfTypeAll(typeof(GirlDefinition)) as GirlDefinition[];

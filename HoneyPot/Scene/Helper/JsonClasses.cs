@@ -37,6 +37,8 @@ namespace HoneyPot.Scene.Helper
         public int dialogId { get; set; }
         
         public int idleTimeInMs { get; set; }
+        
+        public DressType dressType { get; set; }
     }
 
     public class Response
@@ -65,7 +67,18 @@ namespace HoneyPot.Scene.Helper
         Travel,
         ResponseOptions,
         ExistingDialogLine,
-        Idle
+        Idle,
+        Undress
+    }
+
+    public enum DressType
+    {
+        Full,
+        FullWithBra,
+        Underwear,
+        BraOnly,
+        PantiesOnly,
+        Nude
     }
 
     public struct SceneStepV1

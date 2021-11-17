@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using HoneyPot.Debug;
 using HoneyPot.DebugUtil;
+using HoneyPot.Helper;
 using UnityEngine;
 
 namespace HoneyPot.Menus
@@ -26,39 +27,31 @@ namespace HoneyPot.Menus
 
             if (GUILayout.Button("WithBra"))
             {
-                ChangePiece(girlDefinition.braPiece, girl.bra, girl);
+                GirlHelper.WithBra();
 
                 debugLog.AddMessage("Girl has now  bra hoho");
             }
             if (GUILayout.Button("Underwear"))
             {
-                girl.outfit.RemoveAllChildren(true);
-                ChangePiece(girlDefinition.pantiesPiece, girl.panties, girl);
-                ChangePiece(girlDefinition.braPiece, girl.bra, girl);
+                GirlHelper.Underwear();
 
                 debugLog.AddMessage("Girl has now underwear xaxa");
             }
             if (GUILayout.Button("OnlyBra"))
             {
-                girl.outfit.RemoveAllChildren(true);
-                ChangePiece(girlDefinition.braPiece, girl.bra, girl);
-                girl.panties.RemoveAllChildren(true);
+                GirlHelper.OnlyBra();
 
                 debugLog.AddMessage("Girl has now only bra haha");
             }
             if (GUILayout.Button("OnlyPanties"))
             {
-                girl.outfit.RemoveAllChildren(true);
-                girl.bra.RemoveAllChildren(true);
-                ChangePiece(girlDefinition.pantiesPiece, girl.panties, girl);
+                GirlHelper.OnlyPanties();
 
                 debugLog.AddMessage("Girl has now only panties hihi");
             }
             if (GUILayout.Button("Nude"))
             {
-                girl.outfit.RemoveAllChildren(true);
-                girl.bra.RemoveAllChildren(true);
-                girl.panties.RemoveAllChildren(true);
+                GirlHelper.Nude();
 
                 debugLog.AddMessage("Girl is now naked hehe");
             }
@@ -71,7 +64,7 @@ namespace HoneyPot.Menus
 
                 selectionManager.NewSelection(hairstyleNames, 3, () =>
                 {
-                    ChangeHairstyle(selectionManager.SelectionId, girl, girlDefinition);
+                    GirlHelper.ChangeHairstyle(selectionManager.SelectionId, girl, girlDefinition);
                     debugLog.AddMessage("Changed curr girl hairstyle to: " +
                                         hairstyleNames[selectionManager.SelectionId]);
                 });
@@ -85,7 +78,7 @@ namespace HoneyPot.Menus
 
                 selectionManager.NewSelection(outfitNames, 3, () =>
                 {
-                    ChangeOutfit(selectionManager.SelectionId, girl, girlDefinition);
+                    GirlHelper.ChangeOutfit(selectionManager.SelectionId, girl, girlDefinition);
                     debugLog.AddMessage("Changed curr girl outfit to: " + outfitNames[selectionManager.SelectionId]);
                 });
             }
@@ -100,7 +93,7 @@ namespace HoneyPot.Menus
 
                 selectionManager.NewSelection(girlNames, 3, () =>
                 {
-                    ChangeGirl(selectionManager.SelectionId + 1);
+                    GirlHelper.ChangeGirl(selectionManager.SelectionId + 1);
                     debugLog.AddMessage("Changed girl to: " + girlNames[selectionManager.SelectionId]);
                 });
             }
@@ -117,7 +110,7 @@ namespace HoneyPot.Menus
                     }
                 }
 
-                ChangeGirl(kyu.id);
+                GirlHelper.ChangeGirl(kyu.id);
 
                 foreach (var displayObject in GameManager.Stage.girl.extraOne.GetChildren())
                 {
@@ -132,8 +125,8 @@ namespace HoneyPot.Menus
 
                 var frontHair = girl.definition.pieces[girl.definition.pieces.Count - 2];
                 var backHair = girl.definition.pieces[girl.definition.pieces.Count - 1];
-                ChangePiece(frontHair.primaryArt, girl.fronthair, girl);
-                ChangePiece(backHair.primaryArt, girl.backhair, girl);
+                GirlHelper.ChangePiece(frontHair.primaryArt, girl.fronthair, girl);
+                GirlHelper.ChangePiece(backHair.primaryArt, girl.backhair, girl);
                 
                 //var wings = girl.definition.pieces[girl.definition.pieces.Count - 3];
                 //ChangePiece(wings.primaryArt, girl.extraOne, girl);
@@ -142,49 +135,6 @@ namespace HoneyPot.Menus
 
                 debugLog.AddMessage("Kyu is now human-like");
             }
-        }
-
-        private void ChangePiece(GirlPieceArt pieceArt, DisplayObject container, Girl currGirl)
-        {
-            container.RemoveAllChildren(true);
-
-            var fronthairSpriteObject =
-                DisplayUtils.CreateSpriteObject(currGirl.spriteCollection, pieceArt.spriteName);
-            container.AddChild(fronthairSpriteObject);
-
-            if (currGirl.flip)
-            {
-                fronthairSpriteObject.sprite.FlipX = true;
-                fronthairSpriteObject.SetLocalPosition(1200 - pieceArt.x, -(float) pieceArt.y);
-            }
-            else
-            {
-                fronthairSpriteObject.SetLocalPosition(pieceArt.x, -(float) pieceArt.y);
-            }
-        }
-
-        private void ChangeHairstyle(int id, Girl currGirl, GirlDefinition currGirlDef)
-        {
-            var currGirlPiece = currGirlDef.pieces[currGirlDef.hairstyles[id].artIndex];
-
-            ChangePiece(currGirlPiece.primaryArt, currGirl.fronthair, currGirl);
-            ChangePiece(currGirlPiece.secondaryArt, currGirl.backhair, currGirl);
-        }
-
-        private void ChangeOutfit(int id, Girl currGirl, GirlDefinition currGirlDef)
-        {
-            var currGirlPiece = currGirlDef.pieces[currGirlDef.outfits[id].artIndex];
-
-            ChangePiece(currGirlPiece.primaryArt, currGirl.outfit, currGirl);
-            //this.AddGirlPiece(this.definition.pieces[18]);
-        }
-
-        private void ChangeGirl(int id)
-        {
-            var girlDefinition = GameManager.Data.Girls.Get(id);
-
-            var girl = GameManager.Stage.girl;
-            girl.ShowGirl(girlDefinition);
         }
     }
 }

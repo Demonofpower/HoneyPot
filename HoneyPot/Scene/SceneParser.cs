@@ -80,6 +80,9 @@ namespace HoneyPot.Scene
                     case StepType.Idle:
                         steps.Add(creator.CreateIdleStep(currStep.idleTimeInMs));
                         break;
+                    case StepType.Undress:
+                        steps.Add(new UndressStep(currStep.dressType));
+                        break;
                     default:
                         debugLog.AddMessage("Unknown step type at step " + currStep.id);
                         throw new Exception("Unknown step type at step " + currStep.id);
@@ -148,6 +151,12 @@ namespace HoneyPot.Scene
                 else if (property.Name.Contains("type"))
                 {
                     StepType stepType = (StepType)Enum.Parse(typeof(StepType), (string)item.Value);
+                    property.SetValue(obj, stepType, index: null);
+                    continue;
+                } 
+                else if (property.Name.Contains("dressType"))
+                {
+                    DressType stepType = (DressType)Enum.Parse(typeof(DressType), (string)item.Value);
                     property.SetValue(obj, stepType, index: null);
                     continue;
                 }

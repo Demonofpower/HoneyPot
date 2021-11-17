@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="DebugUtil\DebugLog.cs" />
     <Compile Include="DebugUtil\Dump.cs" />
+    <Compile Include="Helper\GirlHelper.cs" />
     <Compile Include="Load\ExistingDialogLoader.cs" />
     <Compile Include="Load\ILoader.cs" />
     <Compile Include="Load\LoadManager.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Scene\Steps\ShowAltGirlStep.cs" />
     <Compile Include="Scene\Steps\ShowGirlStep.cs" />
     <Compile Include="Scene\Steps\TravelStep.cs" />
+    <Compile Include="Scene\Steps\UndressStep.cs" />
     <Compile Include="SelectionManager.cs" />
   </ItemGroup>
   <ItemGroup />
