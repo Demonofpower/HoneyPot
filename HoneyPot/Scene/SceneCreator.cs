@@ -59,9 +59,9 @@ namespace HoneyPot.Scene
             return new IdleStep(idleTimeInMs);
         }
 
-        public UndressStep createUndressStep(DressType dressType)
+        public UndressStep createUndressStep(DressType dressType, bool altGirlDressChange)
         {
-            return new UndressStep(dressType);
+            return new UndressStep(dressType, altGirlDressChange);
         }
 
         private GirlDefinition GetGirlByName(string name)

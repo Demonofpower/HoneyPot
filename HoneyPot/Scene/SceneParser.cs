@@ -81,7 +81,7 @@ namespace HoneyPot.Scene
                         steps.Add(creator.CreateIdleStep(currStep.idleTimeInMs));
                         break;
                     case StepType.Undress:
-                        steps.Add(new UndressStep(currStep.dressType));
+                        steps.Add(new UndressStep(currStep.dressType, currStep.altGirlDressChange));
                         break;
                     default:
                         debugLog.AddMessage("Unknown step type at step " + currStep.id);

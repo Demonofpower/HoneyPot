@@ -10,10 +10,12 @@ namespace HoneyPot.Scene.Steps
         public event StepFinishedEventHandler StepFinished;
 
         public DressType DressType { get; }
+        public bool AltGirlDressChange { get; }
 
-        public UndressStep(DressType dressType)
+        public UndressStep(DressType dressType, bool altGirlDressChange)
         {
             DressType = dressType;
+            AltGirlDressChange = altGirlDressChange;
         }
 
         public void InvokeStep()
@@ -24,19 +26,19 @@ namespace HoneyPot.Scene.Steps
                     DebugLog.Instance.AddError("DressType.Full is currently not supported! You have to use ShowGirl step atm.");
                     break;
                 case DressType.FullWithBra:
-                    GirlHelper.WithBra();
+                    GirlHelper.WithBra(AltGirlDressChange);
                     break;
                 case DressType.Underwear:
-                    GirlHelper.Underwear();
+                    GirlHelper.Underwear(AltGirlDressChange);
                     break;
                 case DressType.BraOnly:
-                    GirlHelper.OnlyBra();
+                    GirlHelper.OnlyBra(AltGirlDressChange);
                     break;
                 case DressType.PantiesOnly:
-                    GirlHelper.OnlyPanties();
+                    GirlHelper.OnlyPanties(AltGirlDressChange);
                     break;
                 case DressType.Nude:
-                    GirlHelper.Nude();
+                    GirlHelper.Nude(AltGirlDressChange);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

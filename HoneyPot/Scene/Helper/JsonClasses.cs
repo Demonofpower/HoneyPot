@@ -39,6 +39,7 @@ namespace HoneyPot.Scene.Helper
         public int idleTimeInMs { get; set; }
         
         public DressType dressType { get; set; }
+        public bool altGirlDressChange { get; set; }
     }
 
     public class Response

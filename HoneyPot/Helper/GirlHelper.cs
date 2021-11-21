@@ -2,17 +2,25 @@
 {
     public static class GirlHelper
     {
-        public static void WithBra()
+        public static void WithBra(bool altGirl = false)
         {
             var girl = GameManager.Stage.girl;
+            if (altGirl)
+            {
+                girl = GameManager.Stage.altGirl;
+            }
             var girlDefinition = girl.definition;
             
             ChangePiece(girlDefinition.braPiece, girl.bra, girl);
         }
 
-        public static void Underwear()
+        public static void Underwear(bool altGirl = false)
         {
             var girl = GameManager.Stage.girl;
+            if (altGirl)
+            {
+                girl = GameManager.Stage.altGirl;
+            }
             var girlDefinition = girl.definition;
             
             girl.outfit.RemoveAllChildren(true);
@@ -20,9 +28,13 @@
             ChangePiece(girlDefinition.braPiece, girl.bra, girl);
         }
 
-        public static void OnlyBra()
+        public static void OnlyBra(bool altGirl = false)
         {
             var girl = GameManager.Stage.girl;
+            if (altGirl)
+            {
+                girl = GameManager.Stage.altGirl;
+            }
             var girlDefinition = girl.definition;
 
             girl.outfit.RemoveAllChildren(true);
@@ -30,9 +42,13 @@
             girl.panties.RemoveAllChildren(true);
         }
 
-        public static void OnlyPanties()
+        public static void OnlyPanties(bool altGirl = false)
         {
             var girl = GameManager.Stage.girl;
+            if (altGirl)
+            {
+                girl = GameManager.Stage.altGirl;
+            }
             var girlDefinition = girl.definition;
 
             girl.outfit.RemoveAllChildren(true);
@@ -40,9 +56,13 @@
             ChangePiece(girlDefinition.pantiesPiece, girl.panties, girl);
         }
 
-        public static void Nude()
+        public static void Nude(bool altGirl = false)
         {
             var girl = GameManager.Stage.girl;
+            if (altGirl)
+            {
+                girl = GameManager.Stage.altGirl;
+            }
             
             girl.outfit.RemoveAllChildren(true);
             girl.bra.RemoveAllChildren(true);
