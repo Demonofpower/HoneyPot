@@ -59,7 +59,7 @@ namespace HoneyPot.Scene
             return new IdleStep(idleTimeInMs);
         }
 
-        public UndressStep createUndressStep(DressType dressType, bool altGirlDressChange)
+        public UndressStep CreateUndressStep(DressType dressType, bool altGirlDressChange)
         {
             return new UndressStep(dressType, altGirlDressChange);
         }
